@@ -14,20 +14,22 @@ from threading import Thread
 import httplib, urllib
 import collections
 
+PUSHOVER_APPTOKEN="xxxxx"
+PUSHOVER_USERKEY="xxxxx"
+lastEvtTime = 0
+
 def pushoverPost(i):
     conn = httplib.HTTPSConnection("api.pushover.net:443")
     conn.request("POST", "/1/messages.json",
         urllib.urlencode({
-          "token": "xxxxxx",
-          "user": "xxxxx",
+          "token": PUSHOVER_APPTOKEN,
+          "user": PUSHOVER_USERKEY,
           "message": '我家FOO門 Event px=%d'%i,
          }), { "Content-type": "application/x-www-form-urlencoded" })
     r = conn.getresponse()
     logging.info("HTTP POST status=%d , reason=%s",r.status,r.reason)
     logging.info(r.read())
     conn.close()
-
-lastEvtTime = 0
 
 def found(q):
     global lastEvtTime
@@ -51,14 +53,20 @@ def initLog():
     logging.getLogger('').addHandler(console)
     logging.info('Started')
 
+def isMotion3(kl):
+    return len(kl)==3 and kl[1]-kl[0] > 777 and kl[2] > 1000
+
+def isMotion4(kl):
+    return len(kl)==4 and kl[1]-kl[0] > 777 and kl[2] > 1000 and kl[3] > 1000
+    
 def main():
     initLog()
     k = collections.deque(maxlen=4)
     width = 100
     height = 100
-
     THRESHOLD = 15
     QUANITY_MIN = 50
+
     f1 = picam.takeRGBPhotoWithDetails(width,height)
 
     while True:
@@ -68,7 +76,7 @@ def main():
         k.append(q)
         picam.LEDOn() if q > QUANITY_MIN  else  picam.LEDOff()
         kl = list(k)
-        if len(k)==4 and kl[1]-kl[0] > 777 and kl[2] > 1000 and kl[3] > 1000:
+        if isMotion4(kl):
            ediff = time.time() - lastEvtTime
            logging.debug("EvtTimeDiff=%d" % ediff)
            if ediff > 300:
