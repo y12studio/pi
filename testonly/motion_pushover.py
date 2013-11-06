@@ -13,19 +13,24 @@ import time
 from threading import Thread
 import httplib, urllib
 import collections
-
+# False when test
+PUSHOVER_ENABLE = True
 PUSHOVER_APPTOKEN="xx"
 PUSHOVER_USERKEY="xx"
 lastEvtTime = 0
 
-def pushoverPost(i):
+def pushoverPost(msg):
+    if not PUSHOVER_ENABLE :
+       logging.info('[TestPrintOnly]Send pushover event')
+       return
     conn = httplib.HTTPSConnection("api.pushover.net:443")
     conn.request("POST", "/1/messages.json",
         urllib.urlencode({
           "token": PUSHOVER_APPTOKEN,
           "user": PUSHOVER_USERKEY,
-          "message": '我家FOO門 Event px=%d'%i,
+          "message": msg,
          }), { "Content-type": "application/x-www-form-urlencoded" })
+    logging.info('HTTP POST Send %s' % msg)
     r = conn.getresponse()
     logging.info("HTTP POST status=%d , reason=%s",r.status,r.reason)
     logging.info(r.read())
@@ -35,7 +40,8 @@ def found(q):
     global lastEvtTime
     lastEvtTime = time.time()
     logging.info("EVENT FOUND")
-    t = Thread(target=pushoverPost, args=(q,))
+    m =  '我家F門 Event px=%d'%q
+    t = Thread(target=pushoverPost, args=(m,))
     t.start()
 
 def initLog():
@@ -76,7 +82,7 @@ def main():
     while True:
         f2 = picam.takeRGBPhotoWithDetails(width,height)
         (_,q) = picam.difference(f1,f2,THRESHOLD)
-        logging.debug("px=%d", q)
+        if q > 10 : logging.debug("px=%d", q)
         k.append(q)
         picam.LEDOn() if q > QUANITY_MIN  else  picam.LEDOff()
         handleMotion(k,q)
