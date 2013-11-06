@@ -1,0 +1,7 @@
+name: foo_webapp
+description: A sample web application
+dependencies:
+  browser: any
+  json: any
+  simplot:
+     git: git://github.com/scribeGriff/simplot.git
