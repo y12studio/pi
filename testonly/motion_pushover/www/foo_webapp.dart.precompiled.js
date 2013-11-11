@@ -65,50 +65,50 @@ var $$ = {};
 
 // Native classes
 // Method closures
-$$.BoundClosure$i0 = [H, {"": "BoundClosure;_self,_target,_receiver,__js_helper$_name",
+$$.BoundClosure$i0 = [H, {"": "BoundClosure;_self,__js_helper$_target,_receiver,__js_helper$_name",
   call$0: function() {
-    return this._target.call(this._self, this._receiver);
+    return this.__js_helper$_target.call(this._self, this._receiver);
   }
 }];
 
-$$.BoundClosure$1 = [H, {"": "BoundClosure;_self,_target,_receiver,__js_helper$_name",
+$$.BoundClosure$1 = [H, {"": "BoundClosure;_self,__js_helper$_target,_receiver,__js_helper$_name",
   call$1: function(p0) {
-    return this._target.call(this._self, p0);
+    return this.__js_helper$_target.call(this._self, p0);
   },
   $is_args1: true
 }];
 
-$$.BoundClosure$2 = [P, {"": "BoundClosure;_self,_target,_receiver,__js_helper$_name",
+$$.BoundClosure$2 = [P, {"": "BoundClosure;_self,__js_helper$_target,_receiver,__js_helper$_name",
   call$2: function(p0, p1) {
-    return this._target.call(this._self, p0, p1);
+    return this.__js_helper$_target.call(this._self, p0, p1);
   },
   call$1: function(p0) {
     return this.call$2(p0, null);
   },
-  $is_args1: true,
-  $is_args2: true
+  $is_args2: true,
+  $is_args1: true
 }];
 
-$$.BoundClosure$0 = [P, {"": "BoundClosure;_self,_target,_receiver,__js_helper$_name",
+$$.BoundClosure$0 = [P, {"": "BoundClosure;_self,__js_helper$_target,_receiver,__js_helper$_name",
   call$0: function() {
-    return this._target.call(this._self);
+    return this.__js_helper$_target.call(this._self);
   }
 }];
 
 $$.Closure$2 = [H, {"": "Closure;call$2,$name", $is_args2: true}];
 
+$$.Closure$1 = [H, {"": "Closure;call$1,$name", $is_args1: true}];
+
 $$.Closure$0 = [H, {"": "Closure;call$0,$name"}];
 
 $$.Closure$7 = [H, {"": "Closure;call$7,$name"}];
-
-$$.Closure$1 = [P, {"": "Closure;call$1,$name", $is_args1: true}];
 
 $$.Closure$20 = [P, {"": "Closure;call$2,$name",
   call$1: function(p0) {
     return this.call$2(p0, null);
   },
-  $is_args1: true,
-  $is_args2: true
+  $is_args2: true,
+  $is_args1: true
 }];
 
 (function (reflectionData) {
@@ -242,7 +242,7 @@ Interceptor: {"": "Object;",
   toString$0: function(receiver) {
     return H.Primitives_objectToString(receiver);
   },
-  "%": "CanvasGradient|CanvasPattern|DOMError|FileError|MediaError|MediaKeyError|Navigator|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedNumberList|TextMetrics"
+  "%": "ArrayBuffer|Blob|CanvasGradient|CanvasPattern|DOMError|File|FileError|MediaError|MediaKeyError|Navigator|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedNumberList|TextMetrics"
 },
 
 JSBool: {"": "bool/Interceptor;",
@@ -324,7 +324,7 @@ JSArray: {"": "List/Interceptor;",
   },
   $index: function(receiver, index) {
     if (typeof index !== "number" || Math.floor(index) !== index)
-      throw H.wrapException(P.ArgumentError$(index));
+      throw H.wrapException(new P.ArgumentError(index));
     if (index >= receiver.length || index < 0)
       throw H.wrapException(P.RangeError$value(index));
     return receiver[index];
@@ -333,7 +333,7 @@ JSArray: {"": "List/Interceptor;",
     if (!!receiver.immutable$list)
       H.throwExpression(P.UnsupportedError$("indexed set"));
     if (typeof index !== "number" || Math.floor(index) !== index)
-      throw H.wrapException(new P.ArgumentError(index));
+      throw H.wrapException(P.ArgumentError$(index));
     if (index >= receiver.length || index < 0)
       throw H.wrapException(P.RangeError$value(index));
     receiver[index] = value;
@@ -367,6 +367,9 @@ JSNumber: {"": "num/Interceptor;",
   remainder$1: function(receiver, b) {
     return receiver % b;
   },
+  abs$0: function(receiver) {
+    return Math.abs(receiver);
+  },
   toInt$0: function(receiver) {
     var t1;
     if (receiver >= -2147483648 && receiver <= 2147483647)
@@ -397,13 +400,24 @@ JSNumber: {"": "num/Interceptor;",
   },
   $add: function(receiver, other) {
     if (typeof other !== "number")
-      throw H.wrapException(P.ArgumentError$(other));
+      throw H.wrapException(new P.ArgumentError(other));
     return receiver + other;
   },
   $sub: function(receiver, other) {
     if (typeof other !== "number")
-      throw H.wrapException(P.ArgumentError$(other));
+      throw H.wrapException(new P.ArgumentError(other));
     return receiver - other;
+  },
+  $mod: function(receiver, other) {
+    var result = receiver % other;
+    if (result === 0)
+      return 0;
+    if (result > 0)
+      return result;
+    if (other < 0)
+      return result - other;
+    else
+      return result + other;
   },
   $tdiv: function(receiver, other) {
     if ((receiver | 0) === receiver && (other | 0) === other && 0 !== other && -1 !== other)
@@ -433,7 +447,7 @@ JSNumber: {"": "num/Interceptor;",
   },
   $gt: function(receiver, other) {
     if (typeof other !== "number")
-      throw H.wrapException(P.ArgumentError$(other));
+      throw H.wrapException(new P.ArgumentError(other));
     return receiver > other;
   },
   $ge: function(receiver, other) {
@@ -464,7 +478,7 @@ JSString: {"": "String/Interceptor;",
   },
   $add: function(receiver, other) {
     if (typeof other !== "string")
-      throw H.wrapException(P.ArgumentError$(other));
+      throw H.wrapException(new P.ArgumentError(other));
     return receiver + other;
   },
   substring$2: function(receiver, startIndex, endIndex) {
@@ -507,7 +521,7 @@ JSString: {"": "String/Interceptor;",
   },
   $index: function(receiver, index) {
     if (typeof index !== "number" || Math.floor(index) !== index)
-      throw H.wrapException(P.ArgumentError$(index));
+      throw H.wrapException(new P.ArgumentError(index));
     if (index >= receiver.length || index < 0)
       throw H.wrapException(P.RangeError$value(index));
     return receiver[index];
@@ -589,7 +603,7 @@ IsolateNatives__processWorkerMessage: function(sender, e) {
       break;
     case "message":
       if (t1.$index(msg, "port") != null)
-        t1.$index(msg, "port").send$1(t1.$index(msg, "msg"));
+        J.send$1$x(t1.$index(msg, "port"), t1.$index(msg, "msg"));
       $globalState.topEventLoop.run$0();
       break;
     case "close":
@@ -641,7 +655,7 @@ IsolateNatives__startIsolate: function(topLevel, args, message, isSpawnUri, repl
   $.lazyPort = H.ReceivePortImpl$();
   t1 = $.lazyPort;
   t1.toString;
-  replyTo.send$1(["spawned", new H._NativeJsSendPort(t1, $globalState.currentContext.id)]);
+  J.send$1$x(replyTo, ["spawned", new H._NativeJsSendPort(t1, $globalState.currentContext.id)]);
   if (isSpawnUri !== true)
     topLevel.call$1(message);
   else {
@@ -889,11 +903,8 @@ IsolateNatives__processWorkerMessage_closure: {"": "Closure;entryPoint_0,args_1,
 _BaseSendPort: {"": "Object;", $isSendPort: true},
 
 _NativeJsSendPort: {"": "_BaseSendPort;_receivePort,_isolateId",
-  send$2: function(message, replyTo) {
+  send$1: function(_, message) {
     H._waitForPendingPorts(message, new H._NativeJsSendPort_send_closure(this, message));
-  },
-  send$1: function(message) {
-    return this.send$2(message, null);
   },
   $eq: function(_, other) {
     var t1;
@@ -951,11 +962,8 @@ _NativeJsSendPort_send__closure: {"": "Closure;box_0,this_3,shouldSerialize_4",
 },
 
 _WorkerSendPort: {"": "_BaseSendPort;_workerId,_receivePortId,_isolateId",
-  send$2: function(message, replyTo) {
+  send$1: function(_, message) {
     H._waitForPendingPorts(message, new H._WorkerSendPort_send_closure(this, message));
-  },
-  send$1: function(message) {
-    return this.send$2(message, null);
   },
   $eq: function(_, other) {
     var t1;
@@ -1343,15 +1351,6 @@ _Deserializer: {"": "Object;",
 },
 
 TimerImpl: {"": "Object;_once,_inEventLoop,_handle",
-  TimerImpl$periodic$2: function(milliseconds, callback) {
-    var t1;
-    if ($.get$globalThis().setTimeout != null) {
-      t1 = $globalState.topEventLoop;
-      t1.activeTimerCount = t1.activeTimerCount + 1;
-      this._handle = $.get$globalThis().setInterval(H.convertDartClosureToJS(new H.TimerImpl$periodic_closure(this, callback), 0), milliseconds);
-    } else
-      throw H.wrapException(P.UnsupportedError$("Periodic timer."));
-  },
   TimerImpl$2: function(milliseconds, callback) {
     var t1, t2;
     if (milliseconds === 0)
@@ -1376,12 +1375,6 @@ TimerImpl$: function(milliseconds, callback) {
   var t1 = new H.TimerImpl(true, false, null);
   t1.TimerImpl$2(milliseconds, callback);
   return t1;
-},
-
-TimerImpl$periodic: function(milliseconds, callback) {
-  var t1 = new H.TimerImpl(false, false, null);
-  t1.TimerImpl$periodic$2(milliseconds, callback);
-  return t1;
 }}
 
 },
@@ -1399,12 +1392,6 @@ TimerImpl_internalCallback0: {"": "Closure;this_2,callback_3",
     var t1 = $globalState.topEventLoop;
     t1.activeTimerCount = t1.activeTimerCount - 1;
     this.callback_3.call$0();
-  }
-},
-
-TimerImpl$periodic_closure: {"": "Closure;this_0,callback_1",
-  call$0: function() {
-    this.callback_1.call$1(this.this_0);
   }
 }}],
 ["_js_helper", "dart:_js_helper", , H, {
@@ -1452,6 +1439,33 @@ Primitives_objectHashCode: function(object) {
   return hash;
 },
 
+Primitives__throwFormatException: function(string) {
+  throw H.wrapException(P.FormatException$(string));
+},
+
+Primitives_parseInt: function(source, radix, handleError) {
+  var match, t1;
+  handleError = H.Primitives__throwFormatException$closure;
+  if (typeof source !== "string")
+    H.throwExpression(new P.ArgumentError(source));
+  match = /^\s*[+-]?((0x[a-f0-9]+)|(\d+)|([a-z0-9]+))\s*$/i.exec(source);
+  if (match != null) {
+    t1 = match.length;
+    if (2 >= t1)
+      throw H.ioore(match, 2);
+    if (match[2] != null)
+      return parseInt(source, 16);
+    if (3 >= t1)
+      throw H.ioore(match, 3);
+    if (match[3] != null)
+      return parseInt(source, 10);
+    return handleError.call$1(source);
+  }
+  if (match == null)
+    return handleError.call$1(source);
+  return parseInt(source, 10);
+},
+
 Primitives_objectTypeName: function(object) {
   var $name, decompiled;
   $name = C.JS_CONST_86y(J.getInterceptor(object));
@@ -1494,8 +1508,9 @@ Primitives__fromCharCodeApply: function(array) {
 Primitives_stringFromCodePoints: function(codePoints) {
   var a, t1, i;
   a = [];
+  a.$builtinTypeInfo = [J.JSInt];
   for (t1 = new H.ListIterator(codePoints, codePoints.length, 0, null); t1.moveNext$0();) {
-    i = t1._current;
+    i = t1._dev$_current;
     if (typeof i !== "number" || Math.floor(i) !== i)
       throw H.wrapException(P.ArgumentError$(i));
     if (i <= 65535)
@@ -1512,7 +1527,7 @@ Primitives_stringFromCodePoints: function(codePoints) {
 Primitives_stringFromCharCodes: function(charCodes) {
   var t1, i;
   for (t1 = new H.ListIterator(charCodes, charCodes.length, 0, null); t1.moveNext$0();) {
-    i = t1._current;
+    i = t1._dev$_current;
     if (typeof i !== "number" || Math.floor(i) !== i)
       throw H.wrapException(P.ArgumentError$(i));
     if (i < 0)
@@ -1521,6 +1536,40 @@ Primitives_stringFromCharCodes: function(charCodes) {
       return H.Primitives_stringFromCodePoints(charCodes);
   }
   return H.Primitives__fromCharCodeApply(charCodes);
+},
+
+Primitives_lazyAsJsDate: function(receiver) {
+  if (receiver.date === void 0)
+    receiver.date = new Date(receiver.millisecondsSinceEpoch);
+  return receiver.date;
+},
+
+Primitives_getYear: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCFullYear() + 0 : H.Primitives_lazyAsJsDate(receiver).getFullYear() + 0;
+},
+
+Primitives_getMonth: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCMonth() + 1 : H.Primitives_lazyAsJsDate(receiver).getMonth() + 1;
+},
+
+Primitives_getDay: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCDate() + 0 : H.Primitives_lazyAsJsDate(receiver).getDate() + 0;
+},
+
+Primitives_getHours: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCHours() + 0 : H.Primitives_lazyAsJsDate(receiver).getHours() + 0;
+},
+
+Primitives_getMinutes: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCMinutes() + 0 : H.Primitives_lazyAsJsDate(receiver).getMinutes() + 0;
+},
+
+Primitives_getSeconds: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCSeconds() + 0 : H.Primitives_lazyAsJsDate(receiver).getSeconds() + 0;
+},
+
+Primitives_getMilliseconds: function(receiver) {
+  return receiver.isUtc ? H.Primitives_lazyAsJsDate(receiver).getUTCMilliseconds() + 0 : H.Primitives_lazyAsJsDate(receiver).getMilliseconds() + 0;
 },
 
 Primitives_getProperty: function(object, key) {
@@ -1713,6 +1762,10 @@ convertDartClosureToJS: function(closure, arity) {
 
 throwCyclicInit: function(staticName) {
   throw H.wrapException(P.CyclicInitializationError$("Cyclic initialization for static " + H.S(staticName)));
+},
+
+createRuntimeType: function($name) {
+  return new H.TypeImpl($name, null);
 },
 
 setRuntimeTypeInfo: function(target, typeInfo) {
@@ -2156,7 +2209,7 @@ Closure: {"": "Object;",
   }
 },
 
-BoundClosure: {"": "Closure;_self,_target,_receiver,__js_helper$_name",
+BoundClosure: {"": "Closure;_self,__js_helper$_target,_receiver,__js_helper$_name",
   $eq: function(_, other) {
     var t1;
     if (other == null)
@@ -2166,7 +2219,7 @@ BoundClosure: {"": "Closure;_self,_target,_receiver,__js_helper$_name",
     t1 = J.getInterceptor(other);
     if (typeof other !== "object" || other === null || !t1.$isBoundClosure)
       return false;
-    return this._self === other._self && this._target === other._target && this._receiver === other._receiver;
+    return this._self === other._self && this.__js_helper$_target === other.__js_helper$_target && this._receiver === other._receiver;
   },
   get$hashCode: function(_) {
     var t1, receiverHashCode;
@@ -2175,9 +2228,34 @@ BoundClosure: {"": "Closure;_self,_target,_receiver,__js_helper$_name",
       receiverHashCode = H.Primitives_objectHashCode(this._self);
     else
       receiverHashCode = typeof t1 !== "object" ? J.get$hashCode$(t1) : H.Primitives_objectHashCode(t1);
-    return (receiverHashCode ^ H.Primitives_objectHashCode(this._target)) >>> 0;
+    return (receiverHashCode ^ H.Primitives_objectHashCode(this.__js_helper$_target)) >>> 0;
   },
   $isBoundClosure: true
+},
+
+TypeImpl: {"": "Object;_typeName,_unmangledName",
+  toString$0: function(_) {
+    var t1, unmangledName, unmangledName0;
+    t1 = this._unmangledName;
+    if (t1 != null)
+      return t1;
+    unmangledName = this._typeName;
+    unmangledName0 = H.unmangleGlobalNameIfPreservedAnyways(unmangledName);
+    unmangledName = unmangledName0 == null ? unmangledName : unmangledName0;
+    this._unmangledName = unmangledName;
+    return unmangledName;
+  },
+  get$hashCode: function(_) {
+    return J.get$hashCode$(this._typeName);
+  },
+  $eq: function(_, other) {
+    var t1;
+    if (other == null)
+      return false;
+    t1 = J.getInterceptor(other);
+    return typeof other === "object" && other !== null && !!t1.$isTypeImpl && J.$eq(this._typeName, other._typeName);
+  },
+  $isTypeImpl: true
 },
 
 initHooks_closure: {"": "Closure;getTag_0",
@@ -2220,13 +2298,13 @@ Arrays_copy: function(src, srcStart, dst, dstStart, count) {
 IterableMixinWorkaround_forEach: function(iterable, f) {
   var t1;
   for (t1 = new H.ListIterator(iterable, iterable.length, 0, null); t1.moveNext$0();)
-    f.call$1(t1._current);
+    f.call$1(t1._dev$_current);
 },
 
 IterableMixinWorkaround_fold: function(iterable, initialValue, combine) {
   var t1;
   for (t1 = new H.ListIterator(iterable, iterable.length, 0, null); t1.moveNext$0();)
-    initialValue = combine.call$2(initialValue, t1._current);
+    initialValue = combine.call$2(initialValue, t1._dev$_current);
   return initialValue;
 },
 
@@ -2268,7 +2346,7 @@ IterableMixinWorkaround_setRangeList: function(list, start, end, from, skipCount
   if ($length === 0)
     return;
   if (skipCount < 0)
-    throw H.wrapException(new P.ArgumentError(skipCount));
+    throw H.wrapException(P.ArgumentError$(skipCount));
   if (skipCount + $length > from.length)
     throw H.wrapException(P.StateError$("Not enough elements"));
   H.Arrays_copy(from, skipCount, list, start, $length);
@@ -2296,9 +2374,9 @@ Symbol_getName: function(symbol) {
   return symbol.get$_name();
 },
 
-ListIterator: {"": "Object;_iterable,_length,_index,_current",
+ListIterator: {"": "Object;_iterable,_length,_dev$_index,_dev$_current",
   get$current: function() {
-    return this._current;
+    return this._dev$_current;
   },
   moveNext$0: function() {
     var t1, t2, $length, t3;
@@ -2307,13 +2385,13 @@ ListIterator: {"": "Object;_iterable,_length,_index,_current",
     $length = t2.get$length(t1);
     if (this._length !== $length)
       throw H.wrapException(P.ConcurrentModificationError$(t1));
-    t3 = this._index;
+    t3 = this._dev$_index;
     if (t3 >= $length) {
-      this._current = null;
+      this._dev$_current = null;
       return false;
     }
-    this._current = t2.elementAt$1(t1, t3);
-    this._index = this._index + 1;
+    this._dev$_current = t2.elementAt$1(t1, t3);
+    this._dev$_index = this._dev$_index + 1;
     return true;
   }
 },
@@ -2361,21 +2439,21 @@ MappedIterable_MappedIterable: function(iterable, $function, $S, $T) {
 
 EfficientLengthMappedIterable: {"": "MappedIterable;_iterable,_f", $asMappedIterable: null, $isEfficientLength: true},
 
-MappedIterator: {"": "Iterator;_current,_iterator,_f",
+MappedIterator: {"": "Iterator;_dev$_current,_iterator,_f",
   _f$1: function(arg0) {
     return this._f.call$1(arg0);
   },
   moveNext$0: function() {
     var t1 = this._iterator;
     if (t1.moveNext$0()) {
-      this._current = this._f$1(t1.get$current());
+      this._dev$_current = this._f$1(t1.get$current());
       return true;
     }
-    this._current = null;
+    this._dev$_current = null;
     return false;
   },
   get$current: function() {
-    return this._current;
+    return this._dev$_current;
   },
   $asIterator: function($S, $T) {
     return [$T];
@@ -2409,6 +2487,10 @@ WhereIterator: {"": "Iterator;_iterator,_f",
 },
 
 FixedLengthListMixin: {"": "Object;"}}],
+["dart._js_names", "dart:_js_names", , H, {
+unmangleGlobalNameIfPreservedAnyways: function($name) {
+  return init.mangledGlobalNames[$name];
+}}],
 ["dart.async", "dart:async", , P, {
 _invokeErrorHandler: function(errorHandler, error, stackTrace) {
   var t1 = J.getInterceptor(errorHandler);
@@ -2435,7 +2517,7 @@ Future_wait: function(futures) {
   t2 = new P.Future_wait_handleError(t1);
   t1.remaining_2 = 0;
   for (t3 = new H.ListIterator(futures, futures.length, 0, null); t3.moveNext$0();) {
-    future = t3._current;
+    future = t3._dev$_current;
     pos = t1.remaining_2;
     t1.remaining_2 = pos + 1;
     t4 = future.catchError$1(t2);
@@ -2583,23 +2665,9 @@ Timer_Timer: function(duration, callback) {
   return P._createTimer(duration, t1.bindCallback$2$runGuarded(callback, true));
 },
 
-Timer_Timer$periodic: function(duration, callback) {
-  var t1 = $.Zone__current;
-  if (t1 === C.C__RootZone) {
-    t1.toString;
-    return P._createPeriodicTimer(duration, callback);
-  }
-  return P._createPeriodicTimer(duration, t1.bindUnaryCallback$2$runGuarded(callback, true));
-},
-
 _createTimer: function(duration, callback) {
   var milliseconds = C.JSNumber_methods.$tdiv(duration._duration, 1000);
   return H.TimerImpl$(milliseconds < 0 ? 0 : milliseconds, callback);
-},
-
-_createPeriodicTimer: function(duration, callback) {
-  var milliseconds = C.JSNumber_methods.$tdiv(duration._duration, 1000);
-  return H.TimerImpl$periodic(milliseconds < 0 ? 0 : milliseconds, callback);
 },
 
 _rootHandleUncaughtError: function($self, $parent, zone, error, stackTrace) {
@@ -2671,7 +2739,7 @@ Future_wait_closure: {"": "Closure;box_0,pos_1",
       t1 = t1.values_1;
       t2 = t2.future;
       if (t2._state !== 0)
-        H.throwExpression(P.StateError$("Future already completed"));
+        H.throwExpression(new P.StateError("Future already completed"));
       t2._asyncComplete$1(t1);
     }
   },
@@ -2687,7 +2755,7 @@ _AsyncCompleter: {"": "_Completer;future",
       throw H.wrapException(new P.ArgumentError("Error must not be null"));
     t1 = this.future;
     if (t1._state !== 0)
-      throw H.wrapException(P.StateError$("Future already completed"));
+      throw H.wrapException(new P.StateError("Future already completed"));
     t1._asyncCompleteError$2(error, stackTrace);
   },
   completeError$1: function(error) {
@@ -2742,7 +2810,7 @@ _Future: {"": "Object;_state,_zone<,_resultOrListeners,_nextListener<,_onValueCa
     this._addListener$1(result);
     return result;
   },
-  get$_async$_value: function() {
+  get$_value: function() {
     return this._resultOrListeners;
   },
   get$_error: function() {
@@ -2799,14 +2867,14 @@ _Future: {"": "Object;_state,_zone<,_resultOrListeners,_nextListener<,_onValueCa
   },
   _asyncComplete$1: function(value) {
     if (this._state !== 0)
-      H.throwExpression(P.StateError$("Future already completed"));
+      H.throwExpression(new P.StateError("Future already completed"));
     this._state = 1;
     this._zone.toString;
     P._scheduleAsyncCallback(new P._Future__asyncComplete_closure(this, value));
   },
   _asyncCompleteError$2: function(error, stackTrace) {
     if (this._state !== 0)
-      H.throwExpression(P.StateError$("Future already completed"));
+      H.throwExpression(new P.StateError("Future already completed"));
     this._state = 1;
     this._zone.toString;
     P._scheduleAsyncCallback(new P._Future__asyncCompleteError_closure(this, error, stackTrace));
@@ -3000,8 +3068,8 @@ _Future__chainFutures_closure0: {"": "Closure;target_1",
   call$1: function(error) {
     return this.call$2(error, null);
   },
-  $is_args1: true,
-  $is_args2: true
+  $is_args2: true,
+  $is_args1: true
 },
 
 _Future__asyncComplete_closure: {"": "Closure;this_0,value_1",
@@ -3029,7 +3097,7 @@ _Future__propagateToListeners_closure0: {"": "Closure;box_2,box_1,hasError_4,lis
     try {
       t2 = this.box_2;
       if (!this.hasError_4) {
-        value = t2.source_4.get$_async$_value();
+        value = t2.source_4.get$_value();
         t2 = this.listener_5;
         t3 = t2._state === 2 ? null : t2._onValueCallback;
         t4 = this.box_1;
@@ -3117,8 +3185,8 @@ _Future__propagateToListeners__closure0: {"": "Closure;box_0,listener_7",
   call$1: function(error) {
     return this.call$2(error, null);
   },
-  $is_args1: true,
-  $is_args2: true
+  $is_args2: true,
+  $is_args1: true
 },
 
 Stream: {"": "Object;",
@@ -3423,7 +3491,7 @@ _ControllerStream: {"": "_StreamImpl;_async$_controller",
   $as_StreamImpl: null
 },
 
-_ControllerSubscription: {"": "_BufferingStreamSubscription;_async$_controller,_onData,_onError,_onDone,_zone,_state,_cancelFuture,_pending",
+_ControllerSubscription: {"": "_BufferingStreamSubscription;_async$_controller,_async$_onData,_onError,_onDone,_zone,_state,_cancelFuture,_pending",
   _onCancel$0: function() {
     return this._async$_controller._recordCancel$1(this);
   },
@@ -3453,7 +3521,7 @@ _ControllerSubscription: {"": "_BufferingStreamSubscription;_async$_controller,_
 
 _EventSink: {"": "Object;"},
 
-_BufferingStreamSubscription: {"": "Object;_onData,_onError,_onDone,_zone<,_state,_cancelFuture,_pending",
+_BufferingStreamSubscription: {"": "Object;_async$_onData,_onError,_onDone,_zone<,_state,_cancelFuture,_pending",
   _setPendingEvents$1: function(pendingEvents) {
     if (pendingEvents == null)
       return;
@@ -3465,7 +3533,7 @@ _BufferingStreamSubscription: {"": "Object;_onData,_onError,_onDone,_zone<,_stat
   },
   onData$1: function(handleData) {
     $.Zone__current.toString;
-    this._onData = handleData;
+    this._async$_onData = handleData;
   },
   onError$1: function(_, handleError) {
     this._onError = P._registerErrorHandler(handleError, $.Zone__current);
@@ -3583,7 +3651,7 @@ _BufferingStreamSubscription: {"": "Object;_onData,_onError,_onDone,_zone<,_stat
   _sendData$1: function(data) {
     var t1 = this._state;
     this._state = (t1 | 32) >>> 0;
-    this._zone.runUnaryGuarded$2(this._onData, data);
+    this._zone.runUnaryGuarded$2(this._async$_onData, data);
     this._state = (this._state & 4294967263) >>> 0;
     this._checkState$1((t1 & 4) !== 0);
   },
@@ -3882,13 +3950,6 @@ _RootZone: {"": "_BaseZone;",
   }
 }}],
 ["dart.collection", "dart:collection", , P, {
-_HashSet__newHashTable: function() {
-  var table = Object.create(null);
-  table["<non-identifier-key>"] = table;
-  delete table["<non-identifier-key>"];
-  return table;
-},
-
 _defaultEquals: function(a, b) {
   return J.$eq(a, b);
 },
@@ -4312,13 +4373,13 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
       if (strings == null)
         return;
       cell = strings[key];
-      return cell == null ? null : cell.get$_value();
+      return cell == null ? null : cell.get$_collection$_value();
     } else if (typeof key === "number" && (key & 0x3ffffff) === key) {
       nums = this._nums;
       if (nums == null)
         return;
       cell = nums[key];
-      return cell == null ? null : cell.get$_value();
+      return cell == null ? null : cell.get$_collection$_value();
     } else {
       rest = this._rest;
       if (rest == null)
@@ -4327,7 +4388,7 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
       index = this._findBucketIndex$2(bucket, key);
       if (index < 0)
         return;
-      return bucket[index].get$_value();
+      return bucket[index].get$_collection$_value();
     }
   },
   $indexSet: function(_, key, value) {
@@ -4359,7 +4420,7 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
       else {
         index = this._findBucketIndex$2(bucket, key);
         if (index >= 0)
-          bucket[index].set$_value(value);
+          bucket[index].set$_collection$_value(value);
         else
           bucket.push(this._newLinkedCell$2(key, value));
       }
@@ -4381,7 +4442,7 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
         return;
       cell = bucket.splice(index, 1)[0];
       this._unlinkCell$1(cell);
-      return cell.get$_value();
+      return cell.get$_collection$_value();
     }
   },
   forEach$1: function(_, action) {
@@ -4389,7 +4450,7 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
     cell = this._first;
     modifications = this._modifications;
     for (; cell != null;) {
-      action.call$2(cell._key, cell._value);
+      action.call$2(cell._key, cell._collection$_value);
       if (modifications !== this._modifications)
         throw H.wrapException(P.ConcurrentModificationError$(this));
       cell = cell._next;
@@ -4400,7 +4461,7 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
     if (cell == null)
       table[key] = this._newLinkedCell$2(key, value);
     else
-      cell.set$_value(value);
+      cell.set$_collection$_value(value);
   },
   _removeHashTableEntry$2: function(table, key) {
     var cell;
@@ -4411,7 +4472,7 @@ _LinkedHashMap: {"": "Object;_collection$_length,_strings,_nums,_rest,_first,_la
       return;
     this._unlinkCell$1(cell);
     delete table[key];
-    return cell.get$_value();
+    return cell.get$_collection$_value();
   },
   _newLinkedCell$2: function(key, value) {
     var cell, last;
@@ -4479,7 +4540,7 @@ _LinkedHashMap_values_closure: {"": "Closure;this_0",
   $is_args1: true
 },
 
-LinkedHashMapCell: {"": "Object;_key<,_value@,_next,_previous<"},
+LinkedHashMapCell: {"": "Object;_key<,_collection$_value@,_next,_previous<"},
 
 LinkedHashMapKeyIterable: {"": "IterableBase;_map",
   get$length: function(_) {
@@ -4575,11 +4636,14 @@ _HashSet: {"": "_HashSetBase;",
     return J.$index$asx(bucket, index);
   },
   add$1: function(_, element) {
-    var rest, hash, bucket;
+    var rest, table, hash, bucket;
     rest = this._rest;
     if (rest == null) {
-      rest = P._HashSet__newHashTable();
-      this._rest = rest;
+      table = Object.create(null);
+      table["<non-identifier-key>"] = table;
+      delete table["<non-identifier-key>"];
+      this._rest = table;
+      rest = table;
     }
     hash = this._computeHashCode$1(element);
     bucket = rest[hash];
@@ -4897,6 +4961,24 @@ ListQueue: {"": "IterableBase;_table,_head,_tail,_modificationCount",
       throw H.ioore(t2, t1);
     return t2[t1];
   },
+  toList$1$growable: function(_, growable) {
+    var list;
+    if (growable) {
+      list = P.List_List(null, H.getRuntimeTypeArgument(this, "ListQueue", 0));
+      H.setRuntimeTypeInfo(list, [H.getRuntimeTypeArgument(this, "ListQueue", 0)]);
+      C.JSArray_methods.set$length(list, this.get$length(this));
+    } else {
+      list = P.List_List(this.get$length(this), H.getRuntimeTypeArgument(this, "ListQueue", 0));
+      H.setRuntimeTypeInfo(list, [H.getRuntimeTypeArgument(this, "ListQueue", 0)]);
+    }
+    this._writeToList$1(list);
+    return list;
+  },
+  addAll$1: function(_, elements) {
+    var t1;
+    for (t1 = new P._GeneratorIterator(elements._count, elements._generator, 0, null); t1.moveNext$0();)
+      this._add$1(t1._current);
+  },
   toString$0: function(_) {
     return H.IterableMixinWorkaround_toStringIterable(this, "{", "}");
   },
@@ -4941,6 +5023,24 @@ ListQueue: {"": "IterableBase;_table,_head,_tail,_modificationCount",
     this._head = 0;
     this._tail = this._table.length;
     this._table = newTable;
+  },
+  _writeToList$1: function(target) {
+    var t1, t2, t3, $length, firstPartSize;
+    t1 = this._head;
+    t2 = this._tail;
+    t3 = this._table;
+    if (t1 <= t2) {
+      $length = t2 - t1;
+      H.IterableMixinWorkaround_setRangeList(target, 0, $length, t3, t1);
+      return $length;
+    } else {
+      firstPartSize = t3.length - t1;
+      H.IterableMixinWorkaround_setRangeList(target, 0, firstPartSize, t3, t1);
+      t1 = this._tail;
+      t2 = this._table;
+      H.IterableMixinWorkaround_setRangeList(target, firstPartSize, firstPartSize + t1, t2, 0);
+      return this._tail + firstPartSize;
+    }
   },
   ListQueue$1: function(initialCapacity, $E) {
     var t1 = P.List_List(8, $E);
@@ -5093,6 +5193,7 @@ List_List$generate: function($length, generator, growable, $E) {
   var result, i, t1;
   if (growable) {
     result = [];
+    H.setRuntimeTypeInfo(result, [$E]);
     C.JSArray_methods.set$length(result, $length);
   } else {
     result = P.List_List($length, $E);
@@ -5120,6 +5221,86 @@ NoSuchMethodError_toString_closure: {"": "Closure;box_0",
     t1.sb_0.write$1(P._symbolToString(key));
   },
   $is_args2: true
+},
+
+DateTime: {"": "Object;millisecondsSinceEpoch,isUtc",
+  $eq: function(_, other) {
+    var t1;
+    if (other == null)
+      return false;
+    t1 = J.getInterceptor(other);
+    if (typeof other !== "object" || other === null || !t1.$isDateTime)
+      return false;
+    return this.millisecondsSinceEpoch === other.millisecondsSinceEpoch && this.isUtc === other.isUtc;
+  },
+  get$hashCode: function(_) {
+    return this.millisecondsSinceEpoch;
+  },
+  toString$0: function(_) {
+    var t1, y, m, d, h, min, sec, ms;
+    t1 = new P.DateTime_toString_twoDigits();
+    y = new P.DateTime_toString_fourDigits().call$1(H.Primitives_getYear(this));
+    m = t1.call$1(H.Primitives_getMonth(this));
+    d = t1.call$1(H.Primitives_getDay(this));
+    h = t1.call$1(H.Primitives_getHours(this));
+    min = t1.call$1(H.Primitives_getMinutes(this));
+    sec = t1.call$1(H.Primitives_getSeconds(this));
+    ms = new P.DateTime_toString_threeDigits().call$1(H.Primitives_getMilliseconds(this));
+    if (this.isUtc)
+      return H.S(y) + "-" + H.S(m) + "-" + H.S(d) + " " + H.S(h) + ":" + H.S(min) + ":" + H.S(sec) + "." + H.S(ms) + "Z";
+    else
+      return H.S(y) + "-" + H.S(m) + "-" + H.S(d) + " " + H.S(h) + ":" + H.S(min) + ":" + H.S(sec) + "." + H.S(ms);
+  },
+  DateTime$fromMillisecondsSinceEpoch$2$isUtc: function(millisecondsSinceEpoch, isUtc) {
+    if (Math.abs(millisecondsSinceEpoch) > 8640000000000000)
+      throw H.wrapException(new P.ArgumentError(millisecondsSinceEpoch));
+  },
+  $isDateTime: true,
+  static: {
+"": "DateTime_MONDAY,DateTime_TUESDAY,DateTime_WEDNESDAY,DateTime_THURSDAY,DateTime_FRIDAY,DateTime_SATURDAY,DateTime_SUNDAY,DateTime_DAYS_PER_WEEK,DateTime_JANUARY,DateTime_FEBRUARY,DateTime_MARCH,DateTime_APRIL,DateTime_MAY,DateTime_JUNE,DateTime_JULY,DateTime_AUGUST,DateTime_SEPTEMBER,DateTime_OCTOBER,DateTime_NOVEMBER,DateTime_DECEMBER,DateTime_MONTHS_PER_YEAR,DateTime__MAX_MILLISECONDS_SINCE_EPOCH",
+DateTime$fromMillisecondsSinceEpoch: function(millisecondsSinceEpoch, isUtc) {
+  var t1 = new P.DateTime(millisecondsSinceEpoch, isUtc);
+  t1.DateTime$fromMillisecondsSinceEpoch$2$isUtc(millisecondsSinceEpoch, isUtc);
+  return t1;
+}}
+
+},
+
+DateTime_toString_fourDigits: {"": "Closure;",
+  call$1: function(n) {
+    var absN, sign;
+    absN = J.abs$0$n(n);
+    sign = n < 0 ? "-" : "";
+    if (absN >= 1000)
+      return H.S(n);
+    if (absN >= 100)
+      return sign + "0" + H.S(absN);
+    if (absN >= 10)
+      return sign + "00" + H.S(absN);
+    return sign + "000" + H.S(absN);
+  },
+  $is_args1: true
+},
+
+DateTime_toString_threeDigits: {"": "Closure;",
+  call$1: function(n) {
+    var t1 = J.getInterceptor$n(n);
+    if (t1.$ge(n, 100))
+      return H.S(n);
+    if (t1.$ge(n, 10))
+      return "0" + H.S(n);
+    return "00" + H.S(n);
+  },
+  $is_args1: true
+},
+
+DateTime_toString_twoDigits: {"": "Closure;",
+  call$1: function(n) {
+    if (J.$ge$n(n, 10))
+      return H.S(n);
+    return "0" + H.S(n);
+  },
+  $is_args1: true
 },
 
 Duration: {"": "Object;_duration<",
@@ -5322,6 +5503,17 @@ _ExceptionImplementation: {"": "Object;message",
   }
 },
 
+FormatException: {"": "Object;message",
+  toString$0: function(_) {
+    return "FormatException: " + H.S(this.message);
+  },
+  static: {
+FormatException$: function(message) {
+  return new P.FormatException(message);
+}}
+
+},
+
 Expando: {"": "Object;name",
   toString$0: function(_) {
     return "Expando:" + H.S(this.name);
@@ -5356,6 +5548,37 @@ Expando: {"": "Object;name",
 },
 
 Function: {"": "Object;"},
+
+_GeneratorIterable: {"": "IterableBase;_count,_generator",
+  get$iterator: function(_) {
+    return new P._GeneratorIterator(this._count, this._generator, 0, null);
+  },
+  get$length: function(_) {
+    return this._count;
+  },
+  $asIterableBase: null,
+  $isEfficientLength: true
+},
+
+_GeneratorIterator: {"": "Object;_count,_generator,_index,_current",
+  _generator$1: function(arg0) {
+    return this._generator.call$1(arg0);
+  },
+  moveNext$0: function() {
+    var t1 = this._index;
+    if (t1 < this._count) {
+      this._current = this._generator$1(t1);
+      this._index = this._index + 1;
+      return true;
+    } else {
+      this._current = null;
+      return false;
+    }
+  },
+  get$current: function() {
+    return this._current;
+  }
+},
 
 Iterator: {"": "Object;"},
 
@@ -5433,6 +5656,17 @@ CanvasElement_CanvasElement: function(height, width) {
   return e;
 },
 
+WebSocket_WebSocket: function(url, protocol_OR_protocols) {
+  return new WebSocket(url);
+},
+
+_wrapZone: function(callback) {
+  var t1 = $.Zone__current;
+  if (t1 === C.C__RootZone)
+    return callback;
+  return t1.bindUnaryCallback$2$runGuarded(callback, true);
+},
+
 HtmlElement: {"": "Element;", "%": "HTMLAppletElement|HTMLAreaElement|HTMLBRElement|HTMLBaseElement|HTMLBaseFontElement|HTMLBodyElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLFontElement|HTMLFrameElement|HTMLFrameSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLImageElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMarqueeElement|HTMLMenuElement|HTMLModElement|HTMLOListElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPreElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement;HTMLElement"},
 
 AnchorElement: {"": "HtmlElement;",
@@ -5463,7 +5697,11 @@ CanvasRenderingContext2D: {"": "CanvasRenderingContext;",
   "%": "CanvasRenderingContext2D"
 },
 
-CharacterData: {"": "Node;length=", "%": "CDATASection|CharacterData|Comment|ProcessingInstruction|Text"},
+CharacterData: {"": "Node;data=,length=", "%": "CDATASection|CharacterData|Comment|ProcessingInstruction|Text"},
+
+CloseEvent: {"": "Event;", "%": "CloseEvent"},
+
+CompositionEvent: {"": "UIEvent;data=", "%": "CompositionEvent"},
 
 DomException: {"": "Interceptor;",
   toString$0: function(receiver) {
@@ -5496,9 +5734,17 @@ EmbedElement: {"": "HtmlElement;name=", "%": "HTMLEmbedElement"},
 
 ErrorEvent: {"": "Event;error=", "%": "ErrorEvent"},
 
-Event: {"": "Interceptor;", "%": "AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|BeforeUnloadEvent|CSSFontFaceLoadEvent|CloseEvent|CompositionEvent|CustomEvent|DeviceMotionEvent|DeviceOrientationEvent|DragEvent|FocusEvent|HashChangeEvent|IDBVersionChangeEvent|KeyboardEvent|MIDIConnectionEvent|MIDIMessageEvent|MSPointerEvent|MediaKeyEvent|MediaKeyMessageEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MessageEvent|MouseEvent|MouseScrollEvent|MouseWheelEvent|MutationEvent|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PointerEvent|PopStateEvent|ProgressEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|ResourceProgressEvent|SVGZoomEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionEvent|SpeechSynthesisEvent|StorageEvent|TextEvent|TouchEvent|TrackEvent|TransitionEvent|UIEvent|WebGLContextEvent|WebKitAnimationEvent|WebKitTransitionEvent|WheelEvent|XMLHttpRequestProgressEvent;Event"},
+Event: {"": "Interceptor;", "%": "AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|BeforeUnloadEvent|CSSFontFaceLoadEvent|CustomEvent|DeviceMotionEvent|DeviceOrientationEvent|HashChangeEvent|IDBVersionChangeEvent|MIDIConnectionEvent|MediaKeyEvent|MediaKeyMessageEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MutationEvent|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PopStateEvent|ProgressEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|ResourceProgressEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionEvent|SpeechSynthesisEvent|StorageEvent|TrackEvent|TransitionEvent|WebGLContextEvent|WebKitAnimationEvent|WebKitTransitionEvent|XMLHttpRequestProgressEvent;Event"},
 
-EventTarget: {"": "Interceptor;", "%": "MediaStream;EventTarget"},
+EventTarget: {"": "Interceptor;",
+  addEventListener$3: function(receiver, type, listener, useCapture) {
+    return receiver.addEventListener(type, H.convertDartClosureToJS(listener, 1), useCapture);
+  },
+  removeEventListener$3: function(receiver, type, listener, useCapture) {
+    return receiver.removeEventListener(type, H.convertDartClosureToJS(listener, 1), useCapture);
+  },
+  "%": "MediaStream;EventTarget"
+},
 
 FieldSetElement: {"": "HtmlElement;name=", "%": "HTMLFieldSetElement"},
 
@@ -5548,9 +5794,18 @@ MapElement: {"": "HtmlElement;name=", "%": "HTMLMapElement"},
 
 MediaElement: {"": "HtmlElement;error=", "%": "HTMLAudioElement|HTMLMediaElement|HTMLVideoElement"},
 
+MessageEvent: {"": "Event;",
+  get$data: function(receiver) {
+    return P.convertNativeToDart_AcceptStructuredClone(receiver.data, true);
+  },
+  "%": "MessageEvent"
+},
+
 MetaElement: {"": "HtmlElement;name=", "%": "HTMLMetaElement"},
 
 MeterElement: {"": "HtmlElement;value=", "%": "HTMLMeterElement"},
+
+MidiMessageEvent: {"": "Event;data=", "%": "MIDIMessageEvent"},
 
 Node: {"": "EventTarget;",
   replaceWith$1: function(receiver, otherNode) {
@@ -5606,7 +5861,7 @@ NodeList: {"": "Interceptor_ListMixin_ImmutableListMixin0;",
   "%": "NodeList|RadioNodeList"
 },
 
-ObjectElement: {"": "HtmlElement;name=", "%": "HTMLObjectElement"},
+ObjectElement: {"": "HtmlElement;data=,name=", "%": "HTMLObjectElement"},
 
 OptionElement: {"": "HtmlElement;value=", "%": "HTMLOptionElement"},
 
@@ -5621,6 +5876,17 @@ SelectElement: {"": "HtmlElement;length=,name=,value=", "%": "HTMLSelectElement"
 SpeechRecognitionError: {"": "Event;error=", "%": "SpeechRecognitionError"},
 
 TextAreaElement: {"": "HtmlElement;name=,value=", "%": "HTMLTextAreaElement"},
+
+TextEvent: {"": "UIEvent;data=", "%": "TextEvent"},
+
+UIEvent: {"": "Event;", "%": "DragEvent|FocusEvent|KeyboardEvent|MSPointerEvent|MouseEvent|MouseScrollEvent|MouseWheelEvent|PointerEvent|SVGZoomEvent|TouchEvent|WheelEvent;UIEvent"},
+
+WebSocket: {"": "EventTarget;",
+  send$1: function(receiver, data) {
+    return receiver.send(data);
+  },
+  "%": "WebSocket"
+},
 
 Window: {"": "EventTarget;",
   toString$0: function(receiver) {
@@ -5692,7 +5958,7 @@ _ChildrenElementList: {"": "ListBase;_element,_childElements",
   get$first: function(_) {
     var result = this._element.firstElementChild;
     if (result == null)
-      throw H.wrapException(P.StateError$("No elements"));
+      throw H.wrapException(new P.StateError("No elements"));
     return result;
   },
   $asList: function() {
@@ -5708,7 +5974,7 @@ _ChildNodeListLazy: {"": "ListBase;_this",
   get$first: function(_) {
     var result = this._this.firstChild;
     if (result == null)
-      throw H.wrapException(P.StateError$("No elements"));
+      throw H.wrapException(new P.StateError("No elements"));
     return result;
   },
   $indexSet: function(_, index, value) {
@@ -5748,12 +6014,12 @@ _AttributeMap: {"": "Object;",
   clear$0: function(_) {
     var t1;
     for (t1 = this.get$keys(), t1 = new H.ListIterator(t1, t1.length, 0, null); t1.moveNext$0();)
-      this.remove$1(this, t1._current);
+      this.remove$1(this, t1._dev$_current);
   },
   forEach$1: function(_, f) {
     var t1, key;
     for (t1 = this.get$keys(), t1 = new H.ListIterator(t1, t1.length, 0, null); t1.moveNext$0();) {
-      key = t1._current;
+      key = t1._dev$_current;
       f.call$2(key, this.$index(this, key));
     }
   },
@@ -5816,6 +6082,39 @@ _ElementAttributeMap: {"": "_AttributeMap;_element",
   }
 },
 
+EventStreamProvider: {"": "Object;_eventType"},
+
+_EventStream: {"": "Stream;_target,_eventType,_useCapture",
+  listen$4$cancelOnError$onDone$onError: function(onData, cancelOnError, onDone, onError) {
+    var t1 = new W._EventStreamSubscription(0, this._target, this._eventType, W._wrapZone(onData), this._useCapture);
+    H.setRuntimeTypeInfo(t1, [H.getRuntimeTypeArgument(this, "_EventStream", 0)]);
+    t1._tryResume$0();
+    return t1;
+  },
+  $asStream: null
+},
+
+_EventStreamSubscription: {"": "StreamSubscription;_pauseCount,_target,_eventType,_onData,_useCapture",
+  cancel$0: function() {
+    if (this._target == null)
+      return;
+    this._unlisten$0();
+    this._target = null;
+    this._onData = null;
+  },
+  _tryResume$0: function() {
+    var t1 = this._onData;
+    if (t1 != null && this._pauseCount <= 0)
+      J.addEventListener$3$x(this._target, this._eventType, t1, this._useCapture);
+  },
+  _unlisten$0: function() {
+    var t1 = this._onData;
+    if (t1 != null)
+      J.removeEventListener$3$x(this._target, this._eventType, t1, this._useCapture);
+  },
+  $asStreamSubscription: null
+},
+
 ImmutableListMixin: {"": "Object;",
   get$iterator: function(receiver) {
     return W.FixedSizeListIterator$(receiver);
@@ -5862,9 +6161,9 @@ ReceivePort: {"": "Object;"}}],
 ["dart.math", "dart:math", , P, {
 min: function(a, b) {
   if (typeof a !== "number")
-    throw H.wrapException(P.ArgumentError$(a));
+    throw H.wrapException(new P.ArgumentError(a));
   if (typeof b !== "number")
-    throw H.wrapException(P.ArgumentError$(b));
+    throw H.wrapException(new P.ArgumentError(b));
   if (a > b)
     return b;
   if (a < b)
@@ -5883,9 +6182,9 @@ min: function(a, b) {
 max: function(a, b) {
   var t1;
   if (typeof a !== "number")
-    throw H.wrapException(P.ArgumentError$(a));
+    throw H.wrapException(new P.ArgumentError(a));
   if (typeof b !== "number")
-    throw H.wrapException(P.ArgumentError$(b));
+    throw H.wrapException(new P.ArgumentError(b));
   if (a > b)
     return a;
   if (a < b)
@@ -5905,16 +6204,6 @@ max: function(a, b) {
   if (t1)
     return b;
   return a;
-},
-
-_Random: {"": "Object;",
-  nextInt$1: function(max) {
-    if (max < 0)
-      throw H.wrapException(P.ArgumentError$("negative max: " + max));
-    if (max > 4294967295)
-      max = 4294967295;
-    return Math.random() * max >>> 0;
-  }
 }}],
 ["dart.typed_data", "dart:typed_data", , P, {
 TypedData: {"": "Interceptor;",
@@ -5925,10 +6214,266 @@ TypedData: {"": "Interceptor;",
     else
       throw H.wrapException(P.ArgumentError$("Invalid list index " + H.S(index)));
   },
-  "%": ";ArrayBufferView;TypedData_ListMixin|TypedData_ListMixin_FixedLengthListMixin"
+  "%": "DataView;ArrayBufferView;TypedData_ListMixin|TypedData_ListMixin_FixedLengthListMixin|TypedData_ListMixin0|TypedData_ListMixin_FixedLengthListMixin0|TypedData_ListMixin1|TypedData_ListMixin_FixedLengthListMixin1|TypedData_ListMixin2|TypedData_ListMixin_FixedLengthListMixin2|TypedData_ListMixin3|TypedData_ListMixin_FixedLengthListMixin3|TypedData_ListMixin4|TypedData_ListMixin_FixedLengthListMixin4|TypedData_ListMixin5|TypedData_ListMixin_FixedLengthListMixin5|TypedData_ListMixin6|TypedData_ListMixin_FixedLengthListMixin6|TypedData_ListMixin7|TypedData_ListMixin_FixedLengthListMixin7|Int64List|Uint64List"
 },
 
-Uint8List: {"": "TypedData_ListMixin_FixedLengthListMixin;",
+Float32List: {"": "TypedData_ListMixin_FixedLengthListMixin;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSDouble];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Float32Array"
+},
+
+Float64List: {"": "TypedData_ListMixin_FixedLengthListMixin0;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSDouble];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Float64Array"
+},
+
+Int16List: {"": "TypedData_ListMixin_FixedLengthListMixin1;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Int16Array"
+},
+
+Int32List: {"": "TypedData_ListMixin_FixedLengthListMixin2;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Int32Array"
+},
+
+Int8List: {"": "TypedData_ListMixin_FixedLengthListMixin3;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Int8Array"
+},
+
+Uint16List: {"": "TypedData_ListMixin_FixedLengthListMixin4;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Uint16Array"
+},
+
+Uint32List: {"": "TypedData_ListMixin_FixedLengthListMixin5;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "Uint32Array"
+},
+
+Uint8ClampedList: {"": "TypedData_ListMixin_FixedLengthListMixin6;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1, t2;
+    t1 = C.JS_CONST_ZYJ(receiver);
+    if (!(index >>> 0 != index)) {
+      if (typeof index !== "number")
+        throw index.$ge();
+      t2 = index >= t1;
+    } else
+      t2 = true;
+    if (t2)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $indexSet: function(receiver, index, value) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || J.$ge$n(index, t1))
+      this._invalidIndex$2(receiver, index, t1);
+    receiver[index] = value;
+  },
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isList: true,
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  "%": "CanvasPixelArray|Uint8ClampedArray"
+},
+
+Uint8List: {"": "TypedData_ListMixin_FixedLengthListMixin7;",
   get$length: function(receiver) {
     return C.JS_CONST_ZYJ(receiver);
   },
@@ -5962,27 +6507,297 @@ Uint8List: {"": "TypedData_ListMixin_FixedLengthListMixin;",
 
 TypedData_ListMixin: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
 
-TypedData_ListMixin_FixedLengthListMixin: {"": "TypedData_ListMixin+FixedLengthListMixin;", $asList: null}}],
-["", "foo_webapp.dart", , G, {
-main: function() {
-  var plotArea = document.querySelector("#simPlotHere");
-  P.Timer_Timer$periodic(P.Duration$(0, 0, 0, 0, 0, 1), new G.main_closure(plotArea));
+TypedData_ListMixin_FixedLengthListMixin: {"": "TypedData_ListMixin+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin0: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin0: {"": "TypedData_ListMixin0+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin1: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin1: {"": "TypedData_ListMixin1+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin2: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin2: {"": "TypedData_ListMixin2+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin3: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin3: {"": "TypedData_ListMixin3+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin4: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin4: {"": "TypedData_ListMixin4+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin5: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin5: {"": "TypedData_ListMixin5+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin6: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin6: {"": "TypedData_ListMixin6+FixedLengthListMixin;", $asList: null},
+
+TypedData_ListMixin7: {"": "TypedData+ListMixin;", $isList: true, $asList: null, $isEfficientLength: true},
+
+TypedData_ListMixin_FixedLengthListMixin7: {"": "TypedData_ListMixin7+FixedLengthListMixin;", $asList: null},
+
+Int64List: {"": "TypedData;", $isList: true,
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  static: {
+"": "Int64List_BYTES_PER_ELEMENT",
+}
+
 },
 
-main_closure: {"": "Closure;plotArea_0",
-  call$1: function(_) {
-    var t1, dataPlot;
-    t1 = J.get$children$x(this.plotArea_0);
-    t1.clear$0(t1);
-    dataPlot = U.plot([$.get$rng().nextInt$1(24), $.get$rng().nextInt$1(20), 2, $.get$rng().nextInt$1(12), 6.3, $.get$rng().nextInt$1(30), $.get$rng().nextInt$1(10)], "#3C3D36", "#90AB76", "Navy", "FireBrick", "#simPlotHere", 1, 2, 1, "linepts", null, null, null, null, [40, 40, 40, 40, 40, 40, 40], null, null);
-    dataPlot.grid$0();
-    dataPlot.xlabel$2$color("XLabel", "#3C3D36");
-    dataPlot.ylabel$1("YLabel");
+Uint64List: {"": "TypedData;", $isList: true,
+  $asList: function() {
+    return [J.JSInt];
+  },
+  $isEfficientLength: true,
+  $isJavaScriptIndexingBehavior: true,
+  static: {
+"": "Uint64List_BYTES_PER_ELEMENT",
+}
+
+}}],
+["", "foo_webapp.dart", , G, {
+outputMsg: function(msg) {
+  var t1, text;
+  t1 = $.count;
+  $.count = t1 + 1;
+  if (C.JSInt_methods.$mod(t1, 30) === 0)
+    $.get$output().textContent = "";
+  text = $.get$output().textContent.length !== 0 ? msg + "\n" + $.get$output().textContent : msg;
+  $.get$output().textContent = text;
+},
+
+initWebSocket: function(retrySeconds) {
+  var t1, t2, t3;
+  t1 = {};
+  t1.reconnectScheduled_0 = false;
+  G.outputMsg("Connecting to websocket ws://192.168.2.42:8888/ws");
+  $.ws = W.WebSocket_WebSocket("ws://192.168.2.42:8888/ws", null);
+  t1 = new G.initWebSocket_scheduleReconnect(t1, retrySeconds);
+  t2 = $.ws;
+  t2.toString;
+  t2 = new W._EventStream(t2, C.EventStreamProvider_open._eventType, false);
+  H.setRuntimeTypeInfo(t2, [null]);
+  t3 = new W._EventStreamSubscription(0, t2._target, t2._eventType, W._wrapZone(new G.initWebSocket_closure()), t2._useCapture);
+  H.setRuntimeTypeInfo(t3, [H.getRuntimeTypeArgument(t2, "_EventStream", 0)]);
+  t3._tryResume$0();
+  t3 = $.ws;
+  t3.toString;
+  t3 = new W._EventStream(t3, C.EventStreamProvider_close._eventType, false);
+  H.setRuntimeTypeInfo(t3, [null]);
+  t2 = new W._EventStreamSubscription(0, t3._target, t3._eventType, W._wrapZone(new G.initWebSocket_closure0(retrySeconds, t1)), t3._useCapture);
+  H.setRuntimeTypeInfo(t2, [H.getRuntimeTypeArgument(t3, "_EventStream", 0)]);
+  t2._tryResume$0();
+  t2 = $.ws;
+  t2.toString;
+  t2 = new W._EventStream(t2, C.EventStreamProvider_error._eventType, false);
+  H.setRuntimeTypeInfo(t2, [null]);
+  t1 = new W._EventStreamSubscription(0, t2._target, t2._eventType, W._wrapZone(new G.initWebSocket_closure1(t1)), t2._useCapture);
+  H.setRuntimeTypeInfo(t1, [H.getRuntimeTypeArgument(t2, "_EventStream", 0)]);
+  t1._tryResume$0();
+  t1 = $.ws;
+  t1.toString;
+  t1 = new W._EventStream(t1, C.EventStreamProvider_message._eventType, false);
+  H.setRuntimeTypeInfo(t1, [null]);
+  t2 = new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(new G.initWebSocket_closure2()), t1._useCapture);
+  H.setRuntimeTypeInfo(t2, [H.getRuntimeTypeArgument(t1, "_EventStream", 0)]);
+  t2._tryResume$0();
+},
+
+main: function() {
+  var t1, t2;
+  G.initWebSocket(2);
+  t1 = $.get$dataQueue();
+  t2 = new P._GeneratorIterable($.get$lineUp().length, new G.main_closure());
+  H.setRuntimeTypeInfo(t2, [null]);
+  t1.addAll$1(t1, t2);
+},
+
+drawQueue: function() {
+  var t1, dataPlot;
+  t1 = J.get$children$x($.get$plotArea());
+  t1.clear$0(t1);
+  t1 = $.get$dataQueue();
+  dataPlot = U.plot(t1.toList$1$growable(t1, false), "#3C3D36", "#90AB76", "Navy", "FireBrick", "#simPlotHere", 1, 2, 1, "linepts", null, null, null, null, $.get$lineUp(), null, null);
+  dataPlot.grid$0();
+  dataPlot.xlabel$2$color("XLabel", "#3C3D36");
+  dataPlot.ylabel$1("YLabel");
+},
+
+closure: {"": "Closure;",
+  call$1: function(i) {
+    return 5000;
+  },
+  $is_args1: true
+},
+
+initWebSocket_scheduleReconnect: {"": "Closure;box_0,retrySeconds_1",
+  call$0: function() {
+    var t1, t2;
+    t1 = this.box_0;
+    if (!t1.reconnectScheduled_0) {
+      t2 = this.retrySeconds_1;
+      P.Timer_Timer(P.Duration$(0, 0, 0, 1000 * t2, 0, 0), new G.initWebSocket_scheduleReconnect_closure(t2));
+    }
+    t1.reconnectScheduled_0 = true;
+  }
+},
+
+initWebSocket_scheduleReconnect_closure: {"": "Closure;retrySeconds_2",
+  call$0: function() {
+    return G.initWebSocket(this.retrySeconds_2 * 2);
+  }
+},
+
+initWebSocket_closure: {"": "Closure;",
+  call$1: function(e) {
+    G.outputMsg("Connected");
+    $.ws.send("Hello from Dart!");
+  },
+  $is_args1: true
+},
+
+initWebSocket_closure0: {"": "Closure;retrySeconds_3,scheduleReconnect_4",
+  call$1: function(e) {
+    G.outputMsg("Websocket closed, retrying in " + this.retrySeconds_3 + " seconds");
+    this.scheduleReconnect_4.call$0();
+  },
+  $is_args1: true
+},
+
+initWebSocket_closure1: {"": "Closure;scheduleReconnect_5",
+  call$1: function(e) {
+    G.outputMsg("Error connecting to ws");
+    this.scheduleReconnect_5.call$0();
+  },
+  $is_args1: true
+},
+
+initWebSocket_closure2: {"": "Closure;",
+  call$1: function(e) {
+    var t1 = J.getInterceptor$x(e);
+    G.outputMsg("msg " + $.count + " : " + H.S(t1.get$data(e)));
+    $.get$dataQueue()._add$1(H.Primitives_parseInt(t1.get$data(e), null, null));
+    t1 = $.get$dataQueue();
+    if (t1.get$length(t1) > $.get$lineUp().length)
+      $.get$dataQueue().removeFirst$0();
+    G.drawQueue();
+  },
+  $is_args1: true
+},
+
+main_closure: {"": "Closure;",
+  call$1: function(i) {
+    return 0;
   },
   $is_args1: true
 }},
 1],
 ["html_common", "dart:html_common", , P, {
+convertNativeToDart_DateTime: function(date) {
+  return P.DateTime$fromMillisecondsSinceEpoch(date.getTime(), true);
+},
+
+convertNativeToDart_AcceptStructuredClone: function(object, mustCopy) {
+  var copies = [];
+  return new P.convertNativeToDart_AcceptStructuredClone_walk(mustCopy, new P.convertNativeToDart_AcceptStructuredClone_findSlot([], copies), new P.convertNativeToDart_AcceptStructuredClone_readSlot(copies), new P.convertNativeToDart_AcceptStructuredClone_writeSlot(copies)).call$1(object);
+},
+
+convertNativeToDart_AcceptStructuredClone_findSlot: {"": "Closure;values_0,copies_1",
+  call$1: function(value) {
+    var t1, $length, i, t2;
+    t1 = this.values_0;
+    $length = t1.length;
+    for (i = 0; i < $length; ++i) {
+      t2 = t1[i];
+      if (t2 == null ? value == null : t2 === value)
+        return i;
+    }
+    t1.push(value);
+    this.copies_1.push(null);
+    return $length;
+  },
+  $is_args1: true
+},
+
+convertNativeToDart_AcceptStructuredClone_readSlot: {"": "Closure;copies_2",
+  call$1: function(i) {
+    var t1 = this.copies_2;
+    if (i >>> 0 !== i || i >= t1.length)
+      throw H.ioore(t1, i);
+    return t1[i];
+  },
+  $is_args1: true
+},
+
+convertNativeToDart_AcceptStructuredClone_writeSlot: {"": "Closure;copies_3",
+  call$2: function(i, x) {
+    var t1 = this.copies_3;
+    if (i >>> 0 !== i || i >= t1.length)
+      throw H.ioore(t1, i);
+    t1[i] = x;
+  },
+  $is_args2: true
+},
+
+convertNativeToDart_AcceptStructuredClone_walk: {"": "Closure;mustCopy_4,findSlot_5,readSlot_6,writeSlot_7",
+  call$1: function(e) {
+    var slot, copy, t1, key, $length, t2, i;
+    if (e == null)
+      return e;
+    if (typeof e === "boolean")
+      return e;
+    if (typeof e === "number")
+      return e;
+    if (typeof e === "string")
+      return e;
+    if (e instanceof Date)
+      return P.convertNativeToDart_DateTime(e);
+    if (e instanceof RegExp)
+      throw H.wrapException(P.UnimplementedError$("structured clone of RegExp"));
+    if (Object.getPrototypeOf(e) === Object.prototype) {
+      slot = this.findSlot_5.call$1(e);
+      copy = this.readSlot_6.call$1(slot);
+      if (copy != null)
+        return copy;
+      copy = H.fillLiteralMap([], P.LinkedHashMap_LinkedHashMap(null, null, null, null, null));
+      this.writeSlot_7.call$2(slot, copy);
+      for (t1 = Object.keys(e), t1 = new H.ListIterator(t1, t1.length, 0, null); t1.moveNext$0();) {
+        key = t1._dev$_current;
+        copy.$indexSet(copy, key, this.call$1(e[key]));
+      }
+      return copy;
+    }
+    if (e instanceof Array) {
+      slot = this.findSlot_5.call$1(e);
+      copy = this.readSlot_6.call$1(slot);
+      if (copy != null)
+        return copy;
+      t1 = J.getInterceptor$asx(e);
+      $length = t1.get$length(e);
+      copy = this.mustCopy_4 ? new Array($length) : e;
+      this.writeSlot_7.call$2(slot, copy);
+      if (typeof $length !== "number")
+        throw H.iae($length);
+      t2 = J.getInterceptor$ax(copy);
+      i = 0;
+      for (; i < $length; ++i)
+        t2.$indexSet(copy, i, this.call$1(t1.$index(e, i)));
+      return copy;
+    }
+    return e;
+  },
+  $is_args1: true
+},
+
 FilteredElementList: {"": "ListBase;_node,_childNodes",
   get$_filtered: function() {
     var t1 = this._childNodes;
@@ -6030,7 +6845,7 @@ plot: function(y1, color1, color2, color3, color4, container, index, linewidth, 
   t1 = {};
   t1.xdata_0 = xdata;
   if (y1.length === 0)
-    throw H.wrapException(P.ArgumentError$("No data to be plotted."));
+    throw H.wrapException(new P.ArgumentError("No data to be plotted."));
   _pheight = range === 1 ? 600 : 450;
   graphContainer = document.querySelector(container);
   _plotCanvas = W.CanvasElement_CanvasElement(null, null);
@@ -6091,7 +6906,7 @@ _AxisConfig: {"": "Object;",
     if (J.$eq(range, 0))
       range = J.$eq(listMin, 0) ? 1 : listMin;
     if (typeof range !== "number")
-      H.throwExpression(P.ArgumentError$(range));
+      H.throwExpression(new P.ArgumentError(range));
     t1 = Math.log(range);
     exponent = Math.floor(t1 / Math.log(10));
     t1 = Math.pow(10, exponent);
@@ -6600,11 +7415,11 @@ Plot2D: {"": "Object;_yAxisCfg,_xAxisCfg,_border,_borderL,_borderT,_tickSize,_si
   Plot2D$8: function(context, _ydata, _xdata, _color, _style, _pwidth, _pheight, _linewidth) {
     var t1, t2, t3, _first, _miny, _maxy, value, _tempMin, _tempMax, t4, t5, t6, t7, _offset, _increment, t8, t9, t10, i, i0, _tickPt, j, numDigits, waveform;
     for (t1 = this._ydata, t2 = t1.get$values(t1), t3 = t2._iterable, t3 = t3.get$iterator(t3), t3 = new H.MappedIterator(null, t3, t2._f), H.setRuntimeTypeInfo(t3, [H.getRuntimeTypeArgument(t2, "MappedIterable", 0), H.getRuntimeTypeArgument(t2, "MappedIterable", 1)]), _first = true, _miny = null, _maxy = null; t3.moveNext$0();) {
-      value = t3._current;
+      value = t3._dev$_current;
       if (value != null) {
         t2 = J.getInterceptor$asx(value);
         if (t2.get$isEmpty(value) === true)
-          throw H.wrapException(P.ArgumentError$("Empty data lists are not supported."));
+          throw H.wrapException(new P.ArgumentError("Empty data lists are not supported."));
         else if (_first) {
           _miny = t2.fold$2(value, t2.get$first(value), P.min$closure);
           _maxy = t2.fold$2(value, t2.get$first(value), P.max$closure);
@@ -6823,16 +7638,17 @@ $$ = null;
 
 // Static function getters
 init.globalFunctions.IsolateNatives__processWorkerMessage$closure = H.IsolateNatives__processWorkerMessage$closure = new H.Closure$2(H.IsolateNatives__processWorkerMessage, "IsolateNatives__processWorkerMessage$closure");
+init.globalFunctions.Primitives__throwFormatException$closure = H.Primitives__throwFormatException$closure = new H.Closure$1(H.Primitives__throwFormatException, "Primitives__throwFormatException$closure");
 init.globalFunctions.toStringWrapper$closure = H.toStringWrapper$closure = new H.Closure$0(H.toStringWrapper, "toStringWrapper$closure");
 init.globalFunctions.invokeClosure$closure = H.invokeClosure$closure = new H.Closure$7(H.invokeClosure, "invokeClosure$closure");
 init.globalFunctions._asyncRunCallback$closure = P._asyncRunCallback$closure = new H.Closure$0(P._asyncRunCallback, "_asyncRunCallback$closure");
-init.globalFunctions._nullDataHandler$closure = P._nullDataHandler$closure = new P.Closure$1(P._nullDataHandler, "_nullDataHandler$closure");
+init.globalFunctions._nullDataHandler$closure = P._nullDataHandler$closure = new H.Closure$1(P._nullDataHandler, "_nullDataHandler$closure");
 init.globalFunctions._nullErrorHandler$closure = P._nullErrorHandler$closure = new P.Closure$20(P._nullErrorHandler, "_nullErrorHandler$closure");
 init.globalFunctions._nullDoneHandler$closure = P._nullDoneHandler$closure = new H.Closure$0(P._nullDoneHandler, "_nullDoneHandler$closure");
 init.globalFunctions._defaultEquals$closure = P._defaultEquals$closure = new H.Closure$2(P._defaultEquals, "_defaultEquals$closure");
-init.globalFunctions._defaultHashCode$closure = P._defaultHashCode$closure = new P.Closure$1(P._defaultHashCode, "_defaultHashCode$closure");
+init.globalFunctions._defaultHashCode$closure = P._defaultHashCode$closure = new H.Closure$1(P._defaultHashCode, "_defaultHashCode$closure");
 init.globalFunctions.identical$closure = P.identical$closure = new H.Closure$2(P.identical, "identical$closure");
-init.globalFunctions.identityHashCode$closure = P.identityHashCode$closure = new P.Closure$1(P.identityHashCode, "identityHashCode$closure");
+init.globalFunctions.identityHashCode$closure = P.identityHashCode$closure = new H.Closure$1(P.identityHashCode, "identityHashCode$closure");
 init.globalFunctions.min$closure = P.min$closure = new H.Closure$2(P.min, "min$closure");
 init.globalFunctions.max$closure = P.max$closure = new H.Closure$2(P.max, "max$closure");
 init.globalFunctions.main$closure = G.main$closure = new H.Closure$0(G.main, "main$closure");
@@ -6840,24 +7656,30 @@ init.globalFunctions.main$closure = G.main$closure = new H.Closure$0(G.main, "ma
 J.JSInt.$isint = true;
 J.JSInt.$isnum = true;
 J.JSInt.$isObject = true;
+J.JSDouble.$isnum = true;
+J.JSDouble.$isObject = true;
 W.Node.$isObject = true;
+J.JSNumber.$isnum = true;
+J.JSNumber.$isObject = true;
 J.JSString.$isString = true;
 J.JSString.$isObject = true;
 P.Duration.$isObject = true;
-J.JSNumber.$isnum = true;
-J.JSNumber.$isObject = true;
 W.Element.$isObject = true;
+W.Event.$isObject = true;
+W.CloseEvent.$isObject = true;
+W.MessageEvent.$isMessageEvent = true;
+W.MessageEvent.$isObject = true;
+J.JSBool.$isbool = true;
+J.JSBool.$isObject = true;
 P.ReceivePort.$isObject = true;
 H._IsolateEvent.$isObject = true;
 H._IsolateContext.$isObject = true;
 J.JSArray.$isObject = true;
-J.JSBool.$isbool = true;
-J.JSBool.$isObject = true;
 P.Symbol.$isSymbol = true;
 P.Symbol.$isObject = true;
-P.Object.$isObject = true;
 P.StackTrace.$isStackTrace = true;
 P.StackTrace.$isObject = true;
+P.Object.$isObject = true;
 P.Function.$isFunction = true;
 P.Function.$isObject = true;
 P._EventSink.$is_EventSink = true;
@@ -6950,10 +7772,13 @@ J.getInterceptor$x = function(receiver) {
   return J.getNativeInterceptor(receiver);
 };
 C.C__DelayedDone = new P._DelayedDone();
-C.C__Random = new P._Random();
 C.C__RootZone = new P._RootZone();
 C.CanvasRenderingContext2D_methods = W.CanvasRenderingContext2D.prototype;
 C.Duration_0 = new P.Duration(0);
+C.EventStreamProvider_close = new W.EventStreamProvider("close");
+C.EventStreamProvider_error = new W.EventStreamProvider("error");
+C.EventStreamProvider_message = new W.EventStreamProvider("message");
+C.EventStreamProvider_open = new W.EventStreamProvider("open");
 C.JSArray_methods = J.JSArray.prototype;
 C.JSDouble_methods = J.JSDouble.prototype;
 C.JSInt_methods = J.JSInt.prototype;
@@ -7084,6 +7909,8 @@ Isolate.makeConstantList = function(list) {
 };
 C.List_empty = Isolate.makeConstantList([]);
 C.NodeList_methods = W.NodeList.prototype;
+C.Type_oqh = H.createRuntimeType('Uint64List');
+C.Type_qxd = H.createRuntimeType('Int64List');
 C.UnknownJavaScriptObject_methods = J.UnknownJavaScriptObject.prototype;
 $.lazyPort = null;
 $.ReceivePortImpl__nextFreeId = 1;
@@ -7099,6 +7926,8 @@ $.printToZone = null;
 $._callbacksAreEnqueued = false;
 $.Zone__current = C.C__RootZone;
 $.Expando__keyCount = 0;
+$.ws = null;
+$.count = 0;
 $.Device__isOpera = null;
 $.Device__isWebKit = null;
 J.$add$ns = function(receiver, a0) {
@@ -7147,6 +7976,12 @@ J.$sub$n = function(receiver, a0) {
 J._replaceChild$2$x = function(receiver, a0, a1) {
   return J.getInterceptor$x(receiver)._replaceChild$2(receiver, a0, a1);
 };
+J.abs$0$n = function(receiver) {
+  return J.getInterceptor$n(receiver).abs$0(receiver);
+};
+J.addEventListener$3$x = function(receiver, a0, a1, a2) {
+  return J.getInterceptor$x(receiver).addEventListener$3(receiver, a0, a1, a2);
+};
 J.fillText$3$x = function(receiver, a0, a1, a2) {
   return J.getInterceptor$x(receiver).fillText$3(receiver, a0, a1, a2);
 };
@@ -7174,8 +8009,14 @@ J.get$name$x = function(receiver) {
 J.get$value$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$value(receiver);
 };
+J.removeEventListener$3$x = function(receiver, a0, a1, a2) {
+  return J.getInterceptor$x(receiver).removeEventListener$3(receiver, a0, a1, a2);
+};
 J.replaceWith$1$x = function(receiver, a0) {
   return J.getInterceptor$x(receiver).replaceWith$1(receiver, a0);
+};
+J.send$1$x = function(receiver, a0) {
+  return J.getInterceptor$x(receiver).send$1(receiver, a0);
 };
 J.toInt$0$n = function(receiver) {
   return J.getInterceptor$n(receiver).toInt$0(receiver);
@@ -7246,8 +8087,19 @@ Isolate.$lazy($, "_toStringVisiting", "_toStringVisiting", "get$_toStringVisitin
 Isolate.$lazy($, "_toStringList", "Maps__toStringList", "get$Maps__toStringList", function() {
   return P.List_List(null, null);
 });
-Isolate.$lazy($, "rng", "rng", "get$rng", function() {
-  return C.C__Random;
+Isolate.$lazy($, "dataQueue", "dataQueue", "get$dataQueue", function() {
+  return P.ListQueue$(null, null);
+});
+Isolate.$lazy($, "output", "output", "get$output", function() {
+  return document.querySelector("#output");
+});
+Isolate.$lazy($, "plotArea", "plotArea", "get$plotArea", function() {
+  return document.querySelector("#simPlotHere");
+});
+Isolate.$lazy($, "lineUp", "lineUp", "get$lineUp", function() {
+  var t1 = new P._GeneratorIterable(30, new G.closure());
+  H.setRuntimeTypeInfo(t1, [null]);
+  return P.List_List$from(t1, false, H.getRuntimeTypeArgument(t1, "IterableBase", 0));
 });
 // Native classes
 
@@ -7669,6 +8521,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   BeforeUnloadEvent.prototype = $desc;
+  function Blob() {
+  }
+  Blob.builtin$cls = "Blob";
+  if (!"name" in Blob)
+    Blob.name = "Blob";
+  $desc = $collectedClasses.Blob;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Blob.prototype = $desc;
   function BodyElement() {
   }
   BodyElement.builtin$cls = "BodyElement";
@@ -7756,6 +8617,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   CharacterData.prototype = $desc;
+  CharacterData.prototype.get$data = function(receiver) {
+    return receiver.data;
+  };
   CharacterData.prototype.get$length = function(receiver) {
     return receiver.length;
   };
@@ -7786,6 +8650,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   CompositionEvent.prototype = $desc;
+  CompositionEvent.prototype.get$data = function(receiver) {
+    return receiver.data;
+  };
   function ContentElement() {
   }
   ContentElement.builtin$cls = "ContentElement";
@@ -7984,6 +8851,15 @@ function dart_precompiled($collectedClasses) {
   FieldSetElement.prototype.get$name = function(receiver) {
     return receiver.name;
   };
+  function File() {
+  }
+  File.builtin$cls = "File";
+  if (!"name" in File)
+    File.name = "File";
+  $desc = $collectedClasses.File;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  File.prototype = $desc;
   function FileError() {
   }
   FileError.builtin$cls = "FileError";
@@ -8350,6 +9226,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   MidiMessageEvent.prototype = $desc;
+  MidiMessageEvent.prototype.get$data = function(receiver) {
+    return receiver.data;
+  };
   function ModElement() {
   }
   ModElement.builtin$cls = "ModElement";
@@ -8422,6 +9301,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   ObjectElement.prototype = $desc;
+  ObjectElement.prototype.get$data = function(receiver) {
+    return receiver.data;
+  };
   ObjectElement.prototype.get$name = function(receiver) {
     return receiver.name;
   };
@@ -8830,6 +9712,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   TextEvent.prototype = $desc;
+  TextEvent.prototype.get$data = function(receiver) {
+    return receiver.data;
+  };
   function TextMetrics() {
   }
   TextMetrics.builtin$cls = "TextMetrics";
@@ -8920,6 +9805,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   VideoElement.prototype = $desc;
+  function WebSocket() {
+  }
+  WebSocket.builtin$cls = "WebSocket";
+  if (!"name" in WebSocket)
+    WebSocket.name = "WebSocket";
+  $desc = $collectedClasses.WebSocket;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  WebSocket.prototype = $desc;
   function WheelEvent() {
   }
   WheelEvent.builtin$cls = "WheelEvent";
@@ -9907,6 +10801,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   SqlError.prototype = $desc;
+  function ByteBuffer() {
+  }
+  ByteBuffer.builtin$cls = "ByteBuffer";
+  if (!"name" in ByteBuffer)
+    ByteBuffer.name = "ByteBuffer";
+  $desc = $collectedClasses.ByteBuffer;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  ByteBuffer.prototype = $desc;
   function TypedData() {
   }
   TypedData.builtin$cls = "TypedData";
@@ -9916,6 +10819,87 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   TypedData.prototype = $desc;
+  function ByteData() {
+  }
+  ByteData.builtin$cls = "ByteData";
+  if (!"name" in ByteData)
+    ByteData.name = "ByteData";
+  $desc = $collectedClasses.ByteData;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  ByteData.prototype = $desc;
+  function Float32List() {
+  }
+  Float32List.builtin$cls = "Float32List";
+  if (!"name" in Float32List)
+    Float32List.name = "Float32List";
+  $desc = $collectedClasses.Float32List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Float32List.prototype = $desc;
+  function Float64List() {
+  }
+  Float64List.builtin$cls = "Float64List";
+  if (!"name" in Float64List)
+    Float64List.name = "Float64List";
+  $desc = $collectedClasses.Float64List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Float64List.prototype = $desc;
+  function Int16List() {
+  }
+  Int16List.builtin$cls = "Int16List";
+  if (!"name" in Int16List)
+    Int16List.name = "Int16List";
+  $desc = $collectedClasses.Int16List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Int16List.prototype = $desc;
+  function Int32List() {
+  }
+  Int32List.builtin$cls = "Int32List";
+  if (!"name" in Int32List)
+    Int32List.name = "Int32List";
+  $desc = $collectedClasses.Int32List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Int32List.prototype = $desc;
+  function Int8List() {
+  }
+  Int8List.builtin$cls = "Int8List";
+  if (!"name" in Int8List)
+    Int8List.name = "Int8List";
+  $desc = $collectedClasses.Int8List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Int8List.prototype = $desc;
+  function Uint16List() {
+  }
+  Uint16List.builtin$cls = "Uint16List";
+  if (!"name" in Uint16List)
+    Uint16List.name = "Uint16List";
+  $desc = $collectedClasses.Uint16List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Uint16List.prototype = $desc;
+  function Uint32List() {
+  }
+  Uint32List.builtin$cls = "Uint32List";
+  if (!"name" in Uint32List)
+    Uint32List.name = "Uint32List";
+  $desc = $collectedClasses.Uint32List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Uint32List.prototype = $desc;
+  function Uint8ClampedList() {
+  }
+  Uint8ClampedList.builtin$cls = "Uint8ClampedList";
+  if (!"name" in Uint8ClampedList)
+    Uint8ClampedList.name = "Uint8ClampedList";
+  $desc = $collectedClasses.Uint8ClampedList;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Uint8ClampedList.prototype = $desc;
   function Uint8List() {
   }
   Uint8List.builtin$cls = "Uint8List";
@@ -10257,9 +11241,9 @@ function dart_precompiled($collectedClasses) {
   ReceivePortImpl.prototype.get$_controller = function() {
     return this._controller;
   };
-  function BoundClosure$i0(_self, _target, _receiver, __js_helper$_name) {
+  function BoundClosure$i0(_self, __js_helper$_target, _receiver, __js_helper$_name) {
     this._self = _self;
-    this._target = _target;
+    this.__js_helper$_target = __js_helper$_target;
     this._receiver = _receiver;
     this.__js_helper$_name = __js_helper$_name;
   }
@@ -10348,9 +11332,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _MessageTraverser.prototype = $desc;
-  function BoundClosure$1(_self, _target, _receiver, __js_helper$_name) {
+  function BoundClosure$1(_self, __js_helper$_target, _receiver, __js_helper$_name) {
     this._self = _self;
-    this._target = _target;
+    this.__js_helper$_target = __js_helper$_target;
     this._receiver = _receiver;
     this.__js_helper$_name = __js_helper$_name;
   }
@@ -10431,17 +11415,6 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   TimerImpl_internalCallback0.prototype = $desc;
-  function TimerImpl$periodic_closure(this_0, callback_1) {
-    this.this_0 = this_0;
-    this.callback_1 = callback_1;
-  }
-  TimerImpl$periodic_closure.builtin$cls = "TimerImpl$periodic_closure";
-  if (!"name" in TimerImpl$periodic_closure)
-    TimerImpl$periodic_closure.name = "TimerImpl$periodic_closure";
-  $desc = $collectedClasses.TimerImpl$periodic_closure;
-  if ($desc instanceof Array)
-    $desc = $desc[1];
-  TimerImpl$periodic_closure.prototype = $desc;
   function TypeErrorDecoder(_pattern, _arguments, _argumentsExpr, _expr, _method, _receiver) {
     this._pattern = _pattern;
     this._arguments = _arguments;
@@ -10580,9 +11553,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Closure.prototype = $desc;
-  function BoundClosure(_self, _target, _receiver, __js_helper$_name) {
+  function BoundClosure(_self, __js_helper$_target, _receiver, __js_helper$_name) {
     this._self = _self;
-    this._target = _target;
+    this.__js_helper$_target = __js_helper$_target;
     this._receiver = _receiver;
     this.__js_helper$_name = __js_helper$_name;
   }
@@ -10593,6 +11566,17 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   BoundClosure.prototype = $desc;
+  function TypeImpl(_typeName, _unmangledName) {
+    this._typeName = _typeName;
+    this._unmangledName = _unmangledName;
+  }
+  TypeImpl.builtin$cls = "TypeImpl";
+  if (!"name" in TypeImpl)
+    TypeImpl.name = "TypeImpl";
+  $desc = $collectedClasses.TypeImpl;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypeImpl.prototype = $desc;
   function initHooks_closure(getTag_0) {
     this.getTag_0 = getTag_0;
   }
@@ -10623,11 +11607,11 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   initHooks_closure1.prototype = $desc;
-  function ListIterator(_iterable, _length, _index, _current) {
+  function ListIterator(_iterable, _length, _dev$_index, _dev$_current) {
     this._iterable = _iterable;
     this._length = _length;
-    this._index = _index;
-    this._current = _current;
+    this._dev$_index = _dev$_index;
+    this._dev$_current = _dev$_current;
   }
   ListIterator.builtin$cls = "ListIterator";
   if (!"name" in ListIterator)
@@ -10658,8 +11642,8 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   EfficientLengthMappedIterable.prototype = $desc;
-  function MappedIterator(_current, _iterator, _f) {
-    this._current = _current;
+  function MappedIterator(_dev$_current, _iterator, _f) {
+    this._dev$_current = _dev$_current;
     this._iterator = _iterator;
     this._f = _f;
   }
@@ -10790,9 +11774,9 @@ function dart_precompiled($collectedClasses) {
   _Future.prototype.get$_nextListener = function() {
     return this._nextListener;
   };
-  function BoundClosure$2(_self, _target, _receiver, __js_helper$_name) {
+  function BoundClosure$2(_self, __js_helper$_target, _receiver, __js_helper$_name) {
     this._self = _self;
-    this._target = _target;
+    this.__js_helper$_target = __js_helper$_target;
     this._receiver = _receiver;
     this.__js_helper$_name = __js_helper$_name;
   }
@@ -11213,9 +12197,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _ControllerStream.prototype = $desc;
-  function _ControllerSubscription(_async$_controller, _onData, _onError, _onDone, _zone, _state, _cancelFuture, _pending) {
+  function _ControllerSubscription(_async$_controller, _async$_onData, _onError, _onDone, _zone, _state, _cancelFuture, _pending) {
     this._async$_controller = _async$_controller;
-    this._onData = _onData;
+    this._async$_onData = _async$_onData;
     this._onError = _onError;
     this._onDone = _onDone;
     this._zone = _zone;
@@ -11230,9 +12214,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _ControllerSubscription.prototype = $desc;
-  function BoundClosure$0(_self, _target, _receiver, __js_helper$_name) {
+  function BoundClosure$0(_self, __js_helper$_target, _receiver, __js_helper$_name) {
     this._self = _self;
-    this._target = _target;
+    this.__js_helper$_target = __js_helper$_target;
     this._receiver = _receiver;
     this.__js_helper$_name = __js_helper$_name;
   }
@@ -11250,8 +12234,8 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _EventSink.prototype = $desc;
-  function _BufferingStreamSubscription(_onData, _onError, _onDone, _zone, _state, _cancelFuture, _pending) {
-    this._onData = _onData;
+  function _BufferingStreamSubscription(_async$_onData, _onError, _onDone, _zone, _state, _cancelFuture, _pending) {
+    this._async$_onData = _async$_onData;
     this._onError = _onError;
     this._onDone = _onDone;
     this._zone = _zone;
@@ -11547,9 +12531,9 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _LinkedHashMap_values_closure.prototype = $desc;
-  function LinkedHashMapCell(_key, _value, _next, _previous) {
+  function LinkedHashMapCell(_key, _collection$_value, _next, _previous) {
     this._key = _key;
-    this._value = _value;
+    this._collection$_value = _collection$_value;
     this._next = _next;
     this._previous = _previous;
   }
@@ -11563,11 +12547,11 @@ function dart_precompiled($collectedClasses) {
   LinkedHashMapCell.prototype.get$_key = function() {
     return this._key;
   };
-  LinkedHashMapCell.prototype.get$_value = function() {
-    return this._value;
+  LinkedHashMapCell.prototype.get$_collection$_value = function() {
+    return this._collection$_value;
   };
-  LinkedHashMapCell.prototype.set$_value = function(v) {
-    return this._value = v;
+  LinkedHashMapCell.prototype.set$_collection$_value = function(v) {
+    return this._collection$_value = v;
   };
   LinkedHashMapCell.prototype.get$_previous = function() {
     return this._previous;
@@ -11715,6 +12699,44 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   NoSuchMethodError_toString_closure.prototype = $desc;
+  function DateTime(millisecondsSinceEpoch, isUtc) {
+    this.millisecondsSinceEpoch = millisecondsSinceEpoch;
+    this.isUtc = isUtc;
+  }
+  DateTime.builtin$cls = "DateTime";
+  if (!"name" in DateTime)
+    DateTime.name = "DateTime";
+  $desc = $collectedClasses.DateTime;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  DateTime.prototype = $desc;
+  function DateTime_toString_fourDigits() {
+  }
+  DateTime_toString_fourDigits.builtin$cls = "DateTime_toString_fourDigits";
+  if (!"name" in DateTime_toString_fourDigits)
+    DateTime_toString_fourDigits.name = "DateTime_toString_fourDigits";
+  $desc = $collectedClasses.DateTime_toString_fourDigits;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  DateTime_toString_fourDigits.prototype = $desc;
+  function DateTime_toString_threeDigits() {
+  }
+  DateTime_toString_threeDigits.builtin$cls = "DateTime_toString_threeDigits";
+  if (!"name" in DateTime_toString_threeDigits)
+    DateTime_toString_threeDigits.name = "DateTime_toString_threeDigits";
+  $desc = $collectedClasses.DateTime_toString_threeDigits;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  DateTime_toString_threeDigits.prototype = $desc;
+  function DateTime_toString_twoDigits() {
+  }
+  DateTime_toString_twoDigits.builtin$cls = "DateTime_toString_twoDigits";
+  if (!"name" in DateTime_toString_twoDigits)
+    DateTime_toString_twoDigits.name = "DateTime_toString_twoDigits";
+  $desc = $collectedClasses.DateTime_toString_twoDigits;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  DateTime_toString_twoDigits.prototype = $desc;
   function Duration(_duration) {
     this._duration = _duration;
   }
@@ -11853,6 +12875,16 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _ExceptionImplementation.prototype = $desc;
+  function FormatException(message) {
+    this.message = message;
+  }
+  FormatException.builtin$cls = "FormatException";
+  if (!"name" in FormatException)
+    FormatException.name = "FormatException";
+  $desc = $collectedClasses.FormatException;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  FormatException.prototype = $desc;
   function Expando(name) {
     this.name = name;
   }
@@ -11872,6 +12904,30 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Function.prototype = $desc;
+  function _GeneratorIterable(_count, _generator) {
+    this._count = _count;
+    this._generator = _generator;
+  }
+  _GeneratorIterable.builtin$cls = "_GeneratorIterable";
+  if (!"name" in _GeneratorIterable)
+    _GeneratorIterable.name = "_GeneratorIterable";
+  $desc = $collectedClasses._GeneratorIterable;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  _GeneratorIterable.prototype = $desc;
+  function _GeneratorIterator(_count, _generator, _index, _current) {
+    this._count = _count;
+    this._generator = _generator;
+    this._index = _index;
+    this._current = _current;
+  }
+  _GeneratorIterator.builtin$cls = "_GeneratorIterator";
+  if (!"name" in _GeneratorIterator)
+    _GeneratorIterator.name = "_GeneratorIterator";
+  $desc = $collectedClasses._GeneratorIterator;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  _GeneratorIterator.prototype = $desc;
   function Iterator() {
   }
   Iterator.builtin$cls = "Iterator";
@@ -12024,6 +13080,42 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   _ElementAttributeMap.prototype = $desc;
+  function EventStreamProvider(_eventType) {
+    this._eventType = _eventType;
+  }
+  EventStreamProvider.builtin$cls = "EventStreamProvider";
+  if (!"name" in EventStreamProvider)
+    EventStreamProvider.name = "EventStreamProvider";
+  $desc = $collectedClasses.EventStreamProvider;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  EventStreamProvider.prototype = $desc;
+  function _EventStream(_target, _eventType, _useCapture) {
+    this._target = _target;
+    this._eventType = _eventType;
+    this._useCapture = _useCapture;
+  }
+  _EventStream.builtin$cls = "_EventStream";
+  if (!"name" in _EventStream)
+    _EventStream.name = "_EventStream";
+  $desc = $collectedClasses._EventStream;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  _EventStream.prototype = $desc;
+  function _EventStreamSubscription(_pauseCount, _target, _eventType, _onData, _useCapture) {
+    this._pauseCount = _pauseCount;
+    this._target = _target;
+    this._eventType = _eventType;
+    this._onData = _onData;
+    this._useCapture = _useCapture;
+  }
+  _EventStreamSubscription.builtin$cls = "_EventStreamSubscription";
+  if (!"name" in _EventStreamSubscription)
+    _EventStreamSubscription.name = "_EventStreamSubscription";
+  $desc = $collectedClasses._EventStreamSubscription;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  _EventStreamSubscription.prototype = $desc;
   function ImmutableListMixin() {
   }
   ImmutableListMixin.builtin$cls = "ImmutableListMixin";
@@ -12055,15 +13147,6 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   ReceivePort.prototype = $desc;
-  function _Random() {
-  }
-  _Random.builtin$cls = "_Random";
-  if (!"name" in _Random)
-    _Random.name = "_Random";
-  $desc = $collectedClasses._Random;
-  if ($desc instanceof Array)
-    $desc = $desc[1];
-  _Random.prototype = $desc;
   function TypedData_ListMixin() {
   }
   TypedData_ListMixin.builtin$cls = "TypedData_ListMixin";
@@ -12082,8 +13165,238 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   TypedData_ListMixin_FixedLengthListMixin.prototype = $desc;
-  function main_closure(plotArea_0) {
-    this.plotArea_0 = plotArea_0;
+  function TypedData_ListMixin0() {
+  }
+  TypedData_ListMixin0.builtin$cls = "TypedData_ListMixin0";
+  if (!"name" in TypedData_ListMixin0)
+    TypedData_ListMixin0.name = "TypedData_ListMixin0";
+  $desc = $collectedClasses.TypedData_ListMixin0;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin0.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin0() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin0.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin0";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin0)
+    TypedData_ListMixin_FixedLengthListMixin0.name = "TypedData_ListMixin_FixedLengthListMixin0";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin0;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin0.prototype = $desc;
+  function TypedData_ListMixin1() {
+  }
+  TypedData_ListMixin1.builtin$cls = "TypedData_ListMixin1";
+  if (!"name" in TypedData_ListMixin1)
+    TypedData_ListMixin1.name = "TypedData_ListMixin1";
+  $desc = $collectedClasses.TypedData_ListMixin1;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin1.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin1() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin1.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin1";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin1)
+    TypedData_ListMixin_FixedLengthListMixin1.name = "TypedData_ListMixin_FixedLengthListMixin1";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin1;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin1.prototype = $desc;
+  function TypedData_ListMixin2() {
+  }
+  TypedData_ListMixin2.builtin$cls = "TypedData_ListMixin2";
+  if (!"name" in TypedData_ListMixin2)
+    TypedData_ListMixin2.name = "TypedData_ListMixin2";
+  $desc = $collectedClasses.TypedData_ListMixin2;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin2.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin2() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin2.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin2";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin2)
+    TypedData_ListMixin_FixedLengthListMixin2.name = "TypedData_ListMixin_FixedLengthListMixin2";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin2;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin2.prototype = $desc;
+  function TypedData_ListMixin3() {
+  }
+  TypedData_ListMixin3.builtin$cls = "TypedData_ListMixin3";
+  if (!"name" in TypedData_ListMixin3)
+    TypedData_ListMixin3.name = "TypedData_ListMixin3";
+  $desc = $collectedClasses.TypedData_ListMixin3;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin3.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin3() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin3.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin3";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin3)
+    TypedData_ListMixin_FixedLengthListMixin3.name = "TypedData_ListMixin_FixedLengthListMixin3";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin3;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin3.prototype = $desc;
+  function TypedData_ListMixin4() {
+  }
+  TypedData_ListMixin4.builtin$cls = "TypedData_ListMixin4";
+  if (!"name" in TypedData_ListMixin4)
+    TypedData_ListMixin4.name = "TypedData_ListMixin4";
+  $desc = $collectedClasses.TypedData_ListMixin4;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin4.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin4() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin4.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin4";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin4)
+    TypedData_ListMixin_FixedLengthListMixin4.name = "TypedData_ListMixin_FixedLengthListMixin4";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin4;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin4.prototype = $desc;
+  function TypedData_ListMixin5() {
+  }
+  TypedData_ListMixin5.builtin$cls = "TypedData_ListMixin5";
+  if (!"name" in TypedData_ListMixin5)
+    TypedData_ListMixin5.name = "TypedData_ListMixin5";
+  $desc = $collectedClasses.TypedData_ListMixin5;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin5.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin5() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin5.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin5";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin5)
+    TypedData_ListMixin_FixedLengthListMixin5.name = "TypedData_ListMixin_FixedLengthListMixin5";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin5;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin5.prototype = $desc;
+  function TypedData_ListMixin6() {
+  }
+  TypedData_ListMixin6.builtin$cls = "TypedData_ListMixin6";
+  if (!"name" in TypedData_ListMixin6)
+    TypedData_ListMixin6.name = "TypedData_ListMixin6";
+  $desc = $collectedClasses.TypedData_ListMixin6;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin6.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin6() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin6.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin6";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin6)
+    TypedData_ListMixin_FixedLengthListMixin6.name = "TypedData_ListMixin_FixedLengthListMixin6";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin6;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin6.prototype = $desc;
+  function TypedData_ListMixin7() {
+  }
+  TypedData_ListMixin7.builtin$cls = "TypedData_ListMixin7";
+  if (!"name" in TypedData_ListMixin7)
+    TypedData_ListMixin7.name = "TypedData_ListMixin7";
+  $desc = $collectedClasses.TypedData_ListMixin7;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin7.prototype = $desc;
+  function TypedData_ListMixin_FixedLengthListMixin7() {
+  }
+  TypedData_ListMixin_FixedLengthListMixin7.builtin$cls = "TypedData_ListMixin_FixedLengthListMixin7";
+  if (!"name" in TypedData_ListMixin_FixedLengthListMixin7)
+    TypedData_ListMixin_FixedLengthListMixin7.name = "TypedData_ListMixin_FixedLengthListMixin7";
+  $desc = $collectedClasses.TypedData_ListMixin_FixedLengthListMixin7;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  TypedData_ListMixin_FixedLengthListMixin7.prototype = $desc;
+  function Int64List() {
+  }
+  Int64List.builtin$cls = "Int64List";
+  if (!"name" in Int64List)
+    Int64List.name = "Int64List";
+  $desc = $collectedClasses.Int64List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Int64List.prototype = $desc;
+  function Uint64List() {
+  }
+  Uint64List.builtin$cls = "Uint64List";
+  if (!"name" in Uint64List)
+    Uint64List.name = "Uint64List";
+  $desc = $collectedClasses.Uint64List;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Uint64List.prototype = $desc;
+  function closure() {
+  }
+  closure.builtin$cls = "closure";
+  if (!"name" in closure)
+    closure.name = "closure";
+  $desc = $collectedClasses.closure;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  closure.prototype = $desc;
+  function initWebSocket_scheduleReconnect(box_0, retrySeconds_1) {
+    this.box_0 = box_0;
+    this.retrySeconds_1 = retrySeconds_1;
+  }
+  initWebSocket_scheduleReconnect.builtin$cls = "initWebSocket_scheduleReconnect";
+  if (!"name" in initWebSocket_scheduleReconnect)
+    initWebSocket_scheduleReconnect.name = "initWebSocket_scheduleReconnect";
+  $desc = $collectedClasses.initWebSocket_scheduleReconnect;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  initWebSocket_scheduleReconnect.prototype = $desc;
+  function initWebSocket_scheduleReconnect_closure(retrySeconds_2) {
+    this.retrySeconds_2 = retrySeconds_2;
+  }
+  initWebSocket_scheduleReconnect_closure.builtin$cls = "initWebSocket_scheduleReconnect_closure";
+  if (!"name" in initWebSocket_scheduleReconnect_closure)
+    initWebSocket_scheduleReconnect_closure.name = "initWebSocket_scheduleReconnect_closure";
+  $desc = $collectedClasses.initWebSocket_scheduleReconnect_closure;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  initWebSocket_scheduleReconnect_closure.prototype = $desc;
+  function initWebSocket_closure() {
+  }
+  initWebSocket_closure.builtin$cls = "initWebSocket_closure";
+  if (!"name" in initWebSocket_closure)
+    initWebSocket_closure.name = "initWebSocket_closure";
+  $desc = $collectedClasses.initWebSocket_closure;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  initWebSocket_closure.prototype = $desc;
+  function initWebSocket_closure0(retrySeconds_3, scheduleReconnect_4) {
+    this.retrySeconds_3 = retrySeconds_3;
+    this.scheduleReconnect_4 = scheduleReconnect_4;
+  }
+  initWebSocket_closure0.builtin$cls = "initWebSocket_closure0";
+  if (!"name" in initWebSocket_closure0)
+    initWebSocket_closure0.name = "initWebSocket_closure0";
+  $desc = $collectedClasses.initWebSocket_closure0;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  initWebSocket_closure0.prototype = $desc;
+  function initWebSocket_closure1(scheduleReconnect_5) {
+    this.scheduleReconnect_5 = scheduleReconnect_5;
+  }
+  initWebSocket_closure1.builtin$cls = "initWebSocket_closure1";
+  if (!"name" in initWebSocket_closure1)
+    initWebSocket_closure1.name = "initWebSocket_closure1";
+  $desc = $collectedClasses.initWebSocket_closure1;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  initWebSocket_closure1.prototype = $desc;
+  function initWebSocket_closure2() {
+  }
+  initWebSocket_closure2.builtin$cls = "initWebSocket_closure2";
+  if (!"name" in initWebSocket_closure2)
+    initWebSocket_closure2.name = "initWebSocket_closure2";
+  $desc = $collectedClasses.initWebSocket_closure2;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  initWebSocket_closure2.prototype = $desc;
+  function main_closure() {
   }
   main_closure.builtin$cls = "main_closure";
   if (!"name" in main_closure)
@@ -12092,6 +13405,50 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   main_closure.prototype = $desc;
+  function convertNativeToDart_AcceptStructuredClone_findSlot(values_0, copies_1) {
+    this.values_0 = values_0;
+    this.copies_1 = copies_1;
+  }
+  convertNativeToDart_AcceptStructuredClone_findSlot.builtin$cls = "convertNativeToDart_AcceptStructuredClone_findSlot";
+  if (!"name" in convertNativeToDart_AcceptStructuredClone_findSlot)
+    convertNativeToDart_AcceptStructuredClone_findSlot.name = "convertNativeToDart_AcceptStructuredClone_findSlot";
+  $desc = $collectedClasses.convertNativeToDart_AcceptStructuredClone_findSlot;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  convertNativeToDart_AcceptStructuredClone_findSlot.prototype = $desc;
+  function convertNativeToDart_AcceptStructuredClone_readSlot(copies_2) {
+    this.copies_2 = copies_2;
+  }
+  convertNativeToDart_AcceptStructuredClone_readSlot.builtin$cls = "convertNativeToDart_AcceptStructuredClone_readSlot";
+  if (!"name" in convertNativeToDart_AcceptStructuredClone_readSlot)
+    convertNativeToDart_AcceptStructuredClone_readSlot.name = "convertNativeToDart_AcceptStructuredClone_readSlot";
+  $desc = $collectedClasses.convertNativeToDart_AcceptStructuredClone_readSlot;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  convertNativeToDart_AcceptStructuredClone_readSlot.prototype = $desc;
+  function convertNativeToDart_AcceptStructuredClone_writeSlot(copies_3) {
+    this.copies_3 = copies_3;
+  }
+  convertNativeToDart_AcceptStructuredClone_writeSlot.builtin$cls = "convertNativeToDart_AcceptStructuredClone_writeSlot";
+  if (!"name" in convertNativeToDart_AcceptStructuredClone_writeSlot)
+    convertNativeToDart_AcceptStructuredClone_writeSlot.name = "convertNativeToDart_AcceptStructuredClone_writeSlot";
+  $desc = $collectedClasses.convertNativeToDart_AcceptStructuredClone_writeSlot;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  convertNativeToDart_AcceptStructuredClone_writeSlot.prototype = $desc;
+  function convertNativeToDart_AcceptStructuredClone_walk(mustCopy_4, findSlot_5, readSlot_6, writeSlot_7) {
+    this.mustCopy_4 = mustCopy_4;
+    this.findSlot_5 = findSlot_5;
+    this.readSlot_6 = readSlot_6;
+    this.writeSlot_7 = writeSlot_7;
+  }
+  convertNativeToDart_AcceptStructuredClone_walk.builtin$cls = "convertNativeToDart_AcceptStructuredClone_walk";
+  if (!"name" in convertNativeToDart_AcceptStructuredClone_walk)
+    convertNativeToDart_AcceptStructuredClone_walk.name = "convertNativeToDart_AcceptStructuredClone_walk";
+  $desc = $collectedClasses.convertNativeToDart_AcceptStructuredClone_walk;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  convertNativeToDart_AcceptStructuredClone_walk.prototype = $desc;
   function FilteredElementList(_node, _childNodes) {
     this._node = _node;
     this._childNodes = _childNodes;
@@ -12205,6 +13562,15 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Closure$2.prototype = $desc;
+  function Closure$1(call$1, $name) {
+    this.call$1 = call$1;
+    this.$name = $name;
+  }
+  Closure$1.builtin$cls = "Closure$1";
+  $desc = $collectedClasses.Closure$1;
+  if ($desc instanceof Array)
+    $desc = $desc[1];
+  Closure$1.prototype = $desc;
   function Closure$0(call$0, $name) {
     this.call$0 = call$0;
     this.$name = $name;
@@ -12223,15 +13589,6 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Closure$7.prototype = $desc;
-  function Closure$1(call$1, $name) {
-    this.call$1 = call$1;
-    this.$name = $name;
-  }
-  Closure$1.builtin$cls = "Closure$1";
-  $desc = $collectedClasses.Closure$1;
-  if ($desc instanceof Array)
-    $desc = $desc[1];
-  Closure$1.prototype = $desc;
   function Closure$20(call$2, $name) {
     this.call$2 = call$2;
     this.$name = $name;
@@ -12241,5 +13598,5 @@ function dart_precompiled($collectedClasses) {
   if ($desc instanceof Array)
     $desc = $desc[1];
   Closure$20.prototype = $desc;
-  return [HtmlElement, AnchorElement, AnimationEvent, AreaElement, AudioElement, AutocompleteErrorEvent, BRElement, BaseElement, BeforeLoadEvent, BeforeUnloadEvent, BodyElement, ButtonElement, CDataSection, CanvasElement, CanvasGradient, CanvasPattern, CanvasRenderingContext, CanvasRenderingContext2D, CharacterData, CloseEvent, Comment, CompositionEvent, ContentElement, CssFontFaceLoadEvent, CustomEvent, DListElement, DataListElement, DetailsElement, DeviceMotionEvent, DeviceOrientationEvent, DialogElement, DivElement, Document, DocumentFragment, DocumentType, DomError, DomException, Element, EmbedElement, ErrorEvent, Event, EventTarget, FieldSetElement, FileError, FocusEvent, FormElement, HRElement, HashChangeEvent, HeadElement, HeadingElement, HtmlCollection, HtmlDocument, HtmlFormControlsCollection, HtmlHtmlElement, HtmlOptionsCollection, IFrameElement, ImageElement, InputElement, KeyboardEvent, KeygenElement, LIElement, LabelElement, LegendElement, LinkElement, MapElement, MediaElement, MediaError, MediaKeyError, MediaKeyEvent, MediaKeyMessageEvent, MediaKeyNeededEvent, MediaStream, MediaStreamEvent, MediaStreamTrackEvent, MenuElement, MessageEvent, MetaElement, MeterElement, MidiConnectionEvent, MidiMessageEvent, ModElement, MouseEvent, Navigator, NavigatorUserMediaError, Node, NodeList, OListElement, ObjectElement, OptGroupElement, OptionElement, OutputElement, OverflowEvent, PageTransitionEvent, ParagraphElement, ParamElement, PopStateEvent, PositionError, PreElement, ProcessingInstruction, ProgressElement, ProgressEvent, QuoteElement, ResourceProgressEvent, RtcDataChannelEvent, RtcDtmfToneChangeEvent, RtcIceCandidateEvent, ScriptElement, SecurityPolicyViolationEvent, SelectElement, ShadowElement, ShadowRoot, SourceElement, SpanElement, SpeechInputEvent, SpeechRecognitionError, SpeechRecognitionEvent, SpeechSynthesisEvent, StorageEvent, StyleElement, TableCaptionElement, TableCellElement, TableColElement, TableElement, TableRowElement, TableSectionElement, TemplateElement, Text, TextAreaElement, TextEvent, TextMetrics, TitleElement, TouchEvent, TrackElement, TrackEvent, TransitionEvent, UIEvent, UListElement, UnknownElement, VideoElement, WheelEvent, Window, _Attr, _Entity, _HTMLAppletElement, _HTMLBaseFontElement, _HTMLDirectoryElement, _HTMLFontElement, _HTMLFrameElement, _HTMLFrameSetElement, _HTMLMarqueeElement, _MutationEvent, _NamedNodeMap, _Notation, _XMLHttpRequestProgressEvent, VersionChangeEvent, AElement, AltGlyphElement, AnimateElement, AnimateMotionElement, AnimateTransformElement, AnimatedNumberList, AnimationElement, CircleElement, ClipPathElement, DefsElement, DescElement, EllipseElement, FEBlendElement, FEColorMatrixElement, FEComponentTransferElement, FECompositeElement, FEConvolveMatrixElement, FEDiffuseLightingElement, FEDisplacementMapElement, FEDistantLightElement, FEFloodElement, FEFuncAElement, FEFuncBElement, FEFuncGElement, FEFuncRElement, FEGaussianBlurElement, FEImageElement, FEMergeElement, FEMergeNodeElement, FEMorphologyElement, FEOffsetElement, FEPointLightElement, FESpecularLightingElement, FESpotLightElement, FETileElement, FETurbulenceElement, FilterElement, ForeignObjectElement, GElement, GraphicsElement, ImageElement0, LineElement, LinearGradientElement, MarkerElement, MaskElement, MetadataElement, PathElement, PatternElement, PolygonElement, PolylineElement, RadialGradientElement, RectElement, ScriptElement0, SetElement, StopElement, StyleElement0, SvgDocument, SvgElement, SvgSvgElement, SwitchElement, SymbolElement, TSpanElement, TextContentElement, TextElement, TextPathElement, TextPositioningElement, TitleElement0, UseElement, ViewElement, ZoomEvent, _GradientElement, _SVGAltGlyphDefElement, _SVGAltGlyphItemElement, _SVGAnimateColorElement, _SVGComponentTransferFunctionElement, _SVGCursorElement, _SVGFEDropShadowElement, _SVGFontElement, _SVGFontFaceElement, _SVGFontFaceFormatElement, _SVGFontFaceNameElement, _SVGFontFaceSrcElement, _SVGFontFaceUriElement, _SVGGlyphElement, _SVGGlyphRefElement, _SVGHKernElement, _SVGMPathElement, _SVGMissingGlyphElement, _SVGVKernElement, AudioProcessingEvent, OfflineAudioCompletionEvent, ContextEvent, SqlError, TypedData, Uint8List, JS_CONST, Interceptor, JSBool, JSNull, JavaScriptObject, PlainJavaScriptObject, UnknownJavaScriptObject, JSArray, JSMutableArray, JSFixedArray, JSExtendableArray, JSNumber, JSInt, JSDouble, JSString, startRootIsolate_closure, startRootIsolate_closure0, _Manager, _IsolateContext, _EventLoop, _EventLoop__runHelper_next, _IsolateEvent, _MainManagerStub, IsolateNatives__processWorkerMessage_closure, _BaseSendPort, _NativeJsSendPort, _NativeJsSendPort_send_closure, _NativeJsSendPort_send__closure, _WorkerSendPort, _WorkerSendPort_send_closure, ReceivePortImpl, BoundClosure$i0, _waitForPendingPorts_closure, _PendingSendPortFinder, _JsSerializer, _JsCopier, _JsDeserializer, _JsVisitedMap, _MessageTraverserVisitedMap, _MessageTraverser, BoundClosure$1, _Copier, _Copier_visitMap_closure, _Serializer, _Deserializer, TimerImpl, TimerImpl_internalCallback, TimerImpl_internalCallback0, TimerImpl$periodic_closure, TypeErrorDecoder, NullError, JsNoSuchMethodError, UnknownJsTypeError, unwrapException_saveStackTrace, _StackTrace, invokeClosure_closure, invokeClosure_closure0, invokeClosure_closure1, invokeClosure_closure2, invokeClosure_closure3, Closure, BoundClosure, initHooks_closure, initHooks_closure0, initHooks_closure1, ListIterator, MappedIterable, EfficientLengthMappedIterable, MappedIterator, WhereIterable, WhereIterator, FixedLengthListMixin, _AsyncError, Future, Future_wait_handleError, Future_wait_closure, _Completer, _AsyncCompleter, _Future, BoundClosure$2, _Future__addListener_closure, _Future__chainFutures_closure, _Future__chainFutures_closure0, _Future__asyncComplete_closure, _Future__asyncCompleteError_closure, _Future__propagateToListeners_closure, _Future__propagateToListeners_closure0, _Future__propagateToListeners__closure, _Future__propagateToListeners__closure0, Stream, Stream_fold_closure, Stream_fold__closure, Stream_fold__closure0, Stream_fold_closure1, Stream_fold_closure0, Stream_forEach_closure, Stream_forEach__closure, Stream_forEach__closure0, Stream_forEach_closure0, Stream_length_closure, Stream_length_closure0, Stream_isEmpty_closure, Stream_isEmpty_closure0, Stream_first_closure, Stream_first_closure0, StreamSubscription, _StreamController, _StreamController__subscribe_closure, _StreamController__recordCancel_complete, _SyncStreamControllerDispatch, _AsyncStreamControllerDispatch, _AsyncStreamController, _StreamController__AsyncStreamControllerDispatch, _SyncStreamController, _StreamController__SyncStreamControllerDispatch, _ControllerStream, _ControllerSubscription, BoundClosure$0, _EventSink, _BufferingStreamSubscription, _BufferingStreamSubscription__sendDone_sendDone, _StreamImpl, _DelayedEvent, _DelayedData, _DelayedDone, _PendingEvents, _PendingEvents_schedule_closure, _StreamImplEvents, _cancelAndError_closure, _cancelAndErrorClosure_closure, _cancelAndValue_closure, _BaseZone, _BaseZone_bindCallback_closure, _BaseZone_bindCallback_closure0, _BaseZone_bindUnaryCallback_closure, _BaseZone_bindUnaryCallback_closure0, _rootHandleUncaughtError_closure, _rootHandleUncaughtError__closure, _RootZone, _HashMap, _HashMap_values_closure, HashMapKeyIterable, HashMapKeyIterator, _LinkedHashMap, _LinkedHashMap_values_closure, LinkedHashMapCell, LinkedHashMapKeyIterable, LinkedHashMapKeyIterator, _HashSet, _IdentityHashSet, HashSetIterator, _HashSetBase, IterableBase, ListBase, ListMixin, Maps_mapToString_closure, ListQueue, _ListQueueIterator, NoSuchMethodError_toString_closure, Duration, Duration_toString_sixDigits, Duration_toString_twoDigits, Error, NullThrownError, ArgumentError, RangeError, UnsupportedError, UnimplementedError, StateError, ConcurrentModificationError, StackOverflowError, CyclicInitializationError, _ExceptionImplementation, Expando, Function, Iterator, Null, Object, StackTrace, StringBuffer, Symbol, _ChildrenElementList, Interceptor_ListMixin, Interceptor_ListMixin_ImmutableListMixin, _ChildNodeListLazy, Interceptor_ListMixin0, Interceptor_ListMixin_ImmutableListMixin0, Interceptor_ListMixin1, Interceptor_ListMixin_ImmutableListMixin1, _AttributeMap, _ElementAttributeMap, ImmutableListMixin, FixedSizeListIterator, ReceivePort, _Random, TypedData_ListMixin, TypedData_ListMixin_FixedLengthListMixin, main_closure, FilteredElementList, FilteredElementList__filtered_closure, _AxisConfig, _AxisConfigResults, plot_closure, plot_closure0, plot_closure1, Plot2D, Closure$2, Closure$0, Closure$7, Closure$1, Closure$20];
+  return [HtmlElement, AnchorElement, AnimationEvent, AreaElement, AudioElement, AutocompleteErrorEvent, BRElement, BaseElement, BeforeLoadEvent, BeforeUnloadEvent, Blob, BodyElement, ButtonElement, CDataSection, CanvasElement, CanvasGradient, CanvasPattern, CanvasRenderingContext, CanvasRenderingContext2D, CharacterData, CloseEvent, Comment, CompositionEvent, ContentElement, CssFontFaceLoadEvent, CustomEvent, DListElement, DataListElement, DetailsElement, DeviceMotionEvent, DeviceOrientationEvent, DialogElement, DivElement, Document, DocumentFragment, DocumentType, DomError, DomException, Element, EmbedElement, ErrorEvent, Event, EventTarget, FieldSetElement, File, FileError, FocusEvent, FormElement, HRElement, HashChangeEvent, HeadElement, HeadingElement, HtmlCollection, HtmlDocument, HtmlFormControlsCollection, HtmlHtmlElement, HtmlOptionsCollection, IFrameElement, ImageElement, InputElement, KeyboardEvent, KeygenElement, LIElement, LabelElement, LegendElement, LinkElement, MapElement, MediaElement, MediaError, MediaKeyError, MediaKeyEvent, MediaKeyMessageEvent, MediaKeyNeededEvent, MediaStream, MediaStreamEvent, MediaStreamTrackEvent, MenuElement, MessageEvent, MetaElement, MeterElement, MidiConnectionEvent, MidiMessageEvent, ModElement, MouseEvent, Navigator, NavigatorUserMediaError, Node, NodeList, OListElement, ObjectElement, OptGroupElement, OptionElement, OutputElement, OverflowEvent, PageTransitionEvent, ParagraphElement, ParamElement, PopStateEvent, PositionError, PreElement, ProcessingInstruction, ProgressElement, ProgressEvent, QuoteElement, ResourceProgressEvent, RtcDataChannelEvent, RtcDtmfToneChangeEvent, RtcIceCandidateEvent, ScriptElement, SecurityPolicyViolationEvent, SelectElement, ShadowElement, ShadowRoot, SourceElement, SpanElement, SpeechInputEvent, SpeechRecognitionError, SpeechRecognitionEvent, SpeechSynthesisEvent, StorageEvent, StyleElement, TableCaptionElement, TableCellElement, TableColElement, TableElement, TableRowElement, TableSectionElement, TemplateElement, Text, TextAreaElement, TextEvent, TextMetrics, TitleElement, TouchEvent, TrackElement, TrackEvent, TransitionEvent, UIEvent, UListElement, UnknownElement, VideoElement, WebSocket, WheelEvent, Window, _Attr, _Entity, _HTMLAppletElement, _HTMLBaseFontElement, _HTMLDirectoryElement, _HTMLFontElement, _HTMLFrameElement, _HTMLFrameSetElement, _HTMLMarqueeElement, _MutationEvent, _NamedNodeMap, _Notation, _XMLHttpRequestProgressEvent, VersionChangeEvent, AElement, AltGlyphElement, AnimateElement, AnimateMotionElement, AnimateTransformElement, AnimatedNumberList, AnimationElement, CircleElement, ClipPathElement, DefsElement, DescElement, EllipseElement, FEBlendElement, FEColorMatrixElement, FEComponentTransferElement, FECompositeElement, FEConvolveMatrixElement, FEDiffuseLightingElement, FEDisplacementMapElement, FEDistantLightElement, FEFloodElement, FEFuncAElement, FEFuncBElement, FEFuncGElement, FEFuncRElement, FEGaussianBlurElement, FEImageElement, FEMergeElement, FEMergeNodeElement, FEMorphologyElement, FEOffsetElement, FEPointLightElement, FESpecularLightingElement, FESpotLightElement, FETileElement, FETurbulenceElement, FilterElement, ForeignObjectElement, GElement, GraphicsElement, ImageElement0, LineElement, LinearGradientElement, MarkerElement, MaskElement, MetadataElement, PathElement, PatternElement, PolygonElement, PolylineElement, RadialGradientElement, RectElement, ScriptElement0, SetElement, StopElement, StyleElement0, SvgDocument, SvgElement, SvgSvgElement, SwitchElement, SymbolElement, TSpanElement, TextContentElement, TextElement, TextPathElement, TextPositioningElement, TitleElement0, UseElement, ViewElement, ZoomEvent, _GradientElement, _SVGAltGlyphDefElement, _SVGAltGlyphItemElement, _SVGAnimateColorElement, _SVGComponentTransferFunctionElement, _SVGCursorElement, _SVGFEDropShadowElement, _SVGFontElement, _SVGFontFaceElement, _SVGFontFaceFormatElement, _SVGFontFaceNameElement, _SVGFontFaceSrcElement, _SVGFontFaceUriElement, _SVGGlyphElement, _SVGGlyphRefElement, _SVGHKernElement, _SVGMPathElement, _SVGMissingGlyphElement, _SVGVKernElement, AudioProcessingEvent, OfflineAudioCompletionEvent, ContextEvent, SqlError, ByteBuffer, TypedData, ByteData, Float32List, Float64List, Int16List, Int32List, Int8List, Uint16List, Uint32List, Uint8ClampedList, Uint8List, JS_CONST, Interceptor, JSBool, JSNull, JavaScriptObject, PlainJavaScriptObject, UnknownJavaScriptObject, JSArray, JSMutableArray, JSFixedArray, JSExtendableArray, JSNumber, JSInt, JSDouble, JSString, startRootIsolate_closure, startRootIsolate_closure0, _Manager, _IsolateContext, _EventLoop, _EventLoop__runHelper_next, _IsolateEvent, _MainManagerStub, IsolateNatives__processWorkerMessage_closure, _BaseSendPort, _NativeJsSendPort, _NativeJsSendPort_send_closure, _NativeJsSendPort_send__closure, _WorkerSendPort, _WorkerSendPort_send_closure, ReceivePortImpl, BoundClosure$i0, _waitForPendingPorts_closure, _PendingSendPortFinder, _JsSerializer, _JsCopier, _JsDeserializer, _JsVisitedMap, _MessageTraverserVisitedMap, _MessageTraverser, BoundClosure$1, _Copier, _Copier_visitMap_closure, _Serializer, _Deserializer, TimerImpl, TimerImpl_internalCallback, TimerImpl_internalCallback0, TypeErrorDecoder, NullError, JsNoSuchMethodError, UnknownJsTypeError, unwrapException_saveStackTrace, _StackTrace, invokeClosure_closure, invokeClosure_closure0, invokeClosure_closure1, invokeClosure_closure2, invokeClosure_closure3, Closure, BoundClosure, TypeImpl, initHooks_closure, initHooks_closure0, initHooks_closure1, ListIterator, MappedIterable, EfficientLengthMappedIterable, MappedIterator, WhereIterable, WhereIterator, FixedLengthListMixin, _AsyncError, Future, Future_wait_handleError, Future_wait_closure, _Completer, _AsyncCompleter, _Future, BoundClosure$2, _Future__addListener_closure, _Future__chainFutures_closure, _Future__chainFutures_closure0, _Future__asyncComplete_closure, _Future__asyncCompleteError_closure, _Future__propagateToListeners_closure, _Future__propagateToListeners_closure0, _Future__propagateToListeners__closure, _Future__propagateToListeners__closure0, Stream, Stream_fold_closure, Stream_fold__closure, Stream_fold__closure0, Stream_fold_closure1, Stream_fold_closure0, Stream_forEach_closure, Stream_forEach__closure, Stream_forEach__closure0, Stream_forEach_closure0, Stream_length_closure, Stream_length_closure0, Stream_isEmpty_closure, Stream_isEmpty_closure0, Stream_first_closure, Stream_first_closure0, StreamSubscription, _StreamController, _StreamController__subscribe_closure, _StreamController__recordCancel_complete, _SyncStreamControllerDispatch, _AsyncStreamControllerDispatch, _AsyncStreamController, _StreamController__AsyncStreamControllerDispatch, _SyncStreamController, _StreamController__SyncStreamControllerDispatch, _ControllerStream, _ControllerSubscription, BoundClosure$0, _EventSink, _BufferingStreamSubscription, _BufferingStreamSubscription__sendDone_sendDone, _StreamImpl, _DelayedEvent, _DelayedData, _DelayedDone, _PendingEvents, _PendingEvents_schedule_closure, _StreamImplEvents, _cancelAndError_closure, _cancelAndErrorClosure_closure, _cancelAndValue_closure, _BaseZone, _BaseZone_bindCallback_closure, _BaseZone_bindCallback_closure0, _BaseZone_bindUnaryCallback_closure, _BaseZone_bindUnaryCallback_closure0, _rootHandleUncaughtError_closure, _rootHandleUncaughtError__closure, _RootZone, _HashMap, _HashMap_values_closure, HashMapKeyIterable, HashMapKeyIterator, _LinkedHashMap, _LinkedHashMap_values_closure, LinkedHashMapCell, LinkedHashMapKeyIterable, LinkedHashMapKeyIterator, _HashSet, _IdentityHashSet, HashSetIterator, _HashSetBase, IterableBase, ListBase, ListMixin, Maps_mapToString_closure, ListQueue, _ListQueueIterator, NoSuchMethodError_toString_closure, DateTime, DateTime_toString_fourDigits, DateTime_toString_threeDigits, DateTime_toString_twoDigits, Duration, Duration_toString_sixDigits, Duration_toString_twoDigits, Error, NullThrownError, ArgumentError, RangeError, UnsupportedError, UnimplementedError, StateError, ConcurrentModificationError, StackOverflowError, CyclicInitializationError, _ExceptionImplementation, FormatException, Expando, Function, _GeneratorIterable, _GeneratorIterator, Iterator, Null, Object, StackTrace, StringBuffer, Symbol, _ChildrenElementList, Interceptor_ListMixin, Interceptor_ListMixin_ImmutableListMixin, _ChildNodeListLazy, Interceptor_ListMixin0, Interceptor_ListMixin_ImmutableListMixin0, Interceptor_ListMixin1, Interceptor_ListMixin_ImmutableListMixin1, _AttributeMap, _ElementAttributeMap, EventStreamProvider, _EventStream, _EventStreamSubscription, ImmutableListMixin, FixedSizeListIterator, ReceivePort, TypedData_ListMixin, TypedData_ListMixin_FixedLengthListMixin, TypedData_ListMixin0, TypedData_ListMixin_FixedLengthListMixin0, TypedData_ListMixin1, TypedData_ListMixin_FixedLengthListMixin1, TypedData_ListMixin2, TypedData_ListMixin_FixedLengthListMixin2, TypedData_ListMixin3, TypedData_ListMixin_FixedLengthListMixin3, TypedData_ListMixin4, TypedData_ListMixin_FixedLengthListMixin4, TypedData_ListMixin5, TypedData_ListMixin_FixedLengthListMixin5, TypedData_ListMixin6, TypedData_ListMixin_FixedLengthListMixin6, TypedData_ListMixin7, TypedData_ListMixin_FixedLengthListMixin7, Int64List, Uint64List, closure, initWebSocket_scheduleReconnect, initWebSocket_scheduleReconnect_closure, initWebSocket_closure, initWebSocket_closure0, initWebSocket_closure1, initWebSocket_closure2, main_closure, convertNativeToDart_AcceptStructuredClone_findSlot, convertNativeToDart_AcceptStructuredClone_readSlot, convertNativeToDart_AcceptStructuredClone_writeSlot, convertNativeToDart_AcceptStructuredClone_walk, FilteredElementList, FilteredElementList__filtered_closure, _AxisConfig, _AxisConfigResults, plot_closure, plot_closure0, plot_closure1, Plot2D, Closure$2, Closure$1, Closure$0, Closure$7, Closure$20];
 }
