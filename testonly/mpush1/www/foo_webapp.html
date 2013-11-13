@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Foo webapp</title>
+    <link rel="stylesheet" href="foo_webapp.css">
+  </head>
+  <body>
+    <h1>Raspberry Pi Camera Board / Websocket </h1>
+    <div class="block">
+    <h3>RGB array/Json/Canvas</h3>
+     <h3>100x100 to 200x200</h3>
+      <canvas id="canvas" width="200" height="200"></canvas>
+    </div>
+      <div class="block">
+    <h3>RGB Diff array/Json/Canvas</h3>
+     <h3>100x100 to 200x200</h3>
+      <canvas id="canvasM" width="200" height="200"></canvas>
+    </div>
+    <BR/>
+     <div class="block">
+      <h3>Diff/Json/Canvas</h3>
+    <canvas id="canvasQ" width="400" height="100"></canvas>
+    </div>
+    <BR/>
+    <div class="block">
+      <h3>Jpeg/Binary/image.src</h3>
+      <h3>100x100</h3>
+    <img id="myimg" src=""/>
+    </div>
+     <div class="block">
+    <h3>RGB array/Binary/Canvas</h3>
+     <h3>100x100</h3>
+      <canvas id="canvas4" width="100" height="100"></canvas>
+    </div>
+    <BR/>
+   <textarea rows="10" cols="40" id="output"></textarea>
+    <script type="application/dart" src="foo_webapp.dart"></script>
+    <script src="dart.js"></script>
+  </body>
+</html>
