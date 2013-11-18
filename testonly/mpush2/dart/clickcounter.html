@@ -1,0 +1,45 @@
+<polymer-element name="click-counter" attributes="count">
+  <template>
+    <style>
+      div {
+        font-size: 14pt;
+        text-align: center;
+        margin-top: 10px;
+      }
+      button {
+        font-size: 14pt;
+        margin-bottom: 10px;
+      }
+      .xx{
+         display: inline-block;
+         width:80px;
+      }
+    </style>
+    <div>
+      <p>Websocket(Bin) Jpeg to img.src</p>
+      <img id="myimg" src=""/><br/>
+      <span>JpgEncode Size Diff StdDev = {{stdDev}}</span>
+     <BR/>
+     <p>
+     JpgEncode Size Diff StdDev(3x3 matrix)</p>
+      <p>
+      <span class="xx">{{std1}}</span>
+      <span class="xx">{{std2}}</span>
+      <span class="xx">{{std3}}</span>
+        <BR/>
+       <span class="xx">{{std4}}</span>
+      <span class="xx">{{std5}}</span>
+      <span class="xx">{{std6}}</span>
+        <BR/>
+        <span class="xx">{{std7}}</span>
+      <span class="xx">{{std8}}</span>
+      <span class="xx">{{std9}}</span>
+        <BR/>
+   </p>
+     <p>
+   <textarea rows="10" cols="40" id="output"></textarea></p>
+    </div>
+  </template>
+  <script type="application/dart" src="clickcounter.dart"></script>
+</polymer-element>
+
