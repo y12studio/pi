@@ -168,7 +168,7 @@ $$.Closure$3 = [P, {"": "Closure;call$3$onError$radix,$name",
   $is_args1: true
 }];
 
-init.mangledNames = {get$$$: "$", get$_cachedConstructors: "_cachedConstructors", get$_cachedDeclarations: "_cachedDeclarations", get$_cachedFields: "_cachedFields", get$_cachedGetters: "_cachedGetters", get$_cachedMembers: "_cachedMembers", get$_cachedMetadata: "_cachedMetadata", get$_cachedMethods: "_cachedMethods", get$_cachedMethodsMap: "_cachedMethodsMap", get$_cachedSetters: "_cachedSetters", get$_cachedSuperinterfaces: "_cachedSuperinterfaces", get$_cachedTypeVariables: "_cachedTypeVariables", get$_cachedVariables: "_cachedVariables", get$_clickcounter$__$std1: "__$std1", get$_clickcounter$__$std2: "__$std2", get$_clickcounter$__$std3: "__$std3", get$_clickcounter$__$std4: "__$std4", get$_clickcounter$__$std5: "__$std5", get$_clickcounter$__$std6: "__$std6", get$_clickcounter$__$std7: "__$std7", get$_clickcounter$__$std8: "__$std8", get$_clickcounter$__$std9: "__$std9", get$_clickcounter$__$stdDev: "__$stdDev", get$_fieldsDescriptor: "_fieldsDescriptor", get$_fieldsMetadata: "_fieldsMetadata", get$_jsConstructorCache: "_jsConstructorCache", get$_jsConstructorOrInterceptor: "_jsConstructorOrInterceptor", get$_mangledName: "_mangledName", get$_metadata: "_metadata", get$_owner: "_owner", get$_superclass: "_superclass", get$box_0: "box_0", get$cmdId: "cmdId", get$hash: "hash", get$index: "index", get$length: "length", get$myimg: "myimg", get$output: "output", get$owner_0: "owner_0", get$result_0: "result_0", get$result_1: "result_1", get$retrySeconds_2: "retrySeconds_2", get$retrySeconds_4: "retrySeconds_4", get$retrySeconds_8: "retrySeconds_8", get$scheduleReconnect_11: "scheduleReconnect_11", get$scheduleReconnect_9: "scheduleReconnect_9", get$std1: "std1", get$std2: "std2", get$std3: "std3", get$std4: "std4", get$std5: "std5", get$std6: "std6", get$std7: "std7", get$std8: "std8", get$std9: "std9", get$stdDev: "stdDev", get$this_0: "this_0", get$this_1: "this_1", get$this_10: "this_10", get$this_12: "this_12", get$this_3: "this_3", get$this_5: "this_5", get$this_7: "this_7", get$value: "value", get$wcount: "wcount", get$ws_6: "ws_6"};
+init.mangledNames = {get$$$: "$", get$_cachedConstructors: "_cachedConstructors", get$_cachedDeclarations: "_cachedDeclarations", get$_cachedFields: "_cachedFields", get$_cachedGetters: "_cachedGetters", get$_cachedMembers: "_cachedMembers", get$_cachedMetadata: "_cachedMetadata", get$_cachedMethods: "_cachedMethods", get$_cachedMethodsMap: "_cachedMethodsMap", get$_cachedSetters: "_cachedSetters", get$_cachedSuperinterfaces: "_cachedSuperinterfaces", get$_cachedTypeVariables: "_cachedTypeVariables", get$_cachedVariables: "_cachedVariables", get$_clickcounter$__$std1: "__$std1", get$_clickcounter$__$std2: "__$std2", get$_clickcounter$__$std3: "__$std3", get$_clickcounter$__$std4: "__$std4", get$_clickcounter$__$std5: "__$std5", get$_clickcounter$__$std6: "__$std6", get$_clickcounter$__$std7: "__$std7", get$_clickcounter$__$std8: "__$std8", get$_clickcounter$__$std9: "__$std9", get$_clickcounter$__$stdDev: "__$stdDev", get$_fieldsDescriptor: "_fieldsDescriptor", get$_fieldsMetadata: "_fieldsMetadata", get$_jsConstructorCache: "_jsConstructorCache", get$_jsConstructorOrInterceptor: "_jsConstructorOrInterceptor", get$_mangledName: "_mangledName", get$_metadata: "_metadata", get$_owner: "_owner", get$_superclass: "_superclass", get$box_0: "box_0", get$cmdId: "cmdId", get$hash: "hash", get$index: "index", get$length: "length", get$myimg: "myimg", get$output: "output", get$owner_0: "owner_0", get$result_0: "result_0", get$result_1: "result_1", get$scheduleReconnect_6: "scheduleReconnect_6", get$scheduleReconnect_8: "scheduleReconnect_8", get$std1: "std1", get$std2: "std2", get$std3: "std3", get$std4: "std4", get$std5: "std5", get$std6: "std6", get$std7: "std7", get$std8: "std8", get$std9: "std9", get$stdDev: "stdDev", get$this_0: "this_0", get$this_1: "this_1", get$this_2: "this_2", get$this_3: "this_3", get$this_5: "this_5", get$this_7: "this_7", get$this_9: "this_9", get$value: "value", get$wcount: "wcount", get$ws_4: "ws_4"};
 (function (reflectionData) {
   function map(x){x={x:x};delete x.x;return x}
   if (!init.libraries) init.libraries = [];
@@ -3923,28 +3923,29 @@ ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_cl
   },
   "+outputMsg:1:0": 1,
   initWebSocket$1: function(receiver, retrySeconds) {
-    var t1, ws, t2, t3;
+    var t1, ws, t2, t3, t4;
     t1 = {};
-    t1.reconnectScheduled_0 = false;
+    t1.retrySeconds_0 = retrySeconds;
+    t1.reconnectScheduled_1 = false;
     this.outputMsg$1(receiver, "Connecting to websocket ws://192.168.2.42:8888/ws");
     ws = W.WebSocket_WebSocket("ws://192.168.2.42:8888/ws", null);
-    t1 = new A.ClickCounter_initWebSocket_scheduleReconnect(t1, receiver, retrySeconds);
-    t2 = C.EventStreamProvider_open.forTarget$1(ws);
-    t3 = new W._EventStreamSubscription(0, t2._target, t2._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure(receiver, ws)), t2._useCapture);
-    H.setRuntimeTypeInfo(t3, [H.getRuntimeTypeArgument(t2, "_EventStream", 0)]);
+    t2 = new A.ClickCounter_initWebSocket_scheduleReconnect(t1, receiver);
+    t3 = C.EventStreamProvider_open.forTarget$1(ws);
+    t4 = new W._EventStreamSubscription(0, t3._target, t3._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure(receiver, ws)), t3._useCapture);
+    H.setRuntimeTypeInfo(t4, [H.getRuntimeTypeArgument(t3, "_EventStream", 0)]);
+    t4._tryResume$0();
+    t4 = C.EventStreamProvider_close.forTarget$1(ws);
+    t3 = new W._EventStreamSubscription(0, t4._target, t4._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure0(t1, receiver, t2)), t4._useCapture);
+    H.setRuntimeTypeInfo(t3, [H.getRuntimeTypeArgument(t4, "_EventStream", 0)]);
     t3._tryResume$0();
-    t3 = C.EventStreamProvider_close.forTarget$1(ws);
-    t2 = new W._EventStreamSubscription(0, t3._target, t3._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure0(receiver, retrySeconds, t1)), t3._useCapture);
+    t3 = C.EventStreamProvider_error.forTarget$1(ws);
+    t2 = new W._EventStreamSubscription(0, t3._target, t3._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure1(receiver, t2)), t3._useCapture);
     H.setRuntimeTypeInfo(t2, [H.getRuntimeTypeArgument(t3, "_EventStream", 0)]);
     t2._tryResume$0();
-    t2 = C.EventStreamProvider_error.forTarget$1(ws);
-    t1 = new W._EventStreamSubscription(0, t2._target, t2._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure1(receiver, t1)), t2._useCapture);
+    t2 = C.EventStreamProvider_message.forTarget$1(ws);
+    t1 = new W._EventStreamSubscription(0, t2._target, t2._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure2(t1, receiver)), t2._useCapture);
     H.setRuntimeTypeInfo(t1, [H.getRuntimeTypeArgument(t2, "_EventStream", 0)]);
     t1._tryResume$0();
-    t1 = C.EventStreamProvider_message.forTarget$1(ws);
-    t2 = new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure2(receiver)), t1._useCapture);
-    H.setRuntimeTypeInfo(t2, [H.getRuntimeTypeArgument(t1, "_EventStream", 0)]);
-    t2._tryResume$0();
     "17,19,12";
   },
   "+initWebSocket:1:0": 1,
@@ -4049,17 +4050,17 @@ ClickCounter$created: function(receiver) {
 
 PolymerElement_ChangeNotifier: {"": "PolymerElement+ChangeNotifier;", $isObservable: true},
 
-ClickCounter_initWebSocket_scheduleReconnect: {"": "Closure;box_0-,this_1-,retrySeconds_2-",
+ClickCounter_initWebSocket_scheduleReconnect: {"": "Closure;box_0-,this_1-",
   call$0: function() {
     var t1, t2;
     t1 = this.box_0;
-    if (t1.reconnectScheduled_0 !== true) {
-      t2 = this.retrySeconds_2;
+    if (t1.reconnectScheduled_1 !== true) {
+      t2 = t1.retrySeconds_0;
       if (typeof t2 !== "number")
         throw H.iae(t2);
-      P.Timer_Timer(P.Duration$(0, 0, 0, 1000 * t2, 0, 0), new A.ClickCounter_initWebSocket_scheduleReconnect_closure(this.this_1, t2));
+      P.Timer_Timer(P.Duration$(0, 0, 0, 1000 * t2, 0, 0), new A.ClickCounter_initWebSocket_scheduleReconnect_closure(t1, this.this_1));
     }
-    t1.reconnectScheduled_0 = true;
+    t1.reconnectScheduled_1 = true;
     "17";
   },
   "+call:0:0": 1,
@@ -4069,9 +4070,9 @@ ClickCounter_initWebSocket_scheduleReconnect: {"": "Closure;box_0-,this_1-,retry
 
 "+ClickCounter_initWebSocket_scheduleReconnect": [25],
 
-ClickCounter_initWebSocket_scheduleReconnect_closure: {"": "Closure;this_3-,retrySeconds_4-",
+ClickCounter_initWebSocket_scheduleReconnect_closure: {"": "Closure;box_0-,this_2-",
   call$0: function() {
-    return J.initWebSocket$1$x(this.this_3, J.$mul$n(this.retrySeconds_4, 2));
+    return J.initWebSocket$1$x(this.this_2, J.$mul$n(this.box_0.retrySeconds_0, 2));
     "17";
   },
   "+call:0:0": 1,
@@ -4081,10 +4082,10 @@ ClickCounter_initWebSocket_scheduleReconnect_closure: {"": "Closure;this_3-,retr
 
 "+ClickCounter_initWebSocket_scheduleReconnect_closure": [25],
 
-ClickCounter_initWebSocket_closure: {"": "Closure;this_5-,ws_6-",
+ClickCounter_initWebSocket_closure: {"": "Closure;this_3-,ws_4-",
   call$1: function(e) {
-    J.outputMsg$1$x(this.this_5, "Connected");
-    J.send$1$x(this.ws_6, "Hello from Dart!");
+    J.outputMsg$1$x(this.this_3, "Connected");
+    J.send$1$x(this.ws_4, "Hello from Dart!");
     "17,26,17";
   },
   "+call:1:0": 1,
@@ -4095,10 +4096,10 @@ ClickCounter_initWebSocket_closure: {"": "Closure;this_5-,ws_6-",
 
 "+ClickCounter_initWebSocket_closure": [25],
 
-ClickCounter_initWebSocket_closure0: {"": "Closure;this_7-,retrySeconds_8-,scheduleReconnect_9-",
+ClickCounter_initWebSocket_closure0: {"": "Closure;box_0-,this_5-,scheduleReconnect_6-",
   call$1: function(e) {
-    J.outputMsg$1$x(this.this_7, "Websocket closed, retrying in " + H.S(this.retrySeconds_8) + " seconds");
-    this.scheduleReconnect_9.call$0();
+    J.outputMsg$1$x(this.this_5, "Websocket closed, retrying in " + H.S(this.box_0.retrySeconds_0) + " seconds");
+    this.scheduleReconnect_6.call$0();
     "17,26,17";
   },
   "+call:1:0": 1,
@@ -4109,10 +4110,10 @@ ClickCounter_initWebSocket_closure0: {"": "Closure;this_7-,retrySeconds_8-,sched
 
 "+ClickCounter_initWebSocket_closure": [25],
 
-ClickCounter_initWebSocket_closure1: {"": "Closure;this_10-,scheduleReconnect_11-",
+ClickCounter_initWebSocket_closure1: {"": "Closure;this_7-,scheduleReconnect_8-",
   call$1: function(e) {
-    J.outputMsg$1$x(this.this_10, "Error connecting to ws");
-    this.scheduleReconnect_11.call$0();
+    J.outputMsg$1$x(this.this_7, "Error connecting to ws");
+    this.scheduleReconnect_8.call$0();
     "17,26,17";
   },
   "+call:1:0": 1,
@@ -4123,21 +4124,22 @@ ClickCounter_initWebSocket_closure1: {"": "Closure;this_10-,scheduleReconnect_11
 
 "+ClickCounter_initWebSocket_closure": [25],
 
-ClickCounter_initWebSocket_closure2: {"": "Closure;this_12-",
+ClickCounter_initWebSocket_closure2: {"": "Closure;box_0-,this_9-",
   call$1: function(e) {
     var t1, t2, rlist, t3;
+    this.box_0.retrySeconds_0 = 2;
     t1 = J.getInterceptor$x(e);
     t2 = t1.get$data(e);
     if (typeof t2 === "string") {
       rlist = C.C_JsonCodec.decode$1(t1.get$data(e));
-      t1 = this.this_12;
+      t1 = this.this_9;
       t2 = J.getInterceptor$asx(rlist);
       t3 = J.getInterceptor$x(t1);
       t3.set$cmdId(t1, t2.$index(rlist, 0));
       if (J.$ge$n(t2.get$length(rlist), 2))
         t3.handleJsonResp$1(t1, rlist);
     } else {
-      t2 = this.this_12;
+      t2 = this.this_9;
       t3 = J.getInterceptor$x(t2);
       if (J.$eq(t3.get$cmdId(t2), 1))
         t3.loadBlobJpegReadUrl$1(t2, t1.get$data(e));

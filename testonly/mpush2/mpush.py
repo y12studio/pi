@@ -1,4 +1,18 @@
 # coding=utf-8
+#
+# Copyright 2013 Y12Studio
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 '''
 python 2.7
 pi@raspberrypi ~ $ echo $LANG
@@ -18,6 +32,8 @@ $ sudo pip install pillow
 http://host:8888/
 '''
 import m_settings, m_pushover, m_tornado
+import  m_dys388icon as ledicon
+import  m_dys388dbp as led
 import picamera
 import logging, threading, io, struct
 import datetime, time
@@ -31,7 +47,8 @@ lastEvtTime = 0
 width, height = 320, 240
 stream = io.BytesIO()
 temps = io.BytesIO()
-stdQueue = collections.deque(maxlen=10)
+queueLimit = 9
+stdQueue = collections.deque(maxlen=queueLimit)
 arrStdQueue = []
 lastSize = 0
 lastArrSize = []
@@ -57,26 +74,12 @@ def initLog():
     logging.getLogger('').addHandler(console)
     logging.info('Started')
 
-def isMotion4(kl):
-    return len(kl) == 4 and kl[1] - kl[0] > 777 and kl[2] > 1000 and kl[3] > 1000
-
 def handleMotion(k, q):
     if isMotion4(k):
         ediff = time.time() - lastEvtTime
         logging.debug("EvtTimeDiff=%d" % ediff)
         if ediff > 300:
             found(q)
-
-def main():
-    initLog()
-    for i in range(9):
-        arrStdQueue.append(collections.deque(maxlen=10))
-    t = threading.Thread(target=m_tornado.startTornado).start()
-    try:
-       runDiffCheck()
-    except (KeyboardInterrupt, SystemExit):
-       m_tornado.stopTornado()
-       raise
 
 def testBinaryWrite():
     return bytes(bytearray([0x13, 0x00, 0x00, 0x00, 0x08, 0x00]))
@@ -93,7 +96,7 @@ def getPilJpgSize(im):
     temps.seek(0)
     return size
 
-def testWritePilCrop(st, dim):
+def pilCrop3x3(st, dim):
     global lastArrSize
     st.seek(0)
     base = Image.open(st)
@@ -125,6 +128,7 @@ def testWritePilCrop(st, dim):
     m_tornado.WSHandler.wsSend('[1]')
     m_tornado.WSHandler.wsSend(st.getvalue(), binary=True)
     lastArrSize = sarr
+    return result
         
 def testWritePilWithThumbnailOver(st):
     st.seek(0)
@@ -144,7 +148,23 @@ def testWritePil(st):
     base.save(st, 'JPEG')
     m_tornado.WSHandler.wsSend('[1]')
     m_tornado.WSHandler.wsSend(st.getvalue(), binary=True)
-                
+
+lastWriteLed = -1
+    
+def handleLedColor(sizeTotalStd,std3x3):
+    global lastWriteLed
+    #print sizeTotalStd
+    #print std3x3
+    if sizeTotalStd > 199 :
+        index3x3 = np.argmax(std3x3)
+        if index3x3 != lastWriteLed:
+            led.write(led.colorB, ledicon.arrow3x3[index3x3])
+        lastWriteLed = index3x3
+    else:
+        if lastWriteLed != 99:
+            led.write(led.colorG, ledicon.arrowNone)
+        lastWriteLed = 99
+                        
 def runDiffCheck():
     global lastSize
     with picamera.PiCamera() as camera:
@@ -154,6 +174,7 @@ def runDiffCheck():
          time.sleep(2)
          start = time.time()
          count = 0
+         led.init()
          # Use the video-port for captures...
          for foo in camera.capture_continuous(stream, 'jpeg',
                                              use_video_port=True):
@@ -163,13 +184,26 @@ def runDiffCheck():
                  # print stdQueue
                  stddev = int(np.std(stdQueue))
                  m_tornado.WSHandler.wsSend('[2,%d]' % stddev)
+                 std3x3 = pilCrop3x3(stream, 3)
+                 handleLedColor(stddev,std3x3)
+                 
              lastSize = size
-             testWritePilCrop(stream, 3)
              #testWritePil(stream)
              # testWriteBinJpeg(stream)
              count += 1
              stream.seek(0)
              #print('Size: %d /Captured %d images at %.2ffps' % (size, count, count / (time.time() - start)))
+
+def main():
+    initLog()
+    for i in range(9):
+        arrStdQueue.append(collections.deque(maxlen=queueLimit))
+    t = threading.Thread(target=m_tornado.startTornado).start()
+    try:
+       runDiffCheck()
+    except (KeyboardInterrupt, SystemExit):
+       m_tornado.stopTornado()
+       raise
 
 if __name__ == '__main__':
     main()
