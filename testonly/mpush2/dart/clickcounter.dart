@@ -1,3 +1,18 @@
+/**
+# Copyright 2013 Y12Studio
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+*/
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'dart:async';
@@ -22,12 +37,18 @@ class ClickCounter extends PolymerElement {
   int wcount = 0;
   var output;
   ImageElement myimg;
+  CanvasElement canvasA;
+  CanvasRenderingContext2D contextA;
   var cmdId = 1;
+  ImageElement canvasImg;
   
   ClickCounter.created() : super.created() {    
-    myimg = shadowRoot.querySelector("#myimg");
+    //myimg = shadowRoot.querySelector("#myimg");
+    //myimg.src = 'https://www.google.com/images/srpr/logo11w.png';
+    canvasImg = new ImageElement();
     output = shadowRoot.querySelector('#output');
-    myimg.src = 'https://www.google.com/images/srpr/logo11w.png';
+    canvasA = shadowRoot.querySelector("#canvasA");
+    contextA = canvasA.getContext('2d');
     initWebSocket();
   }
   
@@ -44,15 +65,20 @@ class ClickCounter extends PolymerElement {
   
   
   void initWebSocket([int retrySeconds = 2]) {
+    
     var reconnectScheduled = false;
-    
-    String host = "192.168.2.42";
-    String port = "8888";
 
-    //String host = window.location.hostname;
-    // String port = window.location.port;
+    String wsHost = window.location.hostname;
+    String wsPort = window.location.port;
     
-    String uri = 'ws://${host}:${port}/ws';
+    // dart dev port
+    if(wsPort=="3030"){
+      wsHost = "192.168.2.42";
+      wsPort = "8888";
+    }
+
+    
+    String uri = 'ws://${wsHost}:${wsPort}/ws';
     outputMsg("Connecting to websocket $uri");
     WebSocket ws = new WebSocket(uri);
 
@@ -80,6 +106,8 @@ class ClickCounter extends PolymerElement {
     
 
     ws.onMessage.listen((MessageEvent e) {
+      
+      retrySeconds = 2;
       //outputMsg('msg ${count} : is String ? = ${e.data is String}');
       if(e.data is String){
         //outputMsg('msg ${count} : json = ${e.data}');
@@ -98,7 +126,29 @@ class ClickCounter extends PolymerElement {
   });
 }
   
+  drawStd(){
+    // block https://code.google.com/p/dart/issues/detail?id=14565
+    // fillRect black not work.
+    //contextA.fillStyle = '#000000';
+    //contextA.fillRect(5,220,100,12);
+    
+    //contextA.font="14px Arial";
+    contextA.fillStyle = '#FFFF00';
+    contextA.fillText("StdDev=${stdDev}",10,230);
+  }
+  
   loadBlobJpegReadUrl(b){
+    FileReader fileReader = new FileReader();
+    fileReader.onLoadEnd.listen((evt) {
+      canvasImg.src = evt.target.result;
+      contextA.drawImage(canvasImg, 0, 0);
+      drawStd();
+      wcount++;
+    }); 
+    fileReader.readAsDataUrl(b);
+  }
+  
+  loadBlobJpegReadUrlOnlyImgSrc(b){
     FileReader fileReader = new FileReader();
     fileReader.onLoadEnd.listen((evt) {
       myimg.src = evt.target.result;
@@ -113,6 +163,7 @@ class ClickCounter extends PolymerElement {
         // print std dev
         stdDev = rlist[1];
         outputMsg('msg ${wcount} : stddev = $stdDev');
+        drawStd();
         break;
       case 3:
         List r = rlist[1];

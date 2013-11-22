@@ -168,7 +168,7 @@ $$.Closure$3 = [P, {"": "Closure;call$3$onError$radix,$name",
   $is_args1: true
 }];
 
-init.mangledNames = {get$$$: "$", get$_cachedConstructors: "_cachedConstructors", get$_cachedDeclarations: "_cachedDeclarations", get$_cachedFields: "_cachedFields", get$_cachedGetters: "_cachedGetters", get$_cachedMembers: "_cachedMembers", get$_cachedMetadata: "_cachedMetadata", get$_cachedMethods: "_cachedMethods", get$_cachedMethodsMap: "_cachedMethodsMap", get$_cachedSetters: "_cachedSetters", get$_cachedSuperinterfaces: "_cachedSuperinterfaces", get$_cachedTypeVariables: "_cachedTypeVariables", get$_cachedVariables: "_cachedVariables", get$_clickcounter$__$std1: "__$std1", get$_clickcounter$__$std2: "__$std2", get$_clickcounter$__$std3: "__$std3", get$_clickcounter$__$std4: "__$std4", get$_clickcounter$__$std5: "__$std5", get$_clickcounter$__$std6: "__$std6", get$_clickcounter$__$std7: "__$std7", get$_clickcounter$__$std8: "__$std8", get$_clickcounter$__$std9: "__$std9", get$_clickcounter$__$stdDev: "__$stdDev", get$_fieldsDescriptor: "_fieldsDescriptor", get$_fieldsMetadata: "_fieldsMetadata", get$_jsConstructorCache: "_jsConstructorCache", get$_jsConstructorOrInterceptor: "_jsConstructorOrInterceptor", get$_mangledName: "_mangledName", get$_metadata: "_metadata", get$_owner: "_owner", get$_superclass: "_superclass", get$box_0: "box_0", get$cmdId: "cmdId", get$hash: "hash", get$index: "index", get$length: "length", get$myimg: "myimg", get$output: "output", get$owner_0: "owner_0", get$result_0: "result_0", get$result_1: "result_1", get$scheduleReconnect_6: "scheduleReconnect_6", get$scheduleReconnect_8: "scheduleReconnect_8", get$std1: "std1", get$std2: "std2", get$std3: "std3", get$std4: "std4", get$std5: "std5", get$std6: "std6", get$std7: "std7", get$std8: "std8", get$std9: "std9", get$stdDev: "stdDev", get$this_0: "this_0", get$this_1: "this_1", get$this_2: "this_2", get$this_3: "this_3", get$this_5: "this_5", get$this_7: "this_7", get$this_9: "this_9", get$value: "value", get$wcount: "wcount", get$ws_4: "ws_4"};
+init.mangledNames = {get$$$: "$", get$_cachedConstructors: "_cachedConstructors", get$_cachedDeclarations: "_cachedDeclarations", get$_cachedFields: "_cachedFields", get$_cachedGetters: "_cachedGetters", get$_cachedMembers: "_cachedMembers", get$_cachedMetadata: "_cachedMetadata", get$_cachedMethods: "_cachedMethods", get$_cachedMethodsMap: "_cachedMethodsMap", get$_cachedSetters: "_cachedSetters", get$_cachedSuperinterfaces: "_cachedSuperinterfaces", get$_cachedTypeVariables: "_cachedTypeVariables", get$_cachedVariables: "_cachedVariables", get$_clickcounter$__$std1: "__$std1", get$_clickcounter$__$std2: "__$std2", get$_clickcounter$__$std3: "__$std3", get$_clickcounter$__$std4: "__$std4", get$_clickcounter$__$std5: "__$std5", get$_clickcounter$__$std6: "__$std6", get$_clickcounter$__$std7: "__$std7", get$_clickcounter$__$std8: "__$std8", get$_clickcounter$__$std9: "__$std9", get$_clickcounter$__$stdDev: "__$stdDev", get$_fieldsDescriptor: "_fieldsDescriptor", get$_fieldsMetadata: "_fieldsMetadata", get$_jsConstructorCache: "_jsConstructorCache", get$_jsConstructorOrInterceptor: "_jsConstructorOrInterceptor", get$_mangledName: "_mangledName", get$_metadata: "_metadata", get$_owner: "_owner", get$_superclass: "_superclass", get$box_0: "box_0", get$canvasA: "canvasA", get$canvasImg: "canvasImg", get$cmdId: "cmdId", get$contextA: "contextA", get$hash: "hash", get$index: "index", get$length: "length", get$myimg: "myimg", get$output: "output", get$owner_0: "owner_0", get$result_0: "result_0", get$result_1: "result_1", get$scheduleReconnect_6: "scheduleReconnect_6", get$scheduleReconnect_8: "scheduleReconnect_8", get$std1: "std1", get$std2: "std2", get$std3: "std3", get$std4: "std4", get$std5: "std5", get$std6: "std6", get$std7: "std7", get$std8: "std8", get$std9: "std9", get$stdDev: "stdDev", get$this_0: "this_0", get$this_1: "this_1", get$this_2: "this_2", get$this_3: "this_3", get$this_5: "this_5", get$this_7: "this_7", get$this_9: "this_9", get$value: "value", get$wcount: "wcount", get$ws_4: "ws_4"};
 (function (reflectionData) {
   function map(x){x={x:x};delete x.x;return x}
   if (!init.libraries) init.libraries = [];
@@ -345,7 +345,7 @@ Interceptor: {"": "Object;",
     return new H.TypeImpl(H.getRuntimeTypeString(receiver), null);
   },
   $isInterceptor: true,
-  "%": "ArrayBuffer|DOMImplementation|MediaError|MediaKeyError|SVGAnimatedEnumeration|SVGAnimatedNumberList|SVGAnimatedString"
+  "%": "ArrayBuffer|CanvasGradient|CanvasPattern|DOMImplementation|MediaError|MediaKeyError|SVGAnimatedEnumeration|SVGAnimatedNumberList|SVGAnimatedString"
 },
 
 JSBool: {"": "bool/Interceptor;",
@@ -3810,7 +3810,7 @@ main: function() {
 }},
 1],
 ["", "file:///C:/y12/dart/projects/mpush2/web/clickcounter.dart", , A, {
-ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_clickcounter$__$std1%-,_clickcounter$__$std2%-,_clickcounter$__$std3%-,_clickcounter$__$std4%-,_clickcounter$__$std5%-,_clickcounter$__$std6%-,_clickcounter$__$std7%-,_clickcounter$__$std8%-,_clickcounter$__$std9%-,wcount%-,output%-,myimg%-,cmdId%-,_change_notifier$_changes,_records,_changes,_mirror,_values,_observable$_records,_declaration,_observers,_unbound,_unbindAllJob,_propertyObserver,syntax,_shadowRoots,$$-", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, function() {
+ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_clickcounter$__$std1%-,_clickcounter$__$std2%-,_clickcounter$__$std3%-,_clickcounter$__$std4%-,_clickcounter$__$std5%-,_clickcounter$__$std6%-,_clickcounter$__$std7%-,_clickcounter$__$std8%-,_clickcounter$__$std9%-,wcount%-,output%-,myimg%-,canvasA%-,contextA%-,cmdId%-,canvasImg%-,_change_notifier$_changes,_records,_changes,_mirror,_values,_observable$_records,_declaration,_observers,_unbound,_unbindAllJob,_propertyObserver,syntax,_shadowRoots,$$-", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, function() {
     return [C.C_Reflectable];
   }],
   get$stdDev: function(receiver) {
@@ -3923,12 +3923,19 @@ ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_cl
   },
   "+outputMsg:1:0": 1,
   initWebSocket$1: function(receiver, retrySeconds) {
-    var t1, ws, t2, t3, t4;
+    var t1, wsHost, wsPort, uri, ws, t2, t3, t4;
     t1 = {};
     t1.retrySeconds_0 = retrySeconds;
     t1.reconnectScheduled_1 = false;
-    this.outputMsg$1(receiver, "Connecting to websocket ws://192.168.2.42:8888/ws");
-    ws = W.WebSocket_WebSocket("ws://192.168.2.42:8888/ws", null);
+    wsHost = J.get$hostname$x(C.Window_methods.get$location(window));
+    wsPort = J.get$port$x(C.Window_methods.get$location(window));
+    if (J.$eq(wsPort, "3030")) {
+      wsHost = "192.168.2.42";
+      wsPort = "8888";
+    }
+    uri = "ws://" + H.S(wsHost) + ":" + H.S(wsPort) + "/ws";
+    this.outputMsg$1(receiver, "Connecting to websocket " + uri);
+    ws = W.WebSocket_WebSocket(uri, null);
     t2 = new A.ClickCounter_initWebSocket_scheduleReconnect(t1, receiver);
     t3 = C.EventStreamProvider_open.forTarget$1(ws);
     t4 = new W._EventStreamSubscription(0, t3._target, t3._eventType, W._wrapZone(new A.ClickCounter_initWebSocket_closure(receiver, ws)), t3._useCapture);
@@ -3954,6 +3961,12 @@ ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_cl
     return this.initWebSocket$1($receiver, 2);
   },
   "+initWebSocket:0:0": 1,
+  drawStd$0: function(receiver) {
+    J.set$fillStyle$x(receiver.contextA, "#FFFF00");
+    J.fillText$3$x(receiver.contextA, "StdDev=" + H.S(receiver._clickcounter$__$stdDev), 10, 230);
+    "17";
+  },
+  "+drawStd:0:0": 1,
   loadBlobJpegReadUrl$1: function(receiver, b) {
     var fileReader, t1, t2;
     fileReader = new FileReader();
@@ -3965,6 +3978,17 @@ ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_cl
     "17,21,17";
   },
   "+loadBlobJpegReadUrl:1:0": 1,
+  loadBlobJpegReadUrlOnlyImgSrc$1: function(receiver, b) {
+    var fileReader, t1, t2;
+    fileReader = new FileReader();
+    t1 = C.EventStreamProvider_loadend.forTarget$1(fileReader);
+    t2 = new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(new A.ClickCounter_loadBlobJpegReadUrlOnlyImgSrc_closure(receiver)), t1._useCapture);
+    H.setRuntimeTypeInfo(t2, [H.getRuntimeTypeArgument(t1, "_EventStream", 0)]);
+    t2._tryResume$0();
+    fileReader.readAsDataURL(b);
+    "17,21,17";
+  },
+  "+loadBlobJpegReadUrlOnlyImgSrc:1:0": 1,
   handleJsonResp$1: function(receiver, rlist) {
     var t1, r, t2;
     switch (receiver.cmdId) {
@@ -3972,6 +3996,7 @@ ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_cl
         t1 = J.$index$asx(rlist, 1);
         receiver._clickcounter$__$stdDev = this.notifyPropertyChange$3(receiver, C.Symbol_stdDev, receiver._clickcounter$__$stdDev, t1);
         this.outputMsg$1(receiver, "msg " + H.S(receiver.wcount) + " : stddev = " + H.S(receiver._clickcounter$__$stdDev));
+        this.drawStd$0(receiver);
         break;
       case 3:
         r = J.$index$asx(rlist, 1);
@@ -4002,9 +4027,10 @@ ClickCounter: {"": ["PolymerElement_ChangeNotifier;_clickcounter$__$stdDev%-,_cl
   },
   "+handleJsonResp:1:0": 1,
   ClickCounter$created$0: function(receiver) {
-    receiver.myimg = (receiver.shadowRoot || receiver.webkitShadowRoot).querySelector("#myimg");
+    receiver.canvasImg = W.ImageElement_ImageElement(null, null, null);
     receiver.output = (receiver.shadowRoot || receiver.webkitShadowRoot).querySelector("#output");
-    J.set$src$x(receiver.myimg, "https://www.google.com/images/srpr/logo11w.png");
+    receiver.canvasA = (receiver.shadowRoot || receiver.webkitShadowRoot).querySelector("#canvasA");
+    receiver.contextA = J.getContext$1$x(receiver.canvasA, "2d");
     this.initWebSocket$0(receiver);
     "17";
   },
@@ -4159,6 +4185,25 @@ ClickCounter_loadBlobJpegReadUrl_closure: {"": "Closure;this_0-",
     var t1, t2;
     t1 = this.this_0;
     t2 = J.getInterceptor$x(t1);
+    J.set$src$x(t2.get$canvasImg(t1), J.get$result$x(J.get$target$x(evt)));
+    J.drawImage$3$x(t2.get$contextA(t1), t2.get$canvasImg(t1), 0, 0);
+    t2.drawStd$0(t1);
+    t2.set$wcount(t1, J.$add$ns(t2.get$wcount(t1), 1));
+    "17,28,17";
+  },
+  "+call:1:0": 1,
+  $isFunction: true,
+  $is_Object__Object: true,
+  $is_args1: true
+},
+
+"+ClickCounter_loadBlobJpegReadUrl_closure": [25],
+
+ClickCounter_loadBlobJpegReadUrlOnlyImgSrc_closure: {"": "Closure;this_0-",
+  call$1: function(evt) {
+    var t1, t2;
+    t1 = this.this_0;
+    t2 = J.getInterceptor$x(t1);
     J.set$src$x(t2.get$myimg(t1), J.get$result$x(J.get$target$x(evt)));
     t2.set$wcount(t1, J.$add$ns(t2.get$wcount(t1), 1));
     "17,28,17";
@@ -4169,7 +4214,7 @@ ClickCounter_loadBlobJpegReadUrl_closure: {"": "Closure;this_0-",
   $is_args1: true
 },
 
-"+ClickCounter_loadBlobJpegReadUrl_closure": [25]}],
+"+ClickCounter_loadBlobJpegReadUrlOnlyImgSrc_closure": [25]}],
 ["custom_element.polyfill", "package:custom_element/polyfill.dart", , B, {
 _isReady: function() {
   if ($.get$context() == null)
@@ -13767,6 +13812,11 @@ _ElementFactoryProvider_createElement_tag: function(tag, typeExtension) {
   return document.createElement(tag);
 },
 
+ImageElement_ImageElement: function(height, src, width) {
+  var e = document.createElement("img", null);
+  return e;
+},
+
 InputElement_InputElement: function(type) {
   var e, exception;
   e = document.createElement("input", null);
@@ -13905,7 +13955,7 @@ _wrapZone: function(callback) {
   return $.Zone__current.bindUnaryCallback$2$runGuarded(callback, true);
 },
 
-HtmlElement: {"": "Element;", "%": "HTMLAppletElement|HTMLBRElement|HTMLBaseFontElement|HTMLBodyElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLFontElement|HTMLFrameElement|HTMLFrameSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLMarqueeElement|HTMLMenuElement|HTMLModElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPreElement|HTMLQuoteElement|HTMLShadowElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTitleElement|HTMLUListElement|HTMLUnknownElement;HTMLElement;HtmlElement_Polymer|HtmlElement_Polymer_Observable|PolymerElement|PolymerElement_ChangeNotifier|ClickCounter|PolymerDeclaration"},
+HtmlElement: {"": "Element;", "%": "HTMLAppletElement|HTMLBRElement|HTMLBaseFontElement|HTMLBodyElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLFontElement|HTMLFrameElement|HTMLFrameSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLMarqueeElement|HTMLMenuElement|HTMLModElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPreElement|HTMLQuoteElement|HTMLShadowElement|HTMLSpanElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTitleElement|HTMLUListElement|HTMLUnknownElement;HTMLElement;HtmlElement_Polymer|HtmlElement_Polymer_Observable|PolymerElement|PolymerElement_ChangeNotifier|ClickCounter|PolymerDeclaration"},
 
 _EntryArray: {"": "Interceptor;", $isList: true,
   $asList: function() {
@@ -13919,20 +13969,45 @@ _EntryArray: {"": "Interceptor;", $isList: true,
   "%": "EntryArray"
 },
 
-AnchorElement: {"": "HtmlElement;hash%,href=,target=,type%",
+AnchorElement: {"": "HtmlElement;hash%,hostname=,href=,port=,target=,type%",
   toString$0: function(receiver) {
     return receiver.toString();
   },
   "%": "HTMLAnchorElement"
 },
 
-AreaElement: {"": "HtmlElement;hash=,href=,target=", "%": "HTMLAreaElement"},
+AreaElement: {"": "HtmlElement;hash=,hostname=,href=,port=,target=", "%": "HTMLAreaElement"},
 
 BaseElement: {"": "HtmlElement;href=,target=", "%": "HTMLBaseElement"},
 
 Blob: {"": "Interceptor;type=", $isBlob: true, "%": ";Blob"},
 
 ButtonElement: {"": "HtmlElement;form=,name=,type%,value%", "%": "HTMLButtonElement"},
+
+CanvasElement: {"": "HtmlElement;",
+  getContext$2: function(receiver, contextId, attrs) {
+    return receiver.getContext(contextId);
+  },
+  getContext$1: function($receiver, contextId) {
+    return this.getContext$2($receiver, contextId, null);
+  },
+  "%": "HTMLCanvasElement"
+},
+
+CanvasRenderingContext: {"": "Interceptor;", "%": "WebGLRenderingContext;CanvasRenderingContext"},
+
+CanvasRenderingContext2D: {"": "CanvasRenderingContext;fillStyle}",
+  drawImage$3: function(receiver, source, destX, destY) {
+    return receiver.drawImage(source, destX, destY);
+  },
+  fillText$4: function(receiver, text, x, y, maxWidth) {
+    receiver.fillText(text, x, y);
+  },
+  fillText$3: function($receiver, text, x, y) {
+    return this.fillText$4($receiver, text, x, y, null);
+  },
+  "%": "CanvasRenderingContext2D"
+},
 
 CharacterData: {"": "Node;data=,length=", $isInterceptor: true, "%": "Comment;CharacterData"},
 
@@ -14119,7 +14194,7 @@ Event: {"": "Interceptor;_selector},bubbles=,path=,type=",
     return W._convertNativeToDart_EventTarget(receiver.target);
   },
   $isEvent: true,
-  "%": "AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|BeforeUnloadEvent|CSSFontFaceLoadEvent|DeviceMotionEvent|DeviceOrientationEvent|HashChangeEvent|IDBVersionChangeEvent|MIDIConnectionEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MutationEvent|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PopStateEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionEvent|TrackEvent|WebGLContextEvent|WebKitAnimationEvent;Event"
+  "%": "AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|BeforeUnloadEvent|CSSFontFaceLoadEvent|DeviceMotionEvent|DeviceOrientationEvent|HashChangeEvent|IDBVersionChangeEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MutationEvent|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PopStateEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionEvent|TrackEvent|WebGLContextEvent|WebKitAnimationEvent;Event"
 },
 
 EventTarget: {"": "Interceptor;",
@@ -14223,7 +14298,7 @@ LegendElement: {"": "HtmlElement;form=", "%": "HTMLLegendElement"},
 
 LinkElement: {"": "HtmlElement;href=,type%", $isLinkElement: true, "%": "HTMLLinkElement"},
 
-Location: {"": "Interceptor;hash%,href=",
+Location: {"": "Interceptor;hash%,hostname=,href=,port=",
   toString$0: function(receiver) {
     return receiver.toString();
   },
@@ -14257,6 +14332,8 @@ MessageEvent: {"": "Event;",
 MetaElement: {"": "HtmlElement;content=,name=", "%": "HTMLMetaElement"},
 
 MeterElement: {"": "HtmlElement;value%", "%": "HTMLMeterElement"},
+
+MidiConnectionEvent: {"": "Event;port=", "%": "MIDIConnectionEvent"},
 
 MidiMessageEvent: {"": "Event;data=", "%": "MIDIMessageEvent"},
 
@@ -15298,8 +15375,14 @@ _LocationWrapper: {"": "Object;_ptr",
     this._ptr.hash = value;
   },
   "+hash=": 0,
+  get$hostname: function(_) {
+    return this._ptr.hostname;
+  },
   get$href: function(_) {
     return this._ptr.href;
+  },
+  get$port: function(_) {
+    return this._ptr.port;
   },
   toString$0: function(_) {
     return this._ptr.toString();
@@ -24272,6 +24355,9 @@ J.contains$2$asx = function(receiver, a0, a1) {
 J.createDocumentFragment$0$x = function(receiver) {
   return J.getInterceptor$x(receiver).createDocumentFragment$0(receiver);
 };
+J.drawImage$3$x = function(receiver, a0, a1, a2) {
+  return J.getInterceptor$x(receiver).drawImage$3(receiver, a0, a1, a2);
+};
 J.elementAt$1$ax = function(receiver, a0) {
   return J.getInterceptor$ax(receiver).elementAt$1(receiver, a0);
 };
@@ -24280,6 +24366,9 @@ J.endsWith$1$s = function(receiver, a0) {
 };
 J.enteredView$0$x = function(receiver) {
   return J.getInterceptor$x(receiver).enteredView$0(receiver);
+};
+J.fillText$3$x = function(receiver, a0, a1, a2) {
+  return J.getInterceptor$x(receiver).fillText$3(receiver, a0, a1, a2);
 };
 J.forEach$1$ax = function(receiver, a0) {
   return J.getInterceptor$ax(receiver).forEach$1(receiver, a0);
@@ -24334,6 +24423,9 @@ J.get$error$x = function(receiver) {
 };
 J.get$hashCode$ = function(receiver) {
   return J.getInterceptor(receiver).get$hashCode(receiver);
+};
+J.get$hostname$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$hostname(receiver);
 };
 J.get$href$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$href(receiver);
@@ -24398,6 +24490,9 @@ J.get$parentNode$x = function(receiver) {
 J.get$path$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$path(receiver);
 };
+J.get$port$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$port(receiver);
+};
 J.get$result$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$result(receiver);
 };
@@ -24424,6 +24519,9 @@ J.get$value$x = function(receiver) {
 };
 J.get$values$x = function(receiver) {
   return J.getInterceptor$x(receiver).get$values(receiver);
+};
+J.getContext$1$x = function(receiver, a0) {
+  return J.getInterceptor$x(receiver).getContext$1(receiver, a0);
 };
 J.getElementById$1$x = function(receiver, a0) {
   return J.getInterceptor$x(receiver).getElementById$1(receiver, a0);
@@ -24500,6 +24598,9 @@ J.set$checked$x = function(receiver, value) {
 J.set$className$x = function(receiver, value) {
   return J.getInterceptor$x(receiver).set$className(receiver, value);
 };
+J.set$fillStyle$x = function(receiver, value) {
+  return J.getInterceptor$x(receiver).set$fillStyle(receiver, value);
+};
 J.set$length$asx = function(receiver, value) {
   return J.getInterceptor$asx(receiver).set$length(receiver, value);
 };
@@ -24557,7 +24658,7 @@ J.unbindAll$0$x = function(receiver) {
 J.where$1$ax = function(receiver, a0) {
   return J.getInterceptor$ax(receiver).where$1(receiver, a0);
 };
-$.interceptedNames = ["$add", "$and", "$div", "$eq", "$ge", "$gt", "$index", "$indexSet", "$le", "$lt", "$mod", "$mul", "$negate", "$shl", "$shr", "$sub", "$tdiv", "ClickCounter$created$0", "Element$created$0", "PolymerDeclaration$created$0", "PolymerElement$created$0", "_checkIndex$2", "_checkSublistArguments$3", "_ensureRequestAnimationFrame$0", "_initMouseEvent$15", "_invalidIndex$2", "_lowerCaseMap$1", "_observe$1", "_observed$0", "_publish$1", "_rangeCheck$2", "_requestAnimationFrame$1", "_slowTdiv$1", "_unobserved$0", "abs$0", "accept$1", "accumulateInstanceAttributes$0", "add$1", "addAll$1", "addAttributeDelegates$1", "addEventListener$3", "addHostListeners$0", "addNodeListeners$3", "allMatches$1", "any$1", "append$1", "asyncUnbindAll$0", "attributeChanged$3", "attributeToProperty$2", "bind$3", "buildType$2", "cacheSheets$0", "cacheStyles$0", "cancelUnbindAll$0", "cancelUnbindAll$1$preventCascade", "clear$0", "clone$1", "close$0", "close$2", "codeUnitAt$1", "complete$0", "complete$1", "contains$1", "contains$2", "copyInstanceAttributes$0", "createDocumentFragment$0", "createShadowRoot$0", "cssTextForScope$1", "cssTextToScopeStyle$2", "deliverChanges$0", "desugar$2", "dispatchMethod$3", "elementAt$1", "endsWith$1", "enteredView$0", "error$1", "findNodes$1", "findNodes$2", "firstWhere$1", "firstWhere$2$orElse", "fold$2", "forEach$1", "get$$$", "get$_changes", "get$_children", "get$_clickcounter$__$std1", "get$_clickcounter$__$std2", "get$_clickcounter$__$std3", "get$_clickcounter$__$std4", "get$_clickcounter$__$std5", "get$_clickcounter$__$std6", "get$_clickcounter$__$std7", "get$_clickcounter$__$std8", "get$_clickcounter$__$std9", "get$_clickcounter$__$stdDev", "get$_customTagName", "get$_eventDelegates", "get$_instanceAttributes", "get$_mirror", "get$_name", "get$_observable$_records", "get$_polymer$_observe", "get$_polymer$_publish", "get$_publishLC", "get$_values", "get$attributes", "get$bindings", "get$bound", "get$bubbles", "get$changes", "get$checked", "get$className", "get$classes", "get$cmdId", "get$content", "get$data", "get$detail", "get$entries", "get$error", "get$first", "get$firstChild", "get$form", "get$hasObservers", "get$hash", "get$hashCode", "get$host", "get$href", "get$id", "get$index", "get$isEmpty", "get$isNaN", "get$isNegative", "get$isNotEmpty", "get$iterator", "get$key", "get$kind", "get$last", "get$left", "get$length", "get$localName", "get$location", "get$message", "get$method", "get$myimg", "get$name", "get$newValue", "get$nextNode", "get$nodes", "get$oldValue", "get$on", "get$onChange", "get$onClick", "get$onInput", "get$operator", "get$output", "get$ownerDocument", "get$parent", "get$parentNode", "get$path", "get$port", "get$print", "get$result", "get$right", "get$runtimeType", "get$selectedIndex", "get$shadowRoot", "get$src", "get$std1", "get$std2", "get$std3", "get$std4", "get$std5", "get$std6", "get$std7", "get$std8", "get$std9", "get$stdDev", "get$superDeclaration", "get$target", "get$templateContent", "get$text", "get$type", "get$value", "get$values", "get$wcount", "getElementById$1", "getPropertyValue$1", "getRange$2", "handleJsonResp$1", "hostEventListener$1", "indexOf$1", "indexOf$2", "inferObservers$1", "initWebSocket$0", "initWebSocket$1", "insert$2", "insertBefore$2", "installGlobalStyles$0", "installLocalSheets$0", "join$1", "join$8", "lastIndexOf$1", "lastIndexOf$2", "leftView$0", "lightFromTemplate$1", "loadBlobJpegReadUrl$1", "map$1", "marshalNodeReferences$1", "matchAsPrefix$1", "matchAsPrefix$2", "matches$1", "matchesWithAncestors$1", "noSuchMethod$1", "notifyChange$1", "notifyPropertyChange$3", "notifyPropertyChanges$1", "observeArrayValue$3", "observeProperties$0", "observed$0", "onError$1", "outputMsg$1", "parseDeclaration$1", "parseDeclarations$1", "pause$0", "pause$1", "polymerCreated$0", "prepareElement$0", "print$1", "print$2", "propertyForAttribute$1", "publishAttributes$2", "query$1", "queryAll$1", "querySelectorAll$1", "reflectPropertyToAttribute$1", "register$2", "registerType$1", "registerWhenReady$0", "remainder$1", "remove$0", "remove$1", "removeEventListener$3", "removeLast$0", "removeRange$2", "replaceAll$2", "reset$0", "round$0", "roundToDouble$0", "send$1", "send$2", "serializeValue$1", "set$_changes", "set$_clickcounter$__$std1", "set$_clickcounter$__$std2", "set$_clickcounter$__$std3", "set$_clickcounter$__$std4", "set$_clickcounter$__$std5", "set$_clickcounter$__$std6", "set$_clickcounter$__$std7", "set$_clickcounter$__$std8", "set$_clickcounter$__$std9", "set$_clickcounter$__$stdDev", "set$_mirror", "set$_observable$_records", "set$_selector", "set$_values", "set$checked", "set$className", "set$cmdId", "set$hash", "set$length", "set$myimg", "set$newValue", "set$output", "set$selectedIndex", "set$src", "set$std1", "set$std2", "set$std3", "set$std4", "set$std5", "set$std6", "set$std7", "set$std8", "set$std9", "set$stdDev", "set$text", "set$type", "set$value", "set$wcount", "setProperty$3", "setRange$4", "shadowFromTemplate$1", "skip$1", "split$1", "start$0", "startsWith$1", "startsWith$2", "stop$0", "sublist$1", "sublist$2", "substring$1", "substring$2", "take$1", "takeAttributes$0", "toInt$0", "toList$0", "toList$1$growable", "toLowerCase$0", "toString$0", "trim$0", "unbind$1", "unbindAll$0", "unbindAllProperties$0", "unobserved$0", "unregisterObservers$0", "waitingForExtendee$1", "waitingForType$1", "where$1"];
+$.interceptedNames = ["$add", "$and", "$div", "$eq", "$ge", "$gt", "$index", "$indexSet", "$le", "$lt", "$mod", "$mul", "$negate", "$shl", "$shr", "$sub", "$tdiv", "ClickCounter$created$0", "Element$created$0", "PolymerDeclaration$created$0", "PolymerElement$created$0", "_checkIndex$2", "_checkSublistArguments$3", "_ensureRequestAnimationFrame$0", "_initMouseEvent$15", "_invalidIndex$2", "_lowerCaseMap$1", "_observe$1", "_observed$0", "_publish$1", "_rangeCheck$2", "_requestAnimationFrame$1", "_slowTdiv$1", "_unobserved$0", "abs$0", "accept$1", "accumulateInstanceAttributes$0", "add$1", "addAll$1", "addAttributeDelegates$1", "addEventListener$3", "addHostListeners$0", "addNodeListeners$3", "allMatches$1", "any$1", "append$1", "asyncUnbindAll$0", "attributeChanged$3", "attributeToProperty$2", "bind$3", "buildType$2", "cacheSheets$0", "cacheStyles$0", "cancelUnbindAll$0", "cancelUnbindAll$1$preventCascade", "clear$0", "clone$1", "close$0", "close$2", "codeUnitAt$1", "complete$0", "complete$1", "contains$1", "contains$2", "copyInstanceAttributes$0", "createDocumentFragment$0", "createShadowRoot$0", "cssTextForScope$1", "cssTextToScopeStyle$2", "deliverChanges$0", "desugar$2", "dispatchMethod$3", "drawImage$3", "drawStd$0", "elementAt$1", "endsWith$1", "enteredView$0", "error$1", "fillText$3", "fillText$4", "findNodes$1", "findNodes$2", "firstWhere$1", "firstWhere$2$orElse", "fold$2", "forEach$1", "get$$$", "get$_changes", "get$_children", "get$_clickcounter$__$std1", "get$_clickcounter$__$std2", "get$_clickcounter$__$std3", "get$_clickcounter$__$std4", "get$_clickcounter$__$std5", "get$_clickcounter$__$std6", "get$_clickcounter$__$std7", "get$_clickcounter$__$std8", "get$_clickcounter$__$std9", "get$_clickcounter$__$stdDev", "get$_customTagName", "get$_eventDelegates", "get$_instanceAttributes", "get$_mirror", "get$_name", "get$_observable$_records", "get$_polymer$_observe", "get$_polymer$_publish", "get$_publishLC", "get$_values", "get$attributes", "get$bindings", "get$bound", "get$bubbles", "get$canvasA", "get$canvasImg", "get$changes", "get$checked", "get$className", "get$classes", "get$cmdId", "get$content", "get$contextA", "get$data", "get$detail", "get$entries", "get$error", "get$first", "get$firstChild", "get$form", "get$hasObservers", "get$hash", "get$hashCode", "get$host", "get$hostname", "get$href", "get$id", "get$index", "get$isEmpty", "get$isNaN", "get$isNegative", "get$isNotEmpty", "get$iterator", "get$key", "get$kind", "get$last", "get$left", "get$length", "get$localName", "get$location", "get$message", "get$method", "get$myimg", "get$name", "get$newValue", "get$nextNode", "get$nodes", "get$oldValue", "get$on", "get$onChange", "get$onClick", "get$onInput", "get$operator", "get$output", "get$ownerDocument", "get$parent", "get$parentNode", "get$path", "get$port", "get$print", "get$result", "get$right", "get$runtimeType", "get$selectedIndex", "get$shadowRoot", "get$src", "get$std1", "get$std2", "get$std3", "get$std4", "get$std5", "get$std6", "get$std7", "get$std8", "get$std9", "get$stdDev", "get$superDeclaration", "get$target", "get$templateContent", "get$text", "get$type", "get$value", "get$values", "get$wcount", "getContext$1", "getContext$2", "getElementById$1", "getPropertyValue$1", "getRange$2", "handleJsonResp$1", "hostEventListener$1", "indexOf$1", "indexOf$2", "inferObservers$1", "initWebSocket$0", "initWebSocket$1", "insert$2", "insertBefore$2", "installGlobalStyles$0", "installLocalSheets$0", "join$1", "join$8", "lastIndexOf$1", "lastIndexOf$2", "leftView$0", "lightFromTemplate$1", "loadBlobJpegReadUrl$1", "loadBlobJpegReadUrlOnlyImgSrc$1", "map$1", "marshalNodeReferences$1", "matchAsPrefix$1", "matchAsPrefix$2", "matches$1", "matchesWithAncestors$1", "noSuchMethod$1", "notifyChange$1", "notifyPropertyChange$3", "notifyPropertyChanges$1", "observeArrayValue$3", "observeProperties$0", "observed$0", "onError$1", "outputMsg$1", "parseDeclaration$1", "parseDeclarations$1", "pause$0", "pause$1", "polymerCreated$0", "prepareElement$0", "print$1", "print$2", "propertyForAttribute$1", "publishAttributes$2", "query$1", "queryAll$1", "querySelectorAll$1", "reflectPropertyToAttribute$1", "register$2", "registerType$1", "registerWhenReady$0", "remainder$1", "remove$0", "remove$1", "removeEventListener$3", "removeLast$0", "removeRange$2", "replaceAll$2", "reset$0", "round$0", "roundToDouble$0", "send$1", "send$2", "serializeValue$1", "set$_changes", "set$_clickcounter$__$std1", "set$_clickcounter$__$std2", "set$_clickcounter$__$std3", "set$_clickcounter$__$std4", "set$_clickcounter$__$std5", "set$_clickcounter$__$std6", "set$_clickcounter$__$std7", "set$_clickcounter$__$std8", "set$_clickcounter$__$std9", "set$_clickcounter$__$stdDev", "set$_mirror", "set$_observable$_records", "set$_selector", "set$_values", "set$canvasA", "set$canvasImg", "set$checked", "set$className", "set$cmdId", "set$contextA", "set$fillStyle", "set$hash", "set$length", "set$myimg", "set$newValue", "set$output", "set$selectedIndex", "set$src", "set$std1", "set$std2", "set$std3", "set$std4", "set$std5", "set$std6", "set$std7", "set$std8", "set$std9", "set$stdDev", "set$text", "set$type", "set$value", "set$wcount", "setProperty$3", "setRange$4", "shadowFromTemplate$1", "skip$1", "split$1", "start$0", "startsWith$1", "startsWith$2", "stop$0", "sublist$1", "sublist$2", "substring$1", "substring$2", "take$1", "takeAttributes$0", "toInt$0", "toList$0", "toList$1$growable", "toLowerCase$0", "toString$0", "trim$0", "unbind$1", "unbindAll$0", "unbindAllProperties$0", "unobserved$0", "unregisterObservers$0", "waitingForExtendee$1", "waitingForType$1", "where$1"];
 $.mapTypeToInterceptor = [C.Type_I2I, A.PolymerElement, {created: A.PolymerElement$created}, C.Type_YnA, A.PolymerDeclaration, {created: A.PolymerDeclaration$created}, C.Type_a9G, A.ClickCounter, {created: A.ClickCounter$created}, C.Type_oqh, P.Uint64List, {}, C.Type_qxd, P.Int64List, {}];
 Isolate.$lazy($, "globalThis", "globalThis", "get$globalThis", function() {
   return function() { return this; }();
