@@ -15,12 +15,12 @@
 import time
 import RPi.GPIO as GPIO
 
+# brightness 0-31
+brightness = 16
 delay = 0.001 / 1000.0
 clearData = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
 addrData = 0x01
 colorClear =(31 << 1) | 0x07
-# brightness 0-31
-brightness = 30
 colorR = (brightness << 3) + 4
 colorG = (brightness << 3) + 2
 colorB = (brightness << 3) + 1

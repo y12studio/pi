@@ -1,4 +1,18 @@
 # coding=utf-8
+#
+# Copyright 2013 Y12Studio
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 '''
 TODO
 '''
@@ -74,9 +88,54 @@ application = tornado.web.Application([
 ])
 
 def startTornado():
+    t = threading.Thread(target=worker, args=(0,))
+    t.start()
+    
     http_server = tornado.httpserver.HTTPServer(application)
     http_server.listen(m_settings.PORT)
     tornado.ioloop.IOLoop.instance().start()
+    
+_img = None
+_stdTotal = None
+_std3x3 = None
+_flagNewEvt = -1
+_flagRun = True
+
+def worker(i):
+    global _flagNewEvt
+    while _flagRun:
+        #print 'Worker',_flagNewEvt,time.time()
+        if _flagNewEvt > 0 :
+            _writeToWs(_flagNewEvt==2)
+            _flagNewEvt = -1
+        else :
+            time.sleep(0.1)
+
+def _writeToWs(imgEnable):
+    WSHandler.wsSend('[2,%d]' % _stdTotal)
+    if imgEnable:
+        WSHandler.wsSend('[1]')
+        WSHandler.wsSend(_img, binary=True)
+    if len(_std3x3) > 0:
+        jr = []
+        jr.append(3)
+        jr.append(_std3x3)
+        WSHandler.wsSend(json.dumps(jr))
+
+def writeToWs(img, stdTotal, std3x3):
+    global _img,_stdTotal,_std3x3,_flagNewEvt
+    _stdTotal = stdTotal
+    _std3x3 = std3x3
+    if stdTotal > 100:
+        _img = img
+        # 2 img
+        _flagNewEvt = 2
+    else:
+        # 1 for non-img
+        _flagNewEvt = 1
+    #print 'writeToWs',_flagNewEvt,time.time()
 
 def stopTornado():
+    global _flagRun
+    _flagRun = False
     tornado.ioloop.IOLoop.instance().stop()

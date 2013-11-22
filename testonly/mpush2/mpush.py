@@ -32,8 +32,7 @@ $ sudo pip install pillow
 http://host:8888/
 '''
 import m_settings, m_pushover, m_tornado
-import  m_dys388icon as ledicon
-import  m_dys388dbp as led
+import  m_led as led
 import picamera
 import logging, threading, io, struct
 import datetime, time
@@ -81,14 +80,13 @@ def handleMotion(k, q):
         if ediff > 300:
             found(q)
 
-def testBinaryWrite():
-    return bytes(bytearray([0x13, 0x00, 0x00, 0x00, 0x08, 0x00]))
+#def testBinaryWrite():
+#    return bytes(bytearray([0x13, 0x00, 0x00, 0x00, 0x08, 0x00]))
 
  
-def testWriteBinJpeg(st):
-    if m_tornado.WSHandler.wsClients() > 0:       
-        m_tornado.WSHandler.wsSend('[1]')
-        m_tornado.WSHandler.wsSend(st.getvalue(), binary=True)
+#def testWriteBinJpeg(st):
+    #m_tornado.writeToWs('[1]')
+    #m_tornado.writeToWs(st.getvalue(), binary=True)
 
 def getPilJpgSize(im):
     im.save(temps, 'jpeg')
@@ -103,7 +101,7 @@ def pilCrop3x3(st, dim):
     wx = int(width / dim)
     hy = int(height / dim)
     sarr = []
-    result = []
+    result3x3 = []
     for yi in xrange(dim):
         for xi in xrange(dim):
             x, y = xi * wx, yi * hy
@@ -118,17 +116,10 @@ def pilCrop3x3(st, dim):
                 q = arrStdQueue[index]
                 q.append(diff)
                 stddev = int(np.std(q))
-                result.append(stddev)
-    if len(result) > 0:
-        jr = []
-        jr.append(3)
-        jr.append(result)
-        m_tornado.WSHandler.wsSend(json.dumps(jr))
+                result3x3.append(stddev)
     base.save(st, 'JPEG')
-    m_tornado.WSHandler.wsSend('[1]')
-    m_tornado.WSHandler.wsSend(st.getvalue(), binary=True)
     lastArrSize = sarr
-    return result
+    return (st.getvalue(),result3x3)
         
 def testWritePilWithThumbnailOver(st):
     st.seek(0)
@@ -138,34 +129,11 @@ def testWritePilWithThumbnailOver(st):
     base.paste(tpil.convert('L'), (10, 10))
     st.seek(0)
     base.save(st, 'JPEG')
-    m_tornado.WSHandler.wsSend('[1]')
-    m_tornado.WSHandler.wsSend(st.getvalue(), binary=True)
-        
-def testWritePil(st):
-    st.seek(0)
-    base = Image.open(st)
-    st.seek(0)
-    base.save(st, 'JPEG')
-    m_tornado.WSHandler.wsSend('[1]')
-    m_tornado.WSHandler.wsSend(st.getvalue(), binary=True)
+    #m_tornado.writeToWs('[1]')
+    #m_tornado.writeToWs(st.getvalue(), binary=True)
 
-lastWriteLed = -1
-    
-def handleLedColor(sizeTotalStd,std3x3):
-    global lastWriteLed
-    #print sizeTotalStd
-    #print std3x3
-    if sizeTotalStd > 199 :
-        index3x3 = np.argmax(std3x3)
-        if index3x3 != lastWriteLed:
-            led.write(led.colorB, ledicon.arrow3x3[index3x3])
-        lastWriteLed = index3x3
-    else:
-        if lastWriteLed != 99:
-            led.write(led.colorG, ledicon.arrowNone)
-        lastWriteLed = 99
-                        
-def runDiffCheck():
+             
+def runSizeDiffCheck():
     global lastSize
     with picamera.PiCamera() as camera:
          camera.resolution = (width, height)
@@ -180,16 +148,16 @@ def runDiffCheck():
                                              use_video_port=True):
              size = stream.tell()
              if lastSize > 0 :
-                 stdQueue.append(abs(size - lastSize))
+                stdQueue.append(abs(size - lastSize))
                  # print stdQueue
-                 stddev = int(np.std(stdQueue))
-                 m_tornado.WSHandler.wsSend('[2,%d]' % stddev)
-                 std3x3 = pilCrop3x3(stream, 3)
-                 handleLedColor(stddev,std3x3)
-                 
+                stddev = int(np.std(stdQueue))
+                try:
+                    img, std3x3 = pilCrop3x3(stream, 3)
+                    m_tornado.writeToWs(img,stddev,std3x3)
+                    led.handleLedColor(stddev,std3x3)
+                except IOError:
+                    pass
              lastSize = size
-             #testWritePil(stream)
-             # testWriteBinJpeg(stream)
              count += 1
              stream.seek(0)
              #print('Size: %d /Captured %d images at %.2ffps' % (size, count, count / (time.time() - start)))
@@ -200,9 +168,10 @@ def main():
         arrStdQueue.append(collections.deque(maxlen=queueLimit))
     t = threading.Thread(target=m_tornado.startTornado).start()
     try:
-       runDiffCheck()
+       runSizeDiffCheck()
     except (KeyboardInterrupt, SystemExit):
        m_tornado.stopTornado()
+       led.stop()
        raise
 
 if __name__ == '__main__':
