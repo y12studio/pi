@@ -16,14 +16,15 @@ import time
 import RPi.GPIO as GPIO
 
 # brightness 0-31
-brightness = 16
-delay = 0.001 / 1000.0
+brightness = 15
+delay = 0.0001 / 1000.0
 clearData = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
 addrData = 0x01
 colorClear =(31 << 1) | 0x07
 colorR = (brightness << 3) + 4
 colorG = (brightness << 3) + 2
 colorB = (brightness << 3) + 1
+colorY = (brightness << 3) + 6
 
 def init():
     GPIO.setwarnings(False)
@@ -43,9 +44,9 @@ def init():
     
 def clear():
     DbpWrite(addrData,colorClear,clearData)
+    time.sleep(0.2)
 
 def write(color,data):
-    clear()
     DbpWrite(addrData,color,data)
     
 def DbpWriteByte(byteData):
@@ -60,7 +61,7 @@ def DbpWriteByte(byteData):
         GPIO.output(5, True)
 
 def DbpWrite(addr,color,data):
-    time.sleep(1.0 / 1000.0)
+    time.sleep(delay)
     GPIO.output(7, False)
     time.sleep(delay)
     DbpWriteByte(addr)

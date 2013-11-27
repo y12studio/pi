@@ -106,12 +106,12 @@ def worker(i):
     while _flagRun:
         #print 'Worker',_flagNewEvt,time.time()
         if _flagNewEvt > 0 :
-            _writeToWs(_flagNewEvt==2)
+            _writeToWsStd3x3(_flagNewEvt==2)
             _flagNewEvt = -1
         else :
             time.sleep(0.1)
 
-def _writeToWs(imgEnable):
+def _writeToWsStd3x3(imgEnable):
     WSHandler.wsSend('[2,%d]' % _stdTotal)
     if imgEnable:
         WSHandler.wsSend('[1]')
@@ -122,7 +122,7 @@ def _writeToWs(imgEnable):
         jr.append(_std3x3)
         WSHandler.wsSend(json.dumps(jr))
 
-def writeToWs(img, stdTotal, std3x3):
+def writeToWsStd3x3(img, stdTotal, std3x3):
     global _img,_stdTotal,_std3x3,_flagNewEvt
     _stdTotal = stdTotal
     _std3x3 = std3x3

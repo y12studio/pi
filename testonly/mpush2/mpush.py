@@ -40,17 +40,27 @@ from PIL import Image
 import httplib, urllib, json
 import collections, array
 import numpy as np
+from scipy import stats
+import m_stat as mstat
+
 
 # False when test
 lastEvtTime = 0
 width, height = 320, 240
+fps = 6
 stream = io.BytesIO()
 temps = io.BytesIO()
-queueLimit = 9
-stdQueue = collections.deque(maxlen=queueLimit)
+# collections for 2 secs
+queueLimit = fps*2
+diffQueue = collections.deque(maxlen=queueLimit)
+stddevQueue = collections.deque(maxlen=queueLimit)
+rQueue = collections.deque(maxlen=queueLimit)
+xi = np.arange(0,queueLimit)
 arrStdQueue = []
 lastSize = 0
 lastArrSize = []
+statsHandler = mstat.StatSizeDiff(queueLimit)
+
 
 def found(q):
     global lastEvtTime
@@ -132,12 +142,36 @@ def testWritePilWithThumbnailOver(st):
     #m_tornado.writeToWs('[1]')
     #m_tornado.writeToWs(st.getvalue(), binary=True)
 
+
+def handleImgSizeOnly(asize,astream):
+    try:
+        v = statsHandler.getNpStd(asize)
+        led.handleSizeLed(v)
+    except Exception as e:
+        print "Exception:",e
+    
+def handleImgByCrop3x3AndArrow(asize,astream):
+    '''
+    FPS<=3 ONLY
+    '''
+    global lastSize
+    if lastSize > 0 :
+        diffQueue.append(abs(asize - lastSize))
+                 # print diffQueue
+        stddev = int(np.std(diffQueue))
+        try:
+            img, std3x3 = pilCrop3x3(astream, 3)
+            m_tornado.writeToWsStd3x3(img,stddev,std3x3)
+            led.handleLedArrowColor(stddev,std3x3)
+        except IOError:
+            pass
+    lastSize = asize
              
 def runSizeDiffCheck():
     global lastSize
     with picamera.PiCamera() as camera:
          camera.resolution = (width, height)
-         camera.framerate = 3
+         camera.framerate = fps
          camera.vflip = True
          time.sleep(2)
          start = time.time()
@@ -147,25 +181,22 @@ def runSizeDiffCheck():
          for foo in camera.capture_continuous(stream, 'jpeg',
                                              use_video_port=True):
              size = stream.tell()
-             if lastSize > 0 :
-                stdQueue.append(abs(size - lastSize))
-                 # print stdQueue
-                stddev = int(np.std(stdQueue))
-                try:
-                    img, std3x3 = pilCrop3x3(stream, 3)
-                    m_tornado.writeToWs(img,stddev,std3x3)
-                    led.handleLedColor(stddev,std3x3)
-                except IOError:
-                    pass
-             lastSize = size
+             #handleImgByCrop3x3AndArrow(size,stream)
+             handleImgSizeOnly(size,stream)
              count += 1
              stream.seek(0)
              #print('Size: %d /Captured %d images at %.2ffps' % (size, count, count / (time.time() - start)))
 
+
+def init3x3():
+    '''
+    FPS<=3 ONLY
+    '''
+    for i in range(9):
+        arrStdQueue.append(collections.deque(maxlen=queueLimit))    
+
 def main():
     initLog()
-    for i in range(9):
-        arrStdQueue.append(collections.deque(maxlen=queueLimit))
     t = threading.Thread(target=m_tornado.startTornado).start()
     try:
        runSizeDiffCheck()
