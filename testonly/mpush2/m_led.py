@@ -16,13 +16,7 @@ import  m_dys388icon as ledicon
 import  m_dys388dbp as ledDys388
 import numpy as np
 import threading,time
-
-_lastWriteLed = -1
-_flagNewEvt = False
-_flagRun = True
-
-_stdDevTotal = 0
-_stdDev3x3 = []
+import m_thread as mt
 
 class AnimLed:
     def __init__(self, animArr):
@@ -93,7 +87,7 @@ class CircleLed:
                 if self.idle:
                     ledDys388.clear()
                 v =  self.animArr[self.index]
-                print 'write color',self.index
+                #print 'write color',self.index
                 ledDys388.write(self.color, v)
                 self.idle = False
                 self.newEvt = False
@@ -119,53 +113,27 @@ class CircleLed:
         if c != self.color:
             ledDys388.clear()
             self.color = c
+
+class LedCircle(mt.BaseWorker):
+    def __init__(self):
+        mt.BaseWorker.__init__(self)
+        ledDys388.init()
+        self.ledCircle = CircleLed(ledicon.circleAnim4)
         
-def init():
-    ledDys388.init()
-
-    
-def _writeToLedArrow():
-    global _lastWriteLed
-    if _stdDevTotal > 199 :
-        # find max'index in stddev3x3
-        index3x3 = np.argmax(_stdDev3x3)
-        # found index
-        if index3x3 != _lastWriteLed:
-            c = _stdDevTotal > 600 and ledDys388.colorR or ledDys388.colorB
-            ledDys388.clear()
-            ledDys388.write(c, ledicon.arrow3x3[index3x3])
-        _lastWriteLed = index3x3
-    else:
-        if _lastWriteLed != 99:
-            ledDys388.clear()
-            ledDys388.write(ledDys388.colorG, ledicon.faceSmile)
-        _lastWriteLed = 99
-
-
-# ledAnim = AnimLed(ledicon.circleAnim4)
-ledCircle = CircleLed(ledicon.circleAnim4)
-
-def stop():
-    ledCircle.stop()
-    
-def handleSizeLed(targetValue):
-    if targetValue > 199 :       
-        index = 0
-        if targetValue < 500:
+    def handleEvent(self):
+        targetValue = self.data
+        #print 'EVT Value=',targetValue
+        if targetValue > 66 :       
             index = 0
-        elif targetValue < 800:
-            index = 1
-        elif targetValue < 1200:
-            index = 2
-        else:
-            index = 3
-        ledCircle.setIndex(index)
-    else :
-        ledCircle.smile()
-    
-def handleLedArrowColor(sizeTotalStd,std3x3):
-    global _stdDevTotal,_stdDev3x3, _flagNewEvt
-    _stdDevTotal = sizeTotalStd
-    _stdDev3x3 = std3x3
-    _flagNewEvt = True
-    #print 'handleLedColor',_flagNewEvt,time.time()
+            if targetValue < 300:
+                index = 0
+            elif targetValue < 600:
+                index = 1
+            elif targetValue < 1000:
+                index = 2
+            else:
+                index = 3
+            self.ledCircle.setIndex(index)
+        else :
+            self.ledCircle.smile()
+        return

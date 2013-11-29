@@ -57,7 +57,6 @@ stddevQueue = collections.deque(maxlen=queueLimit)
 rQueue = collections.deque(maxlen=queueLimit)
 xi = np.arange(0,queueLimit)
 arrStdQueue = []
-lastSize = 0
 lastArrSize = []
 statsHandler = mstat.StatSizeDiff(queueLimit)
 
@@ -82,21 +81,6 @@ def initLog():
     # add the handler to the root logger
     logging.getLogger('').addHandler(console)
     logging.info('Started')
-
-def handleMotion(k, q):
-    if isMotion4(k):
-        ediff = time.time() - lastEvtTime
-        logging.debug("EvtTimeDiff=%d" % ediff)
-        if ediff > 300:
-            found(q)
-
-#def testBinaryWrite():
-#    return bytes(bytearray([0x13, 0x00, 0x00, 0x00, 0x08, 0x00]))
-
- 
-#def testWriteBinJpeg(st):
-    #m_tornado.writeToWs('[1]')
-    #m_tornado.writeToWs(st.getvalue(), binary=True)
 
 def getPilJpgSize(im):
     im.save(temps, 'jpeg')
@@ -145,30 +129,15 @@ def testWritePilWithThumbnailOver(st):
 
 def handleImgSizeOnly(asize,astream):
     try:
-        v = statsHandler.getNpStd(asize)
-        led.handleSizeLed(v)
+        stdDev = statsHandler.getNpStd(asize)
+        #print "STD=",stdDev
+        ledController.sendData(stdDev)
+        jpg = astream.getvalue()
+        tornadoController.sendData((stdDev,jpg))
     except Exception as e:
         print "Exception:",e
-    
-def handleImgByCrop3x3AndArrow(asize,astream):
-    '''
-    FPS<=3 ONLY
-    '''
-    global lastSize
-    if lastSize > 0 :
-        diffQueue.append(abs(asize - lastSize))
-                 # print diffQueue
-        stddev = int(np.std(diffQueue))
-        try:
-            img, std3x3 = pilCrop3x3(astream, 3)
-            m_tornado.writeToWsStd3x3(img,stddev,std3x3)
-            led.handleLedArrowColor(stddev,std3x3)
-        except IOError:
-            pass
-    lastSize = asize
              
-def runSizeDiffCheck():
-    global lastSize
+def runCameraInput():
     with picamera.PiCamera() as camera:
          camera.resolution = (width, height)
          camera.framerate = fps
@@ -176,7 +145,7 @@ def runSizeDiffCheck():
          time.sleep(2)
          start = time.time()
          count = 0
-         led.init()
+         initLed()
          # Use the video-port for captures...
          for foo in camera.capture_continuous(stream, 'jpeg',
                                              use_video_port=True):
@@ -187,7 +156,18 @@ def runSizeDiffCheck():
              stream.seek(0)
              #print('Size: %d /Captured %d images at %.2ffps' % (size, count, count / (time.time() - start)))
 
+ledController = None
+tornadoController = None
 
+def initLed():
+    global ledController
+    ledController = led.LedCircle()
+
+def initTornado():
+    global tornadoController
+    tornadoController = m_tornado.TornadoHandlerSizeOnly()
+    threading.Thread(target=m_tornado.startTornado).start()
+     
 def init3x3():
     '''
     FPS<=3 ONLY
@@ -195,14 +175,17 @@ def init3x3():
     for i in range(9):
         arrStdQueue.append(collections.deque(maxlen=queueLimit))    
 
+
+
 def main():
     initLog()
-    t = threading.Thread(target=m_tornado.startTornado).start()
+    initTornado()
+    
     try:
-       runSizeDiffCheck()
+       runCameraInput()
     except (KeyboardInterrupt, SystemExit):
        m_tornado.stopTornado()
-       led.stop()
+       ledController.stop()
        raise
 
 if __name__ == '__main__':

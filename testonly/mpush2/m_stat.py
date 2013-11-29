@@ -56,3 +56,4 @@ class StatSizeDiff:
         #print 'R=',['%.2f'%i for i in self.rQueue]
         return std_err
         
+
