@@ -1,0 +1,7 @@
+
+Update picamera package
+
+https://pypi.python.org/pypi/picamera
+System installation
+
+$ sudo pip install -U picamera

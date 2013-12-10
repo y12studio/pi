@@ -63,15 +63,17 @@ class AnimLed:
         ledDys388.clear()
         self.t = None
 
-class LedCircle(mt.BaseWorker):
+class LedCircleWorker(mt.BaseWorker):
     def __init__(self):
         mt.BaseWorker.__init__(self)
-        ledDys388.init()
         self.animArr = ledicon.circleAnim4
         self.color = ledDys388.colorR
         #self.ledCircle = CircleLed(ledicon.circleAnim4)
         self.lastSmile = False
-        
+    
+    def initLed(self):
+        ledDys388.init()
+                
     def handleEvent(self):
         targetValue = self.data
         #print 'EVT Value=',targetValue

@@ -16,7 +16,6 @@
 '''
 TODO
 '''
-import m_settings
 import logging, threading
 import datetime, time
 import httplib, urllib, json
@@ -70,7 +69,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
       try:
           for conn in cls.connections:
               try:
-                  conn.write_message(msg, binary)
+                  if conn is not None:
+                      conn.write_message(msg, binary)
               except:
                   logging.error("Error sending message", exc_info=True)
       finally:
@@ -80,51 +80,36 @@ class WSHandler(tornado.websocket.WebSocketHandler):
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("""
-        <html><body><h1>TEST Page <a href="/s/mpush2.html">Link</a>.</h1></body></html>
+        <html><body><h1>Main Page <a href="/s/mpush2.html">Link</a>.</h1></body></html>
         """)
 
-application = tornado.web.Application([
-  (r'/ws', WSHandler), (r'/', MainHandler),
-  (r'/s/(.*)', tornado.web.StaticFileHandler, {'path': m_settings.WWW}),
-])
-
-def startTornado():
+def startTornado(wwwpath,port):
+    application = tornado.web.Application([
+                (r'/ws', WSHandler), (r'/', MainHandler),
+                (r'/s/(.*)', tornado.web.StaticFileHandler, {'path': wwwpath}),
+            ])
     http_server = tornado.httpserver.HTTPServer(application)
-    http_server.listen(m_settings.PORT)
+    http_server.listen(port)
+    threading.Thread(target=_startInstance).start()
+
+def _startInstance():
     tornado.ioloop.IOLoop.instance().start()
 
-class TornadoHandlerSizeOnly(mt.BaseWorker):
+
+def stopTornado():
+    tornado.ioloop.IOLoop.instance().stop()
+
+class TornadoHandlerSizeOnlyWorker(mt.BaseWorker):
     def __init__(self):
         mt.BaseWorker.__init__(self)
         
     def handleEvent(self):
         value = self.data
-        stdDev = value[0]
-        jpg = value[1]
-        #print 'EVT Value=',stdDev
-        WSHandler.wsSend('[2,%d]' % stdDev)
-        WSHandler.wsSend('[1]')
-        WSHandler.wsSend(jpg, binary=True)
+        if value is not None:
+            stdDev = value[0]
+            jpg = value[1]
+            #print 'EVT Value=',stdDev
+            WSHandler.wsSend('[2,%d]' % stdDev)
+            WSHandler.wsSend('[1]')
+            WSHandler.wsSend(jpg, binary=True)
         return
-
-_img = None
-_stdTotal = None
-_std3x3 = None
-_flagNewEvt = -1
-_flagRun = True
-
-def _writeToWsStd3x3(imgEnable):
-    WSHandler.wsSend('[2,%d]' % _stdTotal)
-    if imgEnable:
-        WSHandler.wsSend('[1]')
-        WSHandler.wsSend(_img, binary=True)
-    if len(_std3x3) > 0:
-        jr = []
-        jr.append(3)
-        jr.append(_std3x3)
-        WSHandler.wsSend(json.dumps(jr))
-
-def stopTornado():
-    global _flagRun
-    _flagRun = False
-    tornado.ioloop.IOLoop.instance().stop()
