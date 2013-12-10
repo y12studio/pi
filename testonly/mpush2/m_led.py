@@ -63,62 +63,14 @@ class AnimLed:
         ledDys388.clear()
         self.t = None
 
-
-class CircleLed:
-    def __init__(self, animArr):
-        self.animArr = animArr
-        self.runflag = False
-        self.newEvt = False
-        self.idle = False
-        self.count = 0
-        self.color = ledDys388.colorR
-        self.index = 0
-        self.t = threading.Thread(target=self._animWorker)
-        self.t.start()
-        
-    def stop(self):
-        self.runflag = False
-        ledDys388.clear()
-        
-    def _animWorker(self):
-        self.runflag = True
-        while self.runflag:
-            if self.newEvt : 
-                if self.idle:
-                    ledDys388.clear()
-                v =  self.animArr[self.index]
-                #print 'write color',self.index
-                ledDys388.write(self.color, v)
-                self.idle = False
-                self.newEvt = False
-                time.sleep(0.2)
-                self.count+=1
-            time.sleep(0.1)
-    
-    def smile(self):
-        if self.idle:
-            pass
-        else:
-            ledDys388.clear()
-            ledDys388.write(ledDys388.colorG, ledicon.faceSmile)
-            self.idle = True
-    
-    def setIndex(self,i):
-        if i <  len(self.animArr):
-            if  self.index != i:
-                self.index = i
-                self.newEvt = True
-                
-    def setColor(self,c):
-        if c != self.color:
-            ledDys388.clear()
-            self.color = c
-
 class LedCircle(mt.BaseWorker):
     def __init__(self):
         mt.BaseWorker.__init__(self)
         ledDys388.init()
-        self.ledCircle = CircleLed(ledicon.circleAnim4)
+        self.animArr = ledicon.circleAnim4
+        self.color = ledDys388.colorR
+        #self.ledCircle = CircleLed(ledicon.circleAnim4)
+        self.lastSmile = False
         
     def handleEvent(self):
         targetValue = self.data
@@ -133,7 +85,14 @@ class LedCircle(mt.BaseWorker):
                 index = 2
             else:
                 index = 3
-            self.ledCircle.setIndex(index)
+            icon =  self.animArr[index]
+            if self.lastSmile:
+                ledDys388.clear()
+            ledDys388.write(self.color, icon)
+            self.lastSmile = False
         else :
-            self.ledCircle.smile()
+            if not self.lastSmile:
+                ledDys388.clear()
+                ledDys388.write(ledDys388.colorG, ledicon.faceSmile)
+                self.lastSmile = True
         return

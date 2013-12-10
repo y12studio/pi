@@ -24,15 +24,6 @@ import 'dart:convert';
 @CustomTag('click-counter')
 class ClickCounter extends PolymerElement {
   @published int stdDev = 0;
-  @published int std1 = 0;
-  @published int std2 = 0;
-  @published int std3 = 0;
-  @published int std4 = 0;
-  @published int std5 = 0;
-  @published int std6 = 0;
-  @published int std7 = 0;
-  @published int std8 = 0;
-  @published int std9 = 0;
   
   int wcount = 0;
   var output;
@@ -129,8 +120,8 @@ class ClickCounter extends PolymerElement {
   drawStd(){
     // block https://code.google.com/p/dart/issues/detail?id=14565
     // fillRect black not work.
-    //contextA.fillStyle = '#000000';
-    //contextA.fillRect(5,220,100,12);
+    contextA.fillStyle = '#000000';
+    contextA.fillRect(5,220,100,12);
     
     //contextA.font="14px Arial";
     contextA.fillStyle = '#FFFF00';
@@ -166,17 +157,7 @@ class ClickCounter extends PolymerElement {
         drawStd();
         break;
       case 3:
-        List r = rlist[1];
-        std1 = r[0];
-        std2 = r[1];
-        std3 = r[2];
-        std4 = r[3];
-        std5 = r[4];
-        std6 = r[5];
-        std7 = r[6];
-        std8 = r[7];
-        std9 = r[8];
-        //outputMsg('msg ${count} : stdarr = $r');
+        // pass
         break;
       default:
         break;
