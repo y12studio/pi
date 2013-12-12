@@ -1,0 +1,32 @@
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install rpi-update
+sudo rpi-update
+$ sudo apt-get install build-essential cmake pkg-config
+$ sudo apt-get install oracle-java7-jdk ant
+$ sudo apt-get -y install libavcodec-dev libavformat-dev libavutil-dev
+$ sudo apt-get -y install python-dev python-numpy
+$ sudo apt-get install libgtk2.0-dev libgtk2.0 zlib1g-dev libpng-dev
+$ sudo apt-get install libjpeg-dev libtiff-dev libjasper-dev libavcodec-dev swig
+$ wget https://github.com/Itseez/opencv/archive/2.4.7.2.tar.gz
+$ tar zxfv opencv-2.4.7.2.tar.gz
+$ cd opencv-2.4.7.2/
+$ mkdir release
+$ cd release
+$ export JAVA_HOME=/usr/lib/jvm/jdk-7-oracle-armhf/
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE -D BUILD_NEW_PYTHON_SUPPORT=ON -D CMAKE_INSTALL_PREFIX=/usr/local ..
+
+$ make &
+wait 10 hrs ...
+$ sudo make install
+$ sudo ldconfig -v
+$ pkg-config --modversion opencv
+
+
+import cv2,numpy,os
+ranbytes = bytearray(os.urandom(120000))
+flatNpArr = numpy.array(ranbytes)
+grayImage = flatNpArr.reshape(300,400)
+cv2.imwrite('random-gray.png',grayImage)
+bgrImage = flatNpArr.reshape(100,400,3)
+cv2.imwrite('random-bgr.png',bgrImage)
