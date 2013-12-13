@@ -1,0 +1,11 @@
+https://github.com/adafruit/Adafruit-Motor-Shield-library
+http://learn.adafruit.com/adafruit-motor-shield
+http://arduino.cc/en/Tutorial/Sweep
+http://yehnan.blogspot.tw/2013/09/arduinotower-pro-sg90.html
+
+$ cd mshield
+$ ino init -t blink
+$ mkdir lib/AFmotor
+// copy .h .cpp into lib/AFmotor
+// The following pins are used only if that particular servo is in use:
+

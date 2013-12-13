@@ -1,0 +1,92 @@
+http://inotool.org/
+http://www.mydominion.co.uk/?page_id=287
+http://www.recantha.co.uk/blog/?p=1103
+
+
+$ sudo apt-get install arduino
+$ sudo apt-get install picocom
+
+$ sudo pip install ino
+$ cd /home/pi/pj2013/ino/blink
+$ ino init -t blink
+$ tree
+.
+├── lib
+└── src
+    └── sketch.ino
+
+2 directories, 1 file
+
+$ cat src/sketch.ino
+$ ino list-models
+         uno: [DEFAULT] Arduino Uno
+   atmega328: Arduino Duemilanove w/ ATmega328
+   diecimila: Arduino Diecimila or Duemilanove w/ ATmega168
+     nano328: Arduino Nano w/ ATmega328
+        nano: Arduino Nano w/ ATmega168
+    mega2560: Arduino Mega 2560 or Mega ADK
+        mega: Arduino Mega (ATmega1280)
+    leonardo: Arduino Leonardo
+     mini328: Arduino Mini w/ ATmega328
+        mini: Arduino Mini w/ ATmega168
+    ethernet: Arduino Ethernet
+         fio: Arduino Fio
+       bt328: Arduino BT w/ ATmega328
+          bt: Arduino BT w/ ATmega168
+  lilypad328: LilyPad Arduino w/ ATmega328
+     lilypad: LilyPad Arduino w/ ATmega168
+    pro5v328: Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega328
+       pro5v: Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega168
+      pro328: Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega328
+         pro: Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega168
+   atmega168: Arduino NG or older w/ ATmega168
+     atmega8: Arduino NG or older w/ ATmega8
+
+$ ino build
+// ino build -m gert328
+$ ino upload
+// ino upload -m  gert328 -p /dev/ttyAMA0
+
+$ nano src/sketch.ino
+$ ino build && ino upload
+src/sketch.ino
+Scanning dependencies of src
+src/sketch.cpp
+Linking firmware.elf
+Converting to firmware.hex
+Guessing serial port ... /dev/ttyACM0
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.01s
+
+avrdude: Device signature = 0x1e950f
+avrdude: reading input file ".build/uno/firmware.hex"
+avrdude: writing flash (1034 bytes):
+
+Writing | ################################################## | 100% 0.21s
+
+avrdude: 1034 bytes of flash written
+avrdude: verifying flash memory against .build/uno/firmware.hex:
+avrdude: load data flash data from input file .build/uno/firmware.hex:
+avrdude: input file .build/uno/firmware.hex contains 1034 bytes
+avrdude: reading on-chip flash data:
+
+Reading | ################################################## | 100% 0.17s
+
+avrdude: verifying ...
+avrdude: 1034 bytes of flash verified
+
+avrdude: safemode: Fuses OK
+
+avrdude done.  Thank you.
+
+
+$ cd ..
+$ mkdir serial
+$ cd serial
+$ ino init -t blink
+$ ino serial 
+Ctrl X/C/A not work. ps aux then kill picocom
+
+
